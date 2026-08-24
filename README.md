@@ -5,14 +5,18 @@ A Claude Code skill that constructs AI agent personas and assembles or runs pane
 without flattening the diversity. It operationalizes an evidence base on persona
 construction and multi-agent synthesis (see Provenance).
 
-## Two uses
+## Four uses
 
 - **Construct** — build one well-formed persona from the Five-Element template, with
   an optional archetype -> contrasting-named-exemplars -> corpus grounding flow.
 - **Ensemble** — assemble a panel from the use-case recipe table and, on request,
   run it: isolated lenses -> critic -> dissent-carrying synthesis -> diversity check.
+- **Diagnose** (recommend-only) — point it at a skill directory or a described
+  workflow; it maps the stages and reports where a panel helps vs where it is waste.
+- **Harden** (recommend-only) — audit an existing panel against the ten-point
+  anti-conformity / no-flatten checklist, with severities and fixes.
 
-## The six-stage flow
+## The six-stage flow (construct / ensemble)
 
 1. **Frame** — classify the task, map it to a panel recipe, confirm the shape.
 2. **Construct** — archetype criteria -> optional contrasting named exemplars -> optional corpus -> persona in the Five-Element template.
@@ -71,6 +75,6 @@ python3 -m pytest -q
 
 ## Scope
 
-This version implements **construct** and **ensemble**. Two further uses —
-**diagnose** (point the skill at another skill and recommend where agents help) and
-**harden** (audit an existing ensemble for consensus-collapse) — are deferred.
+This version implements all four uses: **construct**, **ensemble**, **diagnose**,
+and **harden**. Diagnose and harden are recommend-only analysis modes: they emit
+reports to `agent-studio-out/` and never modify the target.

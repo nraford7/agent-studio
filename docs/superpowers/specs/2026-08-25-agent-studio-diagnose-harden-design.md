@@ -54,8 +54,14 @@ OUT of scope:
 5. Both reports are recommend-only: they contain NO generated persona files and make
    NO edits to the target. Each ends with a "Next: build with /agent-studio
    construct|ensemble" pointer for the flagged items.
-6. Both modes reuse `references/recipes.md` and `references/hard-rules.md` as the
-   rubric (no divergent copy of the rules).
+6. Every item in `references/harden-checklist.md` cites its source section in
+   `references/hard-rules.md` or `references/recipes.md` (grep-verifiable, e.g.
+   `[source: hard-rules.md #isolation]`). Three checklist items have no existing
+   source and are ADDED to `references/hard-rules.md` in this cycle (additive
+   edit): member heterogeneity (stance/values, not surface variants),
+   different-model-families for high-stakes normative panels, and the
+   population-level check (individually-aligned members can form a collectively
+   misaligned group).
 
 ## Proposed approach
 
@@ -67,8 +73,11 @@ needed; if a target references a URL, `curl` only (never WebFetch).
 ### DIAGNOSE flow
 
 1. **Ingest the target.** If a path: read `SKILL.md`, list `scripts/` and
-   `references/`, and skim them to recover the pipeline. If prose: parse the
-   described steps. Produce an ordered list of stages/steps.
+   `references/`, and skim them to recover the pipeline. If the path has no
+   SKILL.md (arbitrary tool dir or workflow), read the entry document (README or
+   the main script) and map stages from that; if nothing readable is found, ask
+   the user for a prose description instead. If prose: parse the described
+   steps. Produce an ordered list of stages/steps.
 2. **Classify each stage** against `references/diagnose-rubric.md` (new): is the
    stage's output a single recoverable-right-answer (mechanical: retrieval, parsing,
    verification, formatting, computation) or a judgment/creative/normative call
@@ -79,15 +88,20 @@ needed; if a target references a URL, `curl` only (never WebFetch).
 4. **Check existing multi-agent use:** if the target already dispatches agents,
    note whether they are isolated, whether a critic/adversary exists, and whether it
    is same-model-family (flag same-family adversaries).
-5. **Emit the report** to `agent-studio-out/diagnosis-<slug>.md`. Recommend-only;
-   end with the build pointer.
+5. **Emit the report** to `agent-studio-out/diagnosis-<slug>.md` (slug = target
+   directory name, or the first 3-4 words of a prose description, kebab-case).
+   Recommend-only; end with the build pointer. The same slug rule applies to
+   `hardening-<slug>.md`.
 
 ### HARDEN flow
 
 1. **Ingest the panel.** From an agent-studio `panel.md`, a prose description, or a
-   skill's agent-dispatch code.
-2. **Run the checklist** in `references/harden-checklist.md` (new), which is derived
-   verbatim from `references/hard-rules.md`:
+   skill's agent-dispatch code. Detection when handed a directory: prefer
+   `agent-studio-out/panel.md` if present; else grep the skill files for agent
+   dispatch patterns (Agent tool calls, subagent prompts, "dispatch", "panel",
+   "ensemble") and audit those sites; else ask for a prose description.
+2. **Run the checklist** in `references/harden-checklist.md` (new), each item
+   citing its source section in `hard-rules.md` or `recipes.md` (see criterion 6):
    - Lenses generated in isolation (not persona-swaps in one shared context)?
    - A dedicated critic / devil's-advocate present?
    - Members genuinely heterogeneous (stance/values), not surface variants?
@@ -98,8 +112,13 @@ needed; if a target references a URL, `curl` only (never WebFetch).
    - Diversity measured at the OUTPUT stage, not just generation?
    - Quality AND coverage co-reported (not one scalar)?
    - Population-level check (individually-aligned can be collectively misaligned)?
-3. **Score each** PASS / FAIL / N-A with severity (the consensus-collapse and
-   shared-context-collusion items are HIGH) and a one-line fix.
+3. **Score each** PASS / FAIL / N-A with a severity from a fixed scale
+   HIGH / MED / LOW. Default severities: HIGH = shared-context collusion,
+   no dissent-carrying combine (naive blend), no critic; MED = surface-variant
+   members, same-family adversary on normative work, no round cap, no
+   de-duplication, no population-level check; LOW = diversity not measured at
+   output stage, quality/coverage reported as one scalar. Each FAIL carries a
+   one-line fix.
 4. **Emit the report** to `agent-studio-out/hardening-<slug>.md` with a top-line
    verdict (e.g. "3 HIGH gaps: no critic, naive blend, shared-context lenses").
 
@@ -107,9 +126,14 @@ needed; if a target references a URL, `curl` only (never WebFetch).
 
 ```
 references/diagnose-rubric.md    # mechanical-vs-judgment classification + stage-mapping guidance
-references/harden-checklist.md   # the anti-conformity/no-flatten checklist (derived from hard-rules.md)
+references/harden-checklist.md   # the anti-conformity/no-flatten checklist (each item cites its source)
 ```
-Plus additions to `SKILL.md` (two new mode sections + frontmatter triggers).
+Plus additions to `SKILL.md` (two new mode sections + frontmatter triggers), and
+two additive edits: append the three new rules to `references/hard-rules.md`, and
+in `references/recipes.md` replace the stale "DIAGNOSE out of scope" note with the
+8th row (Artifact / skill review | review dimension | 3-6 + verifier | parallel
+isolated, then verify stage | dedup + severity-rank | verify each finding
+adversarially) so diagnosed review-stages have a recipe row to land on.
 
 ## Alternatives considered
 
@@ -124,14 +148,14 @@ Plus additions to `SKILL.md` (two new mode sections + frontmatter triggers).
 
 ## Blast radius / rollback
 
-- Additive: two new reference files + `SKILL.md` sections. Existing construct/ensemble
-  behavior is untouched. Reports are read-only outputs to `agent-studio-out/`.
+- Additive: two new reference files + `SKILL.md` sections + two small additive
+  edits (three new rules appended to `references/hard-rules.md`; the stale
+  "DIAGNOSE out of scope" note in `references/recipes.md` replaced and the 8th
+  "Artifact / skill review" row added). Existing construct/ensemble behavior is
+  untouched. Reports are read-only outputs to `agent-studio-out/`.
 - Rollback = revert the SKILL.md additions and delete the two reference files.
 
 ## Open questions
 
-- Report format: a stage TABLE is specified for diagnose; confirm at review whether a
-  narrative summary should lead or follow the table. Default: table first, then the
-  three prose sections.
-- Harden input auto-detection (panel.md vs prose vs code) is inferred from what is
-  passed; no explicit mode flag. Confirm that is acceptable vs an explicit selector.
+None. (Resolved at spec review: table-first report format confirmed; implicit
+harden-input detection confirmed with the directory heuristic above.)

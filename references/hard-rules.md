@@ -46,6 +46,27 @@ returns a summarizer's paraphrase and drops exact wording. Fetch raw pages with
 Never report a single scalar for a panel result. Always report a quality note AND a
 coverage/diversity note (from `diversity.py`), so flattening is visible.
 
+## Members must be genuinely heterogeneous
+
+Vary panel members by stance and values, not by surface variants of one voice.
+Surface-variant members (the same perspective in different costumes) add cost
+without adding diversity; the differences must change what each lens attends to
+and concludes, not just its tone.
+
+## Different model families for high-stakes normative panels
+
+Same-model swarms are low-variance and collude fast. When the work is
+normative or value-laden and the stakes are high, run members (or at minimum
+the critic/adversary) on different model families. Flag any same-family
+adversary as a weakness.
+
+## Vet the population, not just each member
+
+Individually well-aligned members can form a collectively misaligned group.
+Evaluate the panel as a group: consensus concentration before vs after the
+combine step, conformity onset, and whether preserved disagreement actually
+reaches the final output — not only per-persona quality.
+
 ## Persona construction rules
 
 Functional stance over job title; identity via implicit narrative cues (name +

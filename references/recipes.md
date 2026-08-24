@@ -13,11 +13,12 @@ each lens is produced in its own subagent with no cross-talk before the combine 
 | Strategy / positioning / options | stance + values | 4-6 | parallel isolated (optional 1 debate round) | dissent-carrying, preserve minority | ground values in real positions, not invented |
 | Normative / ethics / value-laden | values | 3-5 | parallel isolated | preserve disagreement, no forced consensus | use different model families |
 | Forecasting / estimation | evidence framing | 5-9 | parallel isolated | variance-aware aggregate, not naive mean | keep the private/minority signal |
+| Artifact / skill review | review dimension | 3-6 + verifier | parallel isolated, then verify stage | dedup + severity-rank | verify each finding adversarially |
 
 Two rules cut across every row: **generate in isolation**, and **never
 naive-mean-blend** the results (see `synthesis-modes.md`). Panel size beyond ~6
 generators mostly adds cost, not coverage, except forecasting where extra
 independent samples help.
 
-The Playbook's 8th row, "Artifact / skill review", is deliberately omitted here: it
-maps to the DIAGNOSE use, which is out of scope for this version.
+The "Artifact / skill review" row serves the DIAGNOSE mode's stage mapping: when a
+diagnosed workflow contains a review/audit stage, this is the recipe it lands on.
