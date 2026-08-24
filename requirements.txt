@@ -1,0 +1,6 @@
+# Test dependency
+pytest
+
+# OPTIONAL runtime conveniences — the skill degrades gracefully without them:
+#   requests  (not required; scripts use `curl` for web fetches)
+#   openai    (not required; diversity.py falls back to a lexical TF-IDF metric)
