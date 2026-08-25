@@ -1,8 +1,8 @@
 # agent-studio
 
-**Tell it what you're trying to achieve. It helps you design the agent, or team of agents, that will get you there.**
+**agent-studio is a [Claude Code](https://claude.com/claude-code) skill that builds agents around your goals.**
 
-agent-studio is a [Claude Code](https://claude.com/claude-code) skill that builds agents around your goals. It works as a dialogue: first it understands what you are trying to do and what success would look like, then it proposes the kind of mind that would actually help ("for this decision you want a cost-obsessed operator, a brand-purist contrarian, and a critic"), you discuss and adjust, and only then does it build. Sometimes the right answer is one well-crafted agent. Sometimes it is a small panel. Sometimes it is "no agent at all, this task doesn't need one," and it will tell you that too.
+It works as a dialogue: first it understands what you are trying to do and what success would look like, then it proposes the kind of mind that would actually help ("for this decision you want a cost-obsessed operator, a brand-purist contrarian, and a critic"), you discuss and adjust, and only then does it build. Sometimes the right answer is one well-crafted agent. Sometimes it is a small panel. Sometimes it is "no agent at all, this task doesn't need one," and it will tell you that too.
 
 **Why build agents with personalities at all?** Because the research says a generic assistant is the weakest version of the model you are talking to. A language model learns thousands of characters from its training data; the default "helpful assistant" is just one of them, and everyone gets the same one. Giving an agent a real personality (a stance, expertise, opinions, things it refuses to do) points the model's intelligence at YOUR problem:
 
