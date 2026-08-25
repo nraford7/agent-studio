@@ -146,11 +146,41 @@ python3 -m pytest -q     # 12 tests
 5. **Personas are stances, not job titles.** Identity through a name, a short backstory, one contradiction. Demographics off by default. Cap ~1000 words.
 6. **Reused personas drift.** Re-anchor by re-injecting the persona file; never reset the conversation.
 
+## Why give agents personalities? The research
+
+This skill exists because of a specific, evidence-backed claim: **a persona is not decoration, it is targeting.** The full research corpus behind it (three fact-checked research bibles, a distilled playbook, and an external-sources digest, about 24,000 words with full bibliographies) is included in [`docs/research/`](docs/research/). The argument in brief:
+
+**1. A personality steers where the model thinks from.** During pretraining a language model learns to simulate an enormous repertoire of characters, because predicting human text requires modeling whoever wrote it. Anthropic's Persona Selection Model describes the assistant you normally talk to as one selected character from that repertoire, and mechanistic work (persona vectors, the "Assistant Axis") shows these characters exist as steerable directions in the model's activations. A well-written persona conditions the model into a different region of that space. You are not asking the model to pretend; you are choosing which of its learned characters does the reasoning.
+
+**2. Personas change conclusions, not just tone.** Across 162 personas, 7 models, and roughly 90 million generations, the gap between the best and worst persona on the same task reached 38.56 percentage points, and even a single pronoun swap changed which problems a model solved. Personality is a substantive lever on output, which cuts both ways: it is why personas are worth building carefully, and why careless ones inject bias.
+
+**3. The default assistant voice quietly makes everything the same.** The landmark finding for creative work: generative AI raises individual output quality while shrinking collective diversity, because everyone is drawing from the same default character. Structured, distinct personas are the documented countermeasure; they preserve the spread of ideas that a single voice collapses. For ideation, creative direction, and strategy, that spread is the product.
+
+**4. A panel of personas beats one model only under conditions, and those conditions are engineerable.** Ensembles of agents drift into consensus even with no incentive to agree, and more capable models conform more, not less. What recovers the value: genuinely heterogeneous members (different stances and values, not one voice in costumes), strict isolation while generating, a dedicated devil's-advocate, and a combine step that preserves disagreement. Panels pay off on judgment and creative work; on tasks with one right answer they lose to a single strong pass at higher cost.
+
+**5. The combine step is where diversity goes to die.** Naive blending drags a diverse set of views back to their average and discards the standout. Judge-based selection cannot exceed the best single candidate. The evidence-backed alternative is dissent-carrying synthesis, the judicial model: a majority opinion published together with its dissents, so the decision-maker sees the live disagreement instead of a manufactured consensus.
+
+**6. What actually makes a persona work:** a functional stance (what it optimizes for, under what pressure) beats a job title; identity lands through implicit cues (a name, a short backstory, one contradiction) rather than demographic labels, which mostly inject stereotypes; substantive positions matter for value-laden work and must be grounded in real stances for judgment tasks; and personas drift over long conversations, softening back toward the default assistant, so reused personas need re-anchoring.
+
+**Confidence, honestly labeled.** The corpus marks every claim by evidence strength. Solid and multi-study: personas change substance; single-voice homogenization; consensus collapse; blending flattens; isolation and critics help. Thinner: which construction axis (stance vs role vs values vs named exemplar) drives diversity best, where no head-to-head study exists. And the stance-diverse panel at the center of this skill is an evidence-grounded design bet, not a directly measured result. The most valuable experiment you can run with this skill is exactly that missing head-to-head.
+
+### The research corpus
+
+| Document | What it covers |
+|---|---|
+| [Persona-Ensembles-Research-Bible.md](docs/research/Persona-Ensembles-Research-Bible.md) | The main question: do persona ensembles produce real reasoning diversity and better judgment? Includes the creative/subjective/taste deep-dive (Section 7). |
+| [Persona-Construction-Research-Bible.md](docs/research/Persona-Construction-Research-Bible.md) | How to build an effective persona; which construction axes carry the signal; the fidelity gap; failure modes. |
+| [Perspective-Synthesis-Research-Bible.md](docs/research/Perspective-Synthesis-Research-Bible.md) | How to combine diverse perspectives without flattening them; mixture-of-agents evidence; the selection bottleneck. |
+| [Persona-Construction-Playbook.md](docs/research/Persona-Construction-Playbook.md) | The one-page distillation the skill implements, every rule tagged by confidence. |
+| [Persona-External-Sources-Digest.md](docs/research/Persona-External-Sources-Digest.md) | Reconciled external sources: Anthropic's Persona Selection Model, the persona-drift literature, practitioner frameworks. |
+
+Each bible was produced by a retrieval-first research pipeline (evidence gate, question-driven deepening, mechanical citation verification) and then attacked by an independent adversary model whose refutations were folded back in; press-sourced and unverified claims are flagged inline.
+
 ## Provenance
 
-The rules above are distilled from a four-part research program (persona ensembles, construction axes, creative/subjective work, perspective synthesis) plus a reconciled external-source pass (Anthropic's Persona Selection Model, persona-drift literature, practitioner frameworks), each run through retrieval, adversarial review, and a fix cycle. Design docs, specs, plans, and run ledgers live in `docs/superpowers/`.
+Beyond the research corpus above, the build itself is documented: design specs, implementation plans, and run ledgers for all three build cycles live in `docs/superpowers/`. The skill was reviewed twice independently (a Claude start-to-finish review and a fresheyes/codex review) and the reconciled findings were applied in a fix cycle.
 
-Honest limits: the stance-diverse panel itself is an evidence-grounded design bet, not a directly measured result; persona QC is structural linting, not behavioral testing; and the diagnose/harden reports are judgment aids, not proofs. The first experiment worth running with this skill is the one the literature hasn't run: a head-to-head of construction axes on a real task, measuring output diversity and decision quality through the synthesizer.
+Honest limits: persona QC is structural linting, not behavioral testing; and the diagnose/harden reports are judgment aids, not proofs.
 
 ## License
 
