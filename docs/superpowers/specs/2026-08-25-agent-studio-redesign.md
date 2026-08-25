@@ -14,7 +14,7 @@ Do-It for implementation and execution.
 The skill is not primarily a team generator. A successful run may create no
 persona at all. It is a workflow-design and staffing process expressed through
 familiar workplace concepts: assignments, jobs, job descriptions, candidates,
-in-house work, specialist roles, interviews, auditions, and performance reviews.
+in-house work, specialist roles, interviews, work samples, and performance reviews.
 
 The central rule is:
 
@@ -55,7 +55,7 @@ The evidence implies the following constraints:
 3. Multi-stakeholder subjective evaluation has narrower, domain-specific positive
    evidence and should retain a human decision-maker.
 4. Sustained functional priorities have suggestive but thin causal evidence from
-   a single domain and require an audition when generalized.
+   a single domain and require a work sample when generalized.
 5. General critique, analytical judgment, forecasting, and artifact review are not
    broadly validated persona applications. They are experiments unless they
    decompose into a better-supported task family.
@@ -129,7 +129,7 @@ Agent Studio owns:
 - Determining what remains in-house.
 - Applying the evidence-based persona opportunity gate.
 - Writing Job Descriptions for justified specialist opportunities.
-- Candidate search, interviews, adjustments, and auditions.
+- Candidate search, interviews, adjustments, and work samples.
 - Constructing approved Persona Profiles.
 - Adding provisional roles to the workflow specification.
 - Reviewing actual specialist contributions after execution.
@@ -268,7 +268,7 @@ A job being judgment-laden is not sufficient. Each possible role receives a
 | Value-laden deliberation | Representation of legitimate conflicting priorities | Relatively favorable, conditional evidence |
 | Grounded human or stakeholder simulation | Fidelity to differently situated human responses | Narrow, substrate-dependent support; never a substitute for real research |
 | Multi-stakeholder subjective evaluation | Coverage of stakeholder-specific criteria | Promising in limited tested domains; human decision-maker retained |
-| Sustained functional priority | Persistent attention to a consequential trade-off | Thin, single-domain causal evidence; audition required |
+| Sustained functional priority | Persistent attention to a consequential trade-off | Thin, single-domain causal evidence; work sample required |
 | General critique or analytical judgment | Valid blind spots or alternative interpretations | Indirect evidence or inference; experiment required |
 | Forecasting | Independent private signal or evidence framing | Persona-specific benefit unproven; do not infer a hire |
 | Factual, checkable, or procedural work | Accuracy or reliable execution | No research-backed persona reason; keep in-house |
@@ -305,7 +305,7 @@ The Job Description contains:
 Formal role statuses are:
 
 - No specialist role needed.
-- Specialist role worth trialing.
+- Specialist role worth evaluating.
 - Provisional specialist role.
 - Established specialist role.
 - Narrowed role.
@@ -325,9 +325,10 @@ meet the same Job Description. Candidates may be:
 Each candidate is described by fit, capabilities, experience profile, values,
 working methods, distinctive contribution, and risk.
 
-For any candidate the user wants to interview or audition, Agent Studio creates a
-temporary candidate profile detailed enough to behave consistently. This is a
-trial artifact, not yet the retained Persona Profile.
+For any candidate the user wants to interview or evaluate with a work sample,
+Agent Studio creates a temporary candidate profile detailed enough to behave
+consistently. This is an evaluation artifact, not yet the retained Persona
+Profile.
 
 The user can:
 
@@ -347,13 +348,13 @@ not evidence of better performance. For analytical judgment, Agent Studio begins
 with a minimal functional candidate. Vivid exemplar treatment is more appropriate
 for creative work or grounded human simulation and remains optional.
 
-### Stage 7: Minimum viable audition
+### Stage 7: Minimum viable work sample
 
-An audition evaluates whether a candidate persona can perform its proposed job
+The work sample evaluates whether a candidate persona can perform its proposed job
 better than the in-house approach. It does not yet prove that the job improves the
 end-to-end outcome.
 
-The default audition uses the smallest representative slice from the Workflow
+The default work sample uses the smallest representative slice from the Workflow
 Specification:
 
 1. The in-house assistant performs the job with the best appropriate playbook.
@@ -367,7 +368,7 @@ moderately consequential roles may use two or three cases. High-stakes roles are
 handed to a dedicated evaluation process. Agent Studio does not create a full
 parallel non-persona workflow by default.
 
-Audition outcomes are:
+Work-sample outcomes are:
 
 - Candidate provisionally fills the specialist role.
 - Keep the job in-house.
@@ -379,9 +380,9 @@ No meaningful lift and worse performance remain separate outcomes.
 
 ### Stage 8: Construct the Persona Profile
 
-After the user selects and, where useful, auditions a candidate, Agent Studio
-finalizes the temporary candidate profile as the retained Persona Profile. It
-translates the Job Description into behavior:
+After the user selects and, where useful, evaluates a candidate through a work
+sample, Agent Studio finalizes the temporary candidate profile as the retained
+Persona Profile. It translates the Job Description into behavior:
 
 - Functional stance: optimization target, operating pressure, and trap to avoid.
 - Capabilities expressed as observable behavior with exclusions.
@@ -410,7 +411,7 @@ result records:
 - Exact activation trigger.
 - Inputs and outputs.
 - Boundaries, authority, handoff, and escalation.
-- Audition result and remaining uncertainty.
+- Work-sample result and remaining uncertainty.
 
 One role never implies a team. Additional roles require separate evidence cards,
 job descriptions, and hiring cases.
@@ -476,7 +477,8 @@ For an existing skill or workflow:
 5. Establish existing outputs as the baseline where adequate evidence already
    exists; do not rerun work unnecessarily.
 6. Apply the Persona Evidence Gate to proposed additions and existing roles.
-7. Interview and audition replacements or new candidates only where justified.
+7. Interview replacements or new candidates, and request work samples only where
+   justified.
 8. Give the approved staffed specification to Do-It for re-engineering,
    execution, and verification.
 9. Compare the completed result with the existing baseline at a level
@@ -501,7 +503,7 @@ Then:
 
 Then:
 
-> "You selected and adjusted this candidate. Its small audition showed enough
+> "You selected and adjusted this candidate. Its work sample showed enough
 > value to fill the role provisionally. I am returning the staffed specification
 > to Do-It for implementation and execution."
 
@@ -526,7 +528,7 @@ implementation plan will determine their exact paths and file formats.
 - Persona Evidence Cards
 - Job Descriptions
 - Candidate slates and user adjustments
-- Audition notes
+- Work-sample notes
 - Persona Profiles
 - Staffed Workflow Specification
 - Do-It implementation and verification record
@@ -546,7 +548,7 @@ implementation plan will determine their exact paths and file formats.
 - Do not substitute simulated stakeholders for actual research or participation.
 - Do not create a panel when one role or no role is sufficient.
 - Do not run open debate by default.
-- Do not claim causal workflow improvement from a candidate audition.
+- Do not claim causal workflow improvement from a candidate work sample.
 - Do not build a full parallel workflow unless cost, stakes, and user choice
   justify it.
 - Name persona harm explicitly and separately from no meaningful lift.
@@ -573,7 +575,7 @@ dedicated workflow process.
 
 Every persona would receive multi-arm, multi-case testing and a parallel
 non-persona workflow. Rejected because it is too expensive and slow for ordinary
-use. The redesign uses minimum viable auditions, probation, real-work track
+use. The redesign uses minimum viable work samples, probation, real-work track
 records, and optional escalation for consequential roles.
 
 ### Recommended: two Do-It engagements with Agent Studio staffing between them
@@ -597,10 +599,10 @@ staffed workflow. Agent Studio then reviews actual contribution.
    automatically qualify for persona treatment.
 6. Job Descriptions distinguish capabilities, experience, values, methods,
    mandate, and delivery feasibility.
-7. The user can meet, interview, adjust, reject, replace, and audition candidate
-   personas, including recognizable public or fictional interpretations when
-   appropriate.
-8. Default auditions use one bounded work sample and two approaches: the best
+7. The user can meet, interview, adjust, reject, replace, and request work samples
+   from candidate personas, including recognizable public or fictional
+   interpretations when appropriate.
+8. Default work samples use one bounded assignment and two approaches: the best
    in-house playbook and the candidate persona.
 9. No-lift and persona-harm outcomes remain distinct.
 10. The second Do-It engagement creates the implementation plan, builds, runs,
