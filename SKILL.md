@@ -41,12 +41,31 @@ Read and obey `references/hard-rules.md`. The essentials:
 
 ## The six stages
 
-### 1. Frame
-Read the request and classify the task type. Map it to a row in
-`references/recipes.md` (or a single persona if that is all that was asked). Present
-the proposed shape (persona, or panel: members / size / topology / combine mode) with
-one `AskUserQuestion` for confirmation. Skip the ask if the request already fully
-specifies the shape, or if the run is non-interactive.
+### 1. Frame (a dialogue, not a classifier)
+
+This stage is a conversation about what help the user actually needs. Do NOT jump
+to panel geometry. Two beats:
+
+**Beat 1: Goal diagnosis.** Restate, in one short paragraph, what the user is
+trying to achieve and what success would look like. Classify the KIND of help
+needed: fact-finding, judgment/decision support, creative divergence, evaluation,
+or strategy. If the goal is genuinely underspecified (no way to know what a good
+answer looks like), ask 1-2 clarifying questions FIRST, via `AskUserQuestion`.
+Do not ask about things the request already answers.
+
+**Beat 2: Direction proposal.** Propose the kind of mind(s) that would help and
+WHY, before any construction: for a single persona, a one-line sketch of the
+suggested personality/stance/skills; for a panel, a one-line sketch PER MEMBER
+(e.g. "a cost-obsessed operator; a brand-purist contrarian; a
+customer-anthropologist; plus a critic") tied to the goal from Beat 1, along
+with the recipe row and shape (members axis, size, topology, combine mode) from
+`references/recipes.md`. Present it with one `AskUserQuestion`: approve, swap or
+adjust members/stances, or change the shape. Iterate if the user pushes back;
+this discussion IS the product of the stage.
+
+Skip the asks only when the request already fully specifies both the goal and
+the shape, or when the run is non-interactive. Only after the direction is
+agreed does the flow move to Construct.
 
 ### 2. Construct
 Build the persona(s), using `references/persona-template.md`:

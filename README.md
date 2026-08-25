@@ -2,7 +2,7 @@
 
 **Build AI agent personas. Assemble them into panels of genuinely different viewpoints. Combine what they say without averaging it into mush.**
 
-agent-studio is a [Claude Code](https://claude.com/claude-code) skill for viewpoint diversity: it constructs opinionated agent personas (stances, expertise, positions, identities), runs them as isolated ensembles on a question, and synthesizes their outputs while keeping the disagreements visible. It can also analyze an existing workflow and tell you where agents would help, and where they would be a waste of money.
+agent-studio is a [Claude Code](https://claude.com/claude-code) skill for viewpoint diversity, and it works as a dialogue: it starts by understanding the goal you are trying to achieve, proposes the kind of mind (or panel of minds) that would actually help, discusses that direction with you, and only then builds. It constructs opinionated agent personas (stances, expertise, positions, identities), runs them as isolated ensembles on a question, and synthesizes their outputs while keeping the disagreements visible. It can also analyze an existing workflow and tell you where agents would help, and where they would be a waste of money.
 
 Every design rule in it comes from a research pass over the academic and practitioner literature on persona prompting, multi-agent ensembles, and perspective synthesis. The short version of that evidence:
 
@@ -15,12 +15,14 @@ Every design rule in it comes from a research pass over the academic and practit
 
 ```mermaid
 flowchart TD
-    Q(["Your question or target"]) --> FRAME{"What kind of work?"}
+    Q(["Your question or target"]) --> GOAL["FRAME: understand the goal.<br/>What are you trying to achieve?<br/>What would success look like?"]
+    GOAL --> PROPOSE["Propose the minds that would help<br/>('a cost-obsessed operator, a brand-purist<br/>contrarian, a customer-anthropologist...')"]
+    PROPOSE --> DISCUSS{"You discuss,<br/>adjust, approve"}
 
-    FRAME -->|"one lens needed"| CONSTRUCT
-    FRAME -->|"judgment / creative work"| ENSEMBLE
-    FRAME -->|"'where would agents help?'"| DIAGNOSE
-    FRAME -->|"'audit my panel'"| HARDEN
+    DISCUSS -->|"one lens needed"| CONSTRUCT
+    DISCUSS -->|"judgment / creative work"| ENSEMBLE
+    Q -->|"'where would agents help?'"| DIAGNOSE
+    Q -->|"'audit my panel'"| HARDEN
 
     subgraph CONSTRUCT ["1 · CONSTRUCT a persona"]
         A1["Draft archetype criteria"] --> A2["Find contrasting real exemplars<br/>(Owens vs Chanel vs Miyake)"]
@@ -74,7 +76,7 @@ Talk to it. In Claude Code, with the skill installed:
 
 A typical panel run, end to end:
 
-1. **Frame.** It classifies your question against a recipe table (analytical judgment, creative ideation, creative direction, strategy, normative, forecasting, review) and proposes the panel shape. One confirm, then it goes.
+1. **Frame.** A dialogue, not a form. It first restates the goal as it understands it (what you are trying to achieve, what success looks like, what kind of help that calls for), asking a clarifying question or two if the goal is fuzzy. Then it proposes the minds that would help and why: a one-line personality sketch per suggested member, plus the panel shape from the recipe table. You discuss, swap members, adjust stances, or approve; nothing gets built until the direction is agreed.
 2. **Construct.** It writes each member persona. For grounded personas it searches for deliberately contrasting real people who embody the archetype differently, and can pull their actual writing as a corpus. Named-person personas are always labeled as interpretations.
 3. **Run.** Each lens answers **alone, in a sealed context**. No lens sees another before combining. That isolation is what buys real diversity; the critic runs after and is the one agent that sees everything.
 4. **Synthesize.** The default output is a dissent-carrying synthesis: where the lenses agree, where they clash, what only one of them saw, and which dissent must survive into the decision. Vote, selection, and set-preserving modes exist for recipes that call for them. Nothing is ever averaged into consensus.
