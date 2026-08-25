@@ -4,11 +4,11 @@
 
 It works as a dialogue: first it understands what you are trying to do and what success would look like, then it proposes the kind of mind that would actually help ("for this decision you want a cost-obsessed operator, a brand-purist contrarian, and a critic"), you discuss and adjust, and only then does it build. Sometimes the right answer is one well-crafted agent. Sometimes it is a small panel. Sometimes it is "no agent at all, this task doesn't need one," and it will tell you that too.
 
-**Why build agents with personalities at all?** Because the research says a generic assistant is the weakest version of the model you are talking to. A language model learns thousands of characters from its training data; the default "helpful assistant" is just one of them, and everyone gets the same one. Giving an agent a real personality (a stance, expertise, opinions, things it refuses to do) points the model's intelligence at YOUR problem:
+**Why build agents with personalities at all?** Because the research says a generic assistant is the weakest version of the model you are talking to. A language model learns thousands of characters from its training data; the default "helpful assistant" is just one of them, and everyone gets the same one. Giving an agent a real personality (a stance, expertise, opinions, things it refuses to do) points the model's intelligence at **your** problem:
 
 - **Personas change what a model concludes, not just how it sounds.** The gap between the best and worst persona on the same task reached 38 percentage points in testing. Picking the right mind for the job is a real lever, not roleplay.
 - **The default voice makes everyone's output the same.** AI raises individual quality while flattening collective originality, because everyone draws from the same character. A distinct persona is how you get answers that don't sound like everyone else's.
-- **For judgment calls, several minds beat one, IF built right.** Different stances catch what a single view misses. But agent teams drift into agreement on their own, so this skill engineers against it: isolated members, a devil's-advocate, and syntheses that keep the disagreement visible instead of averaging it away.
+- **For judgment calls, several minds beat one, if built right.** Different stances catch what a single view misses. But agent teams drift into agreement on their own, so this skill engineers against it: isolated members, a devil's-advocate, and syntheses that keep the disagreement visible instead of averaging it away.
 - **And sometimes an agent is waste.** On tasks with one right answer, a panel loses to a single strong pass at higher cost. The skill's diagnosis mode exists to say "not here."
 
 The full evidence base is in the repo (see [the research](#why-give-agents-personalities-the-research) below).
@@ -62,7 +62,7 @@ flowchart TD
     OUT1 -. "members feed panels" .-> ENSEMBLE
 ```
 
-The mental model: **construct makes the people, ensemble makes the meeting.** Personas are standalone files you can reuse solo or in any panel; a panel is just an arrangement of them. Diagnose and harden are read-only analysis modes that emit reports and never touch the target.
+The mental model: **construct makes the people, ensemble makes the meeting.** Personas are standalone files, reusable solo or in any panel. Diagnose and harden are read-only analysis modes that emit reports and never touch the target. Diagnose's "three-condition gate" is a go/no-go test: is a panel worth it?
 
 ## How you use it
 
@@ -76,19 +76,19 @@ Talk to it. In Claude Code, with the skill installed:
 /agent-studio harden this panel   (with a panel.md in your project)
 ```
 
-A typical panel run, end to end:
+A typical panel run:
 
-1. **Frame.** A dialogue, not a form. It first restates the goal as it understands it (what you are trying to achieve, what success looks like, what kind of help that calls for), asking a clarifying question or two if the goal is fuzzy. Then it proposes the minds that would help and why: a one-line personality sketch per suggested member, plus the panel shape from the recipe table. You discuss, swap members, adjust stances, or approve; nothing gets built until the direction is agreed.
+1. **Frame.** A dialogue, not a form. It restates the goal as it understands it (what you want, what success looks like, what help that calls for) and asks a clarifying question or two if the goal is fuzzy. Then it proposes the minds that would help and why: a one-line personality sketch per member, plus a recipe. A recipe is a preset pattern: which members, how many, how their answers combine. You discuss, swap members, adjust stances, or approve; nothing gets built until the direction is agreed.
 2. **Construct.** It writes each member persona. For grounded personas it searches for deliberately contrasting real people who embody the archetype differently, and can pull their actual writing as a corpus. Named-person personas are always labeled as interpretations.
-3. **Run.** Each lens answers **alone, in a sealed context**. No lens sees another before combining. That isolation is what buys real diversity; the critic runs after and is the one agent that sees everything.
-4. **Synthesize.** The default output is a dissent-carrying synthesis: where the lenses agree, where they clash, what only one of them saw, and which dissent must survive into the decision. Vote, selection, and set-preserving modes exist for recipes that call for them. Nothing is ever averaged into consensus.
-5. **Measure.** A diversity score runs at generation and at output. If the synthesis quietly dropped the outlier view, that shows up as a flag, not a vibe.
+3. **Run.** Each lens answers **alone, in a sealed context**. No lens sees another before combining. That isolation buys real diversity; the critic runs after and is the one agent that sees everything.
+4. **Synthesize.** The default output is a dissent-carrying synthesis: where the lenses agree, where they clash, what only one saw, and which dissent must survive into the decision. Recipes can instead call for vote (tally the lenses), selection (pick one winner), or set-preserving (keep every answer). Nothing is ever averaged into consensus.
+5. **Measure.** A diversity score runs at generation and at output. If the synthesis dropped the outlier view, that shows up as a measured flag.
 
 By default the skill **generates artifacts and stops** (personas + panel plan + a paste-ready synthesis prompt). Say "run it" and it executes the panel too.
 
 ### Two rulebooks, switched by mode
 
-The guardrails change with the kind of work, on purpose:
+The guardrails change with the kind of work:
 
 | | Judgment work (facts, evaluation, decisions) | Creative work (ideation, direction, options) |
 |---|---|---|
@@ -121,7 +121,7 @@ git clone https://github.com/nraford7/agent-studio.git
 cp -R agent-studio ~/.claude/skills/agent-studio     # or your skills directory
 ```
 
-Then invoke with `/agent-studio` or just ask to build a persona or a panel.
+Then invoke with `/agent-studio` or ask to build a persona or a panel.
 
 ### Optional environment keys (it degrades gracefully without them)
 
@@ -143,11 +143,11 @@ python3 -m pytest -q     # 12 tests
 
 ## Design rules the skill enforces (the short list)
 
-1. **One isolated subagent per lens.** Never persona-swaps in one shared context; that is the maximally colluding anti-pattern.
-2. **A critic beats an extra generator.** Every judgment panel gets a devil's-advocate that steelmans before it attacks.
+1. **One isolated subagent per lens.** Persona-swapping in one shared context is the maximally colluding anti-pattern.
+2. **A critic beats an extra generator.** Every judgment panel gets a devil's-advocate that steelmans, stating the panel's strongest case before attacking.
 3. **Never naive-mean-blend.** Combine in the recipe's mode; dissent-carrying is the default; de-duplicate before combining.
-4. **Quality AND coverage, never one scalar.** A panel result that reports a single score is hiding its flattening.
-5. **Personas are stances, not job titles.** Identity through a name, a short backstory, one contradiction. Demographics off by default. Cap ~1000 words.
+4. **Quality and coverage, never one scalar.** A panel result that reports a single score is hiding its flattening.
+5. **Personas are stances.** A stance beats a job title. Identity through a name, a short backstory, one contradiction. Demographics off by default. Cap ~1000 words.
 6. **Reused personas drift.** Re-anchor by re-injecting the persona file; never reset the conversation.
 
 ## Why give agents personalities? The research
@@ -164,7 +164,7 @@ This skill exists because of a specific, evidence-backed claim: **a persona is n
 
 **5. The combine step is where diversity goes to die.** Naive blending drags a diverse set of views back to their average and discards the standout. Judge-based selection cannot exceed the best single candidate. The evidence-backed alternative is dissent-carrying synthesis, the judicial model: a majority opinion published together with its dissents, so the decision-maker sees the live disagreement instead of a manufactured consensus.
 
-**6. What actually makes a persona work:** a functional stance (what it optimizes for, under what pressure) beats a job title; identity lands through implicit cues (a name, a short backstory, one contradiction) rather than demographic labels, which mostly inject stereotypes; substantive positions matter for value-laden work and must be grounded in real stances for judgment tasks; and personas drift over long conversations, softening back toward the default assistant, so reused personas need re-anchoring.
+**6. What actually makes a persona work.** A functional stance (what it optimizes for, under what pressure) beats a job title. Identity lands through implicit cues (a name, a short backstory, one contradiction) rather than demographic labels, which mostly inject stereotypes. Substantive positions matter for value-laden work and must be grounded in real stances for judgment tasks. And personas drift over long conversations, softening back toward the default assistant, so reused ones need re-anchoring.
 
 **Confidence, honestly labeled.** The corpus marks every claim by evidence strength. Solid and multi-study: personas change substance; single-voice homogenization; consensus collapse; blending flattens; isolation and critics help. Thinner: which construction axis (stance vs role vs values vs named exemplar) drives diversity best, where no head-to-head study exists. And the stance-diverse panel at the center of this skill is an evidence-grounded design bet, not a directly measured result. The most valuable experiment you can run with this skill is exactly that missing head-to-head.
 
@@ -182,9 +182,9 @@ Each bible was produced by a retrieval-first research pipeline (evidence gate, q
 
 ## Provenance
 
-Beyond the research corpus above, the build itself is documented: design specs, implementation plans, and run ledgers for all three build cycles live in `docs/superpowers/`. The skill was reviewed twice independently (a Claude start-to-finish review and a fresheyes/codex review) and the reconciled findings were applied in a fix cycle.
+The build itself is documented: design specs, implementation plans, and run ledgers for all three build cycles live in `docs/superpowers/`. The skill was reviewed twice independently (a Claude start-to-finish review and a fresheyes/codex review) and the reconciled findings were applied in a fix cycle.
 
-Honest limits: persona QC is structural linting, not behavioral testing; and the diagnose/harden reports are judgment aids, not proofs.
+Honest limits: persona QC checks structure against the template, not behavior; and the diagnose/harden reports aid judgment, nothing stronger.
 
 ## License
 
