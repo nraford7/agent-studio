@@ -37,6 +37,9 @@ Write to `agent-studio-out/<slug>/jds/<role>.md`:
 
 ## Role statuses
 
+Internal labels — when you show one to the user, use the warm phrasing in
+`voice.md`.
+
 - No specialist role needed
 - Specialist role worth evaluating
 - Open specialist role         (work sample passed or waived; hiring underway)

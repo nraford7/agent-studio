@@ -8,7 +8,7 @@ REFS = ROOT / "references"
 
 NEW_REFS = [
     "evidence-gate.md", "job-description.md", "work-sample.md",
-    "roster.md", "doit-handoff.md",
+    "roster.md", "doit-handoff.md", "voice.md",
 ]
 ALL_REFS = NEW_REFS + [
     "hard-rules.md", "recipes.md", "synthesis-modes.md",
@@ -62,6 +62,21 @@ def test_blind_protocol_present():
 def test_no_retired_architecture():
     assert "six stages" not in SKILL
     assert "Mode: Diagnose" not in SKILL and "Mode: Harden" not in SKILL
+
+
+def test_voice_layer_maps_canonical_to_warm():
+    voice = (REFS / "voice.md").read_text()
+    gate = (REFS / "evidence-gate.md").read_text()
+    # canonical verdicts still live in the gate (internal keys preserved)
+    for c in ["Research supports trying this",
+              "No research-backed reason to create a role"]:
+        assert c in gate, f"canonical verdict lost from gate: {c}"
+    # and the voice layer carries the warm presentations
+    for warm in ["Green light", "No specialist needed here",
+                 "On trial", "Made it worse"]:
+        assert warm in voice, f"warm phrasing missing from voice.md: {warm}"
+    # SKILL routes user-facing speech through the voice layer
+    assert "references/voice.md" in SKILL
 
 
 def test_no_banned_word():

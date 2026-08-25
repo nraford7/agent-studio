@@ -29,6 +29,11 @@ the stage list below), never this repo. The roster lives at
 
 Read and obey `references/hard-rules.md`. The essentials:
 
+- **Talk to the user warmly.** When you show a verdict, a status, an outcome, or
+  narrate a transition, use the plain, warm phrasings in `references/voice.md` —
+  simple, clear, kind, like a helper who never makes anyone feel behind. The
+  canonical labels in the other files stay for internal logic; warm the wording,
+  never the confidence level.
 - **In-house is the default.** No generic agent merely to do in-house work; no
   persona inferred from task complexity or the presence of judgment; job
   titles, famous names, and biographies are never proof of capability.
@@ -72,9 +77,9 @@ user with a precise committed brief is not forced to explore.
 ### Stage 2 — Commission the Workflow Specification
 Send Do-It the Engagement 1 brief from `references/doit-handoff.md` (verbatim
 template). Deliverable: `workflow-spec.md` — what work must happen, no
-implementation detail, no staffing. Narrate the handoff to the user. If Do-It
-is unavailable, author `workflow-spec.md` yourself under the same brief and
-exclusions, and say so.
+implementation detail, no staffing. Narrate the handoff to the user in the warm
+phrasing from `references/voice.md`. If Do-It is unavailable, author
+`workflow-spec.md` yourself under the same brief and exclusions, and say so.
 
 ### Stage 3 — Review the work, then the staffing
 Write `work-review.md`. First the WORK: every job necessary? any missing? are
@@ -92,7 +97,8 @@ For each "explore a specialist role" job: write an Evidence Card per
 `references/evidence-gate.md` into `evidence-cards.md`. The family→conclusion
 mapping is deterministic; the conclusion fixes the proof owed (direct hire /
 narrowed blind sample / blind sample / no role). Check roster waivers per
-`references/roster.md`.
+`references/roster.md`. When you tell the user a verdict, use the warm phrasing
+in `references/voice.md`.
 
 ### Stage 5 — Job Description
 Per surviving role: write `jds/<role>.md` per `references/job-description.md`.
@@ -104,7 +110,8 @@ prototype and run the blind protocol per `references/work-sample.md`; record
 the outcome in `work-samples/<role>/verdict.md`. Only "Open the role" proceeds.
 
 ### Stage 8 — Interview and hire (personification is mandatory)
-Never an unnamed specialist. Per open role:
+Never an unnamed specialist. Introduce candidates and offer the interview
+choices in the warm phrasing from `references/voice.md`. Per open role:
 1. Roster first (`references/roster.md`): fitting retained personas are
    presented as rehires, track record summarized, alongside fresh candidates.
 2. Slate of 2-3 CONTRASTING named candidates — recognizable real people,
@@ -157,7 +164,8 @@ second full workflow). Without a counterfactual, report traceable contribution
 but never claim causal lift. Decide per role: keep provisional · establish ·
 narrow · revise/replace persona · convert behavior into an in-house playbook ·
 retire. Then roster maintenance with consent-first writes per
-`references/roster.md`.
+`references/roster.md`. Deliver the review in the warm phrasing from
+`references/voice.md`.
 
 ## One-off panel door (door 4)
 
