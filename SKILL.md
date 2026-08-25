@@ -95,8 +95,20 @@ paste-ready prompt FOR THE RECIPE'S COMBINE MODE from
 `references/synthesis-modes.md` (dissent-carrying only when the recipe says so).
 Verify members differ in POSITIONS/conclusions, not just tone; for
 strategy/normative/value-laden recipes and opinionated creative lenses, each
-persona carries a Positions block per the template. Generate-by-default stops
-here and hands the user these artifacts.
+persona carries a Positions block per the template.
+
+**Cast card (skippable).** After `panel.md` is written, show the user a
+one-screen cast card: one line per member — name · stance · what it hunts or
+argues for · one signature "never". Then ONE `AskUserQuestion`: "Want to meet
+your panel before it stands?" with options: **Run/keep as-is (Recommended)**;
+**Get to know them** (show each full persona file, then re-offer); **Modify or
+swap a member** (rewrite via the Five-Element template, re-run the grep lint);
+**Design a new member** (construct + lint, add to `panel.md`). Iterate until
+approved. Skip silently when the run is non-interactive, the user gave a skip
+signal, or this cast was already confirmed this session. Skills BUILT by this
+skill should carry the same cast-card stage before their own dispatch.
+
+Generate-by-default stops here and hands the user these artifacts.
 
 ### 4. Run (only when asked)
 Dispatch one **isolated subagent per lens**, each prompt opening with the SUBAGENT
