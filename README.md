@@ -2,7 +2,7 @@
 
 **agent-studio is a [Claude Code](https://claude.com/claude-code) skill for evidence-gated workflow design and staffing.**
 
-It figures out how a job should be done, what can stay in-house, and whether any part of the work would genuinely benefit from a persona specialist. When a specialist is justified — by a research-matched task family, a blind work sample, or a proven track record — it runs a hiring process: a job description, a slate of named candidates, an interview, and a retained persona. Staffed workflows are then implemented and executed by a separate [Do-It](https://github.com/) build engagement. A successful run may create no persona at all; "this work should stay in-house" is a first-class outcome, not a failure.
+It figures out how a job should be done, what can stay in-house, and whether any part of the work would genuinely benefit from a persona specialist. When a specialist is justified — by a research-matched task family, a blind work sample, or a proven track record — it runs a hiring process: a job description, a slate of named candidates, an interview, and a retained persona. Staffed workflows are then implemented and executed by a separate Do-It build engagement. A successful run may create no persona at all; "this work should stay in-house" is a first-class outcome, not a failure.
 
 **Why gate on evidence?** Because the research is blunt: personas reliably change what a model concludes, but expert labels do not reliably improve correctness and can make it worse. So the skill refuses to infer a specialist from task complexity or the mere presence of judgment. It opens a role only when the task family is one the evidence supports, or when a blind work sample or a real track record demonstrates lift.
 
@@ -65,7 +65,7 @@ agent-studio-out/<slug>/
   contribution-review.md   post-run review (Stage 11)
 ```
 
-One-off panel runs (door 4) keep the flat layout:
+One-off panel runs (door 4), and analysis-only door-2 requests, keep the flat layout:
 
 ```
 agent-studio-out/

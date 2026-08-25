@@ -138,7 +138,8 @@ Write `staffed-spec.md` per the template in `references/doit-handoff.md`:
 in-house jobs + playbooks; each provisional role with JD, persona, exact
 activation trigger, I/O, boundaries, proof and remaining uncertainty; the
 BINDING "Ensemble constraints" section when ≥2 roles answer the same question
-in parallel; handoff contracts for sequential roles.
+or evaluate the same artifact in parallel; handoff contracts for sequential
+roles.
 
 ### Stage 10 — Return to Do-It
 Send the Engagement 2 brief from `references/doit-handoff.md` (verbatim
@@ -186,6 +187,7 @@ retire. Then roster maintenance with consent-first writes per
    `agent-studio-out/run-<timestamp>/<lens>.md`.
 6. **Synthesize** — de-dup by embedding, combine per the recipe's mode (default
    dissent-carrying), `references/synthesis-modes.md`. Never naive-mean-blend.
+   Write `run-<timestamp>/synthesis.md`.
 7. **Evaluate + review** — `python3 <skill-dir>/scripts/diversity.py` over lens
    outputs, then the output stage (set diversity, or synthesis-vs-outlier
    distance for dissent-carrying; grep for the labeled Minority section —
