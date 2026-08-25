@@ -1,221 +1,221 @@
 ---
 name: agent-studio
-description: Construct AI agent personas, assemble or run panels (ensembles) of them for viewpoint-diverse analysis, and analyze existing workflows or panels. Use when the user wants to design an agent persona, build a persona/lens, create a panel or council of agents, run an ensemble of perspectives on a question, get multiple analytical or creative lenses on a topic and synthesize them, find out where agents would help in an existing skill or workflow, or audit an ensemble. Triggers on "/agent-studio", "construct/design a persona or agent", "build a panel/council of agents", "run an ensemble", "get N perspectives on X", "diagnose this skill/workflow", "where would agents help in X", "audit/harden this panel/ensemble".
+description: Evidence-gated workflow design and staffing for AI work. Determines how a job should be done, what stays in-house, and whether any part benefits from a persona specialist; if justified, runs a hiring process (job description, named candidate slate, interview, roster rehires) and hands a staffed workflow to Do-It. Also runs one-off persona panels for perspectives on a question, and re-engineers existing skills/workflows/panels. Use when the user wants a reliable way to accomplish an outcome, asks whether a specialist or agent would help, wants a persona designed, a panel/council built or run, N perspectives on X, or an existing skill/workflow/panel analyzed or improved. Triggers on "/agent-studio", "design how this work gets done", "construct/design a persona or agent", "build a panel/council of agents", "run an ensemble", "get N perspectives on X", "would a specialist help", "diagnose this skill/workflow", "where would agents help in X", "audit/harden this panel/ensemble".
 ---
 
 # agent-studio
 
-Turn a question into a well-formed persona, or into a panel of diverse lenses that
-run in isolation and are synthesized without flattening. Four uses: **construct**
-one persona, **ensemble** (build, and optionally run, a panel), **diagnose**
-(analyze an existing skill/workflow for where agents help vs waste), and **harden**
-(audit an existing panel for the known failure modes). Diagnose and harden are
-recommend-only analysis modes. This skill operationalizes the evidence in
-`references/` — read the referenced file at each stage; do not improvise around
-the hard rules.
+Workflow-design and staffing, expressed through workplace concepts: assignments,
+jobs, candidates, interviews, work samples, performance reviews. The central
+rule:
 
-Diagnose and harden requests SKIP the six stages entirely: go directly to their
-Mode sections below (no Frame confirm, no panel shape).
+> Understand the assignment, specify the work, keep it in-house by default, and
+> create a specialist role only when the task matches a plausible persona
+> benefit and the role's value is demonstrated — by a blind work sample, or by
+> evidence strong enough to waive it (a best-supported task family or a proven
+> roster track record); then let the user hire and shape the named persona who
+> will fill it.
 
-Artifacts are written to `agent-studio-out/` in the user's current directory (never
-this repo). Stages hand off through files (`panel.md`, `personas/*.md`), so each
-stage can be run on its own.
+A successful run may create no persona at all. This skill is not a team
+generator. Read the referenced file at each stage; do not improvise around the
+hard rules.
+
+Artifacts go to `agent-studio-out/` in the user's cwd (full-lifecycle runs
+under `agent-studio-out/<slug>/`, layout in `references/doit-handoff.md` and
+the stage list below), never this repo. The roster lives at
+`~/.claude/agent-roster/` (`references/roster.md`).
 
 ## Hard rules (always)
 
 Read and obey `references/hard-rules.md`. The essentials:
 
-- Generate lenses in **strict isolation** — one subagent per lens, fresh context, no
-  cross-talk before combining. **Never** run a panel as persona-swaps in one shared
-  context (the maximally-colluding anti-pattern).
-- **Anti-conformity is first-class:** every lens prompt uses the SUBAGENT PROMPT
-  PREAMBLE from `references/hard-rules.md`; cap any debate at one round with a
-  stopping rule.
-- **Never naive-mean-blend.** De-duplicate by embedding, then combine via the
-  recipe's mode (default: dissent-carrying). See `references/synthesis-modes.md`.
-- **NO WebFetch anywhere** — `curl` raw pages only; carry this into every subagent
-  prompt you emit.
-- Always co-report a **quality note AND a coverage/diversity note**, never one scalar.
-- **Guardrails switch by mode:** strict rulebook for judgment work, flavor-forward
-  for creative work (see `references/hard-rules.md#Guardrails switch by mode`).
+- **In-house is the default.** No generic agent merely to do in-house work; no
+  persona inferred from task complexity or the presence of judgment; job
+  titles, famous names, and biographies are never proof of capability.
+- **Familiarity never bypasses the evidence gate.** Roster rehires are
+  suggested, not pre-approved.
+- **Roster writes need consent first**, and entries exclude confidential or
+  project-identifying detail (`references/roster.md`).
+- Ensembles: **strict isolation** for generating lenses (one subagent each,
+  fresh context, SUBAGENT PROMPT PREAMBLE from `references/hard-rules.md`);
+  **never naive-mean-blend** (`references/synthesis-modes.md`); debate capped
+  at one round; co-report a quality note AND a coverage/diversity note.
+- **NO WebFetch anywhere** — `curl` raw pages only; carry this into every
+  subagent prompt you emit.
+- **Guardrails switch by mode:** strict rulebook for judgment work,
+  flavor-forward for creative work (`references/hard-rules.md`).
+- Persona harm is always named separately from "no meaningful lift".
+- The user owns candidate selection, adjustments, and final taste/value calls.
 
-## The six stages
+## Four front doors
 
-### 1. Frame (a dialogue, not a classifier)
+Route by what the user asked for; when unclear, ask.
 
-This stage is a conversation about what help the user actually needs. Do NOT jump
-to panel geometry. Two beats:
+| Request sounds like | Door |
+|---|---|
+| "I want a reliable way to accomplish X" | **1. Design the work** — full lifecycle from Stage 1 |
+| "Review/improve this skill or workflow" · legacy "diagnose"/"harden" | **2. Existing workflow** — see Existing-workflow path |
+| "Would a specialist who does X help?" · legacy "construct" | **3. Consider a specialist** — never judge from a role label alone: run Stage 1 in compressed form (recover and confirm the brief), then the shared lifecycle from Stage 2 on, with the proposed role evaluated at Stages 3-4 |
+| "Get N perspectives on X" · "run an ensemble/panel" — today's answer, not a reusable workflow | **4. One-off panel** — compressed path below; no Do-It, no staffed artifact |
 
-**Beat 1: Goal diagnosis.** Restate, in one short paragraph, what the user is
-trying to achieve and what success would look like. Classify the KIND of help
-needed: fact-finding, judgment/decision support, creative divergence, evaluation,
-or strategy. If the goal is genuinely underspecified (no way to know what a good
-answer looks like), ask 1-2 clarifying questions FIRST, via `AskUserQuestion`.
-Do not ask about things the request already answers.
+## Full lifecycle (doors 1-3)
 
-**Beat 2: Direction proposal.** Propose the kind of mind(s) that would help and
-WHY, before any construction: for a single persona, a one-line sketch of the
-suggested personality/stance/skills; for a panel, a one-line sketch PER MEMBER
-(e.g. "a cost-obsessed operator; a brand-purist contrarian; a
-customer-anthropologist; plus a critic") tied to the goal from Beat 1, along
-with the recipe row and shape (members axis, size, topology, combine mode) from
-`references/recipes.md`. Present it with one `AskUserQuestion`: approve, swap or
-adjust members/stances, or change the shape. Iterate if the user pushes back;
-this discussion IS the product of the stage.
+### Stage 1 — Understand the assignment
+Adaptive dialogue, not a questionnaire (AskUserQuestion for genuine gaps only).
+Establish: what the user wants to accomplish; what that makes possible; what
+success looks like; constraints and non-negotiables; known obstacles and
+failure modes; what was already tried; open assumptions. The user's first
+stated goal is working material, not ground truth — clarify purpose, test
+against obstacles, avoid premature fixing. Write `brief.md`; confirm it. A
+user with a precise committed brief is not forced to explore.
 
-Skip the asks only when the request already fully specifies both the goal and
-the shape, or when the run is non-interactive. Only after the direction is
-agreed does the flow move to Construct.
+### Stage 2 — Commission the Workflow Specification
+Send Do-It the Engagement 1 brief from `references/doit-handoff.md` (verbatim
+template). Deliverable: `workflow-spec.md` — what work must happen, no
+implementation detail, no staffing. Narrate the handoff to the user. If Do-It
+is unavailable, author `workflow-spec.md` yourself under the same brief and
+exclusions, and say so.
 
-### 2. Construct (a hiring process)
-Personas are HIRED, not configured. The user is the hiring manager; the skill
-runs the search. For each seat in the agreed direction:
+### Stage 3 — Review the work, then the staffing
+Write `work-review.md`. First the WORK: every job necessary? any missing? are
+unrelated responsibilities combined? sequence and handoffs sensible? is a
+missing CHECK being mistaken for a missing CRITIC? would clearer instructions
+or a stronger method solve it? Then the STAFFING, every job presumed in-house.
+Classify each residual need: clearer assignment | workflow/method |
+information/tool/access/delivery feasibility | evidence-matched persona
+opportunity. Conclusions per job: keep in-house · keep in-house + strengthen
+playbook · resolve workflow/info/delivery issue · explore a specialist role ·
+do not attempt with this delivery arrangement.
 
-1. **Write the job description.** Role title, mandate (what the seat optimizes
-   for and under what pressure), required skills, hard prohibitions. This is
-   the archetype criteria; it is recorded in `panel.md` beside the hire.
-2. **Check the retainer roster first.** `~/.claude/agent-roster/` holds
-   characters the user has kept on retainer from past hires. If one fits the
-   job description, present them first ("X is on retainer and fits — rehire,
-   or see new candidates?").
-3. **Present a slate of candidates.** 2-3 deliberately CONTRASTING candidates
-   who each genuinely fulfill the job description, drawn from real famous
-   people, historical figures, or well-known fictional characters (literature,
-   film, TV, comics). The recognizable package IS the point: a known name
-   carries values, style, and stances the user can identify with at a glance.
-   Each candidate: name · why they fit the job description · what their package
-   brings · one risk of hiring them.
-   `python3 <skill-dir>/scripts/exemplar_find.py find --archetype "<archetype>"`
-   surfaces LEADS when useful (a listicle title is a lead to mine, not a
-   person). In judgment mode prefer candidates with documented, citable
-   stances. Every hire is an INTERPRETATION of the public figure or character,
-   never the real person; the persona file opens with that label.
-4. **The interview.** One `AskUserQuestion` per seat: hire candidate A/B/C, or
-   direct an adjustment ("Rick Owens but less intense", "more like Coco
-   Chanel"). On an adjustment: rebuild the character with the change blended
-   in, present them back, re-offer the hire. Iterate until the seat is filled;
-   the user may also reject the whole slate and ask for fresh candidates.
-5. **Onboard the hire.** Ground from the exemplar's corpus when public work
-   exists and stakes are high:
-   `python3 <skill-dir>/scripts/exemplar_find.py corpus --name "<name>" --url <u> [--url <u>] --out <dir>`.
-   Corpus grounding is **required (not optional)** when the archetype has no
-   common human/fiction precedent (steering cannot find a region that does not
-   exist). Emit the persona in the Five-Element template, in the hire's name
-   and voice, run the grep lint from `references/persona-template.md`, fix any
-   failure, save to `agent-studio-out/personas/<name>.md`.
-6. **Consultants and the retainer.** A specialist needed mid-run that no seat
-   covers is a **temp hire / consultant**: same flow, compressed (one strong
-   candidate + accept/adjust). After any hire the user likes, offer to keep
-   them **on retainer**: copy the persona to `~/.claude/agent-roster/<name>.md`
-   for reuse across projects and skills.
+### Stage 4 — Persona Evidence Gate
+For each "explore a specialist role" job: write an Evidence Card per
+`references/evidence-gate.md` into `evidence-cards.md`. The family→conclusion
+mapping is deterministic; the conclusion fixes the proof owed (direct hire /
+narrowed blind sample / blind sample / no role). Check roster waivers per
+`references/roster.md`.
 
-**Hires play their part.** Dispatched agents speak in their character's name
-and voice and are referred to by name in every report. Theatre never loosens
-rigor: the Output format, isolation rules, preambles, and lint stay binding
-regardless of who was hired.
+### Stage 5 — Job Description
+Per surviving role: write `jds/<role>.md` per `references/job-description.md`.
+Apply the narrowing rule when the conclusion demands it.
 
-**Performance review (end of every run that dispatched hires).** When a run's
-results are presented, include a short review per hire: what they contributed
-(findings kept, findings refuted, the dissent they defended), and what they
-missed. Zero kept findings is reported plainly — it may mean the seat, not the
-character, is wrong for this kind of topic; say which. For each temp
-hire/consultant, END the review with one question: keep them on the roster
-(`~/.claude/agent-roster/<name>.md`) or let them go. A roster persona carries a
-`## Track record` section appended after each run (topic, findings kept, one
-line on performance); future hiring slates read it.
+### Stage 6 + Stage 7 — Prototype and blind work sample
+Skip both stages for direct-hire or waived roles. Otherwise build the anonymous
+prototype and run the blind protocol per `references/work-sample.md`; record
+the outcome in `work-samples/<role>/verdict.md`. Only "Open the role" proceeds.
 
-### 3. Assemble
-From the chosen recipe row: set the members axis, size, topology, and combine mode;
-add a critic (devil's-advocate) unless the recipe says otherwise; for high-stakes
-normative panels, offer different-model-family members (note in `panel.md` if
-unavailable). Write `agent-studio-out/panel.md` (members, size, topology, combine
-mode, recipe row) AND `agent-studio-out/synthesis-prompt.md` carrying the
-paste-ready prompt FOR THE RECIPE'S COMBINE MODE from
-`references/synthesis-modes.md` (dissent-carrying only when the recipe says so).
-Verify members differ in POSITIONS/conclusions, not just tone; for
-strategy/normative/value-laden recipes and opinionated creative lenses, each
-persona carries a Positions block per the template.
+### Stage 8 — Interview and hire (personification is mandatory)
+Never an unnamed specialist. Per open role:
+1. Roster first (`references/roster.md`): fitting retained personas are
+   presented as rehires, track record summarized, alongside fresh candidates.
+2. Slate of 2-3 CONTRASTING named candidates — recognizable real people,
+   historical figures, or famous fictional characters preferred; an original
+   named persona when no recognizable one fits without distortion.
+   `python3 <skill-dir>/scripts/exemplar_find.py find --archetype "<a>"`
+   surfaces leads. Each candidate: who they are · what they are like · why
+   their capabilities/experience/values/methods fit the JD · distinctive
+   contribution · one risk of hiring them. Every real-person/character hire is
+   an INTERPRETATION, labeled as such; for judgment work, ground in documented
+   public positions (corpus pull:
+   `python3 <skill-dir>/scripts/exemplar_find.py corpus --name "<n>" --url <u> --out <dir>`;
+   required when the archetype has no common precedent).
+3. Interview loop (one AskUserQuestion per seat): hire · ask a candidate
+   job-relevant questions · reject candidate or slate · request new candidates ·
+   adjust in natural language ("Warren Buffett, but more interested in emerging
+   technology") · combine qualities. Rebuild and re-present until hired or the
+   role is left unfilled. Record the slate, adjustments, and outcome in
+   `candidates/<role>.md`.
+4. Construct the Persona Profile in the hire's voice per
+   `references/persona-template.md` (character core + job binding split; run
+   the grep lint; fix failures). Save to `personas/<name>.md`. Demographics off
+   by default. Biography never manufactures capability.
+Multiple roles: separate interviews per seat, then one compact team card
+(name · job · defining qualities · contribution); the user may reopen any hire.
+One role never implies a team — each extra role needs its own card, JD, and
+case.
 
-**Cast card (skippable).** After `panel.md` is written, show the user the team
-they hired, one screen: one line per member — name · role · what they hunt or
-argue for · one signature "never". Then ONE `AskUserQuestion`: "Want to meet
-your team before they start?" with options: **Keep the team (Recommended)**;
-**Meet them** (show each full persona file, then re-offer); **Renegotiate a
-hire** (an adjustment in the user's words — "less intense", "more Coco
-Chanel" — rebuild, re-lint, re-present); **Open a new seat** (job description +
-candidate slate + hire per Construct; offer the retainer afterwards). Iterate
-until approved. Skip silently when the run is non-interactive, the user gave a
-skip signal, or this cast was already confirmed this session. Skills BUILT by
-this skill should carry the same cast-card stage before their own dispatch.
+### Stage 9 — Staffed Workflow Specification
+Write `staffed-spec.md` per the template in `references/doit-handoff.md`:
+in-house jobs + playbooks; each provisional role with JD, persona, exact
+activation trigger, I/O, boundaries, proof and remaining uncertainty; the
+BINDING "Ensemble constraints" section when ≥2 roles answer the same question
+in parallel; handoff contracts for sequential roles.
 
-Generate-by-default stops here and hands the user these artifacts.
+### Stage 10 — Return to Do-It
+Send the Engagement 2 brief from `references/doit-handoff.md` (verbatim
+template). Do-It plans, builds, integrates personas unchanged, tests, runs when
+asked, packages. It may not touch staffing; narrow staffing questions come back
+here.
 
-### 4. Run (only when asked)
-Dispatch one **isolated subagent per lens**, each prompt opening with the SUBAGENT
-PROMPT PREAMBLE from `references/hard-rules.md`, then the persona and the question.
-THEN dispatch the critic: the critic is NOT isolated from the outputs — the critic receives all lens outputs and uses the CRITIC PREAMBLE from
-`references/hard-rules.md` (isolation applies to the generating lenses only).
-Write each lens output and the critic's output to
-`agent-studio-out/run-<timestamp>/<lens>.md`.
+### Stage 11 — Contribution and performance review
+Only after the staffed workflow has run. Write `contribution-review.md` from
+observable evidence: what each persona produced; what downstream work retained,
+rejected, changed; unique contribution; misses; delay/noise/bias/harm. When
+cheap and informative, run the localized counterfactual check: rerun the
+relevant downstream integration ONCE without the specialist's output (never a
+second full workflow). Without a counterfactual, report traceable contribution
+but never claim causal lift. Decide per role: keep provisional · establish ·
+narrow · revise/replace persona · convert behavior into an in-house playbook ·
+retire. Then roster maintenance with consent-first writes per
+`references/roster.md`.
 
-### 5. Synthesize
-De-duplicate lens outputs by embedding first, then combine per the recipe's mode
-(default: reconcile / dissent-carrying — majority view PLUS explicitly labeled
-minority and unique findings). Never naive-mean-blend. Write
-`agent-studio-out/run-<timestamp>/synthesis.md`.
+## One-off panel door (door 4)
 
-### 6. Emit + evaluate
-Run `python3 <skill-dir>/scripts/diversity.py` over the lens outputs (generation
-stage). Then measure the OUTPUT stage, two cases:
-- SET outputs (creative options, scenarios): run diversity.py across the set; a
-  large drop from generation-stage diversity with no quality gain flags
-  flattening.
-- SINGLE synthesis.md from a DISSENT-CARRYING recipe: run diversity.py over
-  [all lens outputs + synthesis.md] and read the synthesis-vs-lens per-pair
-  distances (the `pairs` array; the outlier lens = the one farthest from the
-  others in the generation-stage pairs). Flattening = the synthesis is markedly
-  FARTHER from that outlier lens than from the majority cluster (the dissent was
-  dropped); roughly equidistant = dissent carried. ALSO grep synthesis.md for
-  the labeled "Minority" / dissent sections — absence = FAIL. These two checks
-  apply ONLY to dissent-carrying recipes; a Vote or Selection output legitimately
-  has no minority section and tracks its winning lens.
-Write `agent-studio-out/run-<timestamp>/diversity.md` reporting both stages.
-Report back a quality note AND the coverage/diversity note — never one scalar.
+1. **Frame** — short dialogue: restate the goal and the kind of help; propose
+   the minds and the recipe row (`references/recipes.md`) with one-line
+   sketches per member; one AskUserQuestion to approve/adjust. Skip the ask
+   when the request fully specifies both, or the run is non-interactive.
+2. **Eligibility** — only families whose conclusion is "Research supports
+   trying this" (creative divergence, value-laden deliberation) — or roster
+   personas holding a same-family waiver — may hire through this door. Anything
+   that owes a work sample is answered in-house with that explanation, or
+   offered the full lifecycle.
+3. **Hire** — compressed Stage 8: roster first, slate, interview, persona files
+   linted. Cast card before dispatch (one line per member: name · role · what
+   they hunt · one signature "never"; one AskUserQuestion: keep team / meet
+   them / renegotiate a hire / open a new seat; skip when non-interactive or
+   already confirmed).
+4. **Assemble** — `panel.md` + `synthesis-prompt.md` from the recipe row
+   (members axis, size, topology, combine mode; critic unless the recipe says
+   otherwise; different model families offered for high-stakes normative
+   panels). Verify members differ in POSITIONS. A one-off request ("get N
+   perspectives on X") already asks for today's answer: RUN by default. Stop
+   here only when the user asked for the panel artifacts, not answers ("build
+   me a panel").
+5. **Run** — one isolated subagent per lens (PREAMBLE first), then the critic
+   (critic sees all outputs; CRITIC PREAMBLE). Outputs to
+   `agent-studio-out/run-<timestamp>/<lens>.md`.
+6. **Synthesize** — de-dup by embedding, combine per the recipe's mode (default
+   dissent-carrying), `references/synthesis-modes.md`. Never naive-mean-blend.
+7. **Evaluate + review** — `python3 <skill-dir>/scripts/diversity.py` over lens
+   outputs, then the output stage (set diversity, or synthesis-vs-outlier
+   distance for dissent-carrying; grep for the labeled Minority section —
+   absence = FAIL). Write `run-<timestamp>/diversity.md`; report quality note
+   AND coverage/diversity note. End with a performance review per hire
+   (contributions kept, dissent defended, misses; zero kept findings reported
+   plainly — seat vs character) and roster maintenance per
+   `references/roster.md` (consent first).
 
-## Mode: Diagnose (recommend-only)
+## Existing-workflow path (door 2)
 
-Point the skill at an existing workflow and report where a persona/panel would help
-and where it would be waste. Follow `references/diagnose-rubric.md` exactly.
+1. Recover and confirm the Assignment Brief (`brief.md`).
+2. Specify the as-is workflow: for a SKILL.md target read it plus scripts and
+   references; classify stages with `references/diagnose-rubric.md`; existing
+   personas/panels are INCUMBENTS — reconstruct their JDs from actual use;
+   audit incumbent panels with `references/harden-checklist.md`.
+3. Review process problems before staffing problems (Stage 3 checklist).
+4. Commission the spec (Engagement 1, as-is vs recommended-improvements form).
+5. Use existing outputs as the baseline where adequate; do not rerun work
+   unnecessarily.
+6. Gate proposed additions AND incumbents (Stage 4); prototype + blind sample
+   where owed (Stage 6 + Stage 7).
+7. Named candidates for every open role; interview, adjust, hire (Stage 8).
+8. Staffed spec → Engagement 2 → contribution review vs the baseline,
+   proportionate to cost and stakes (Stages 9-11).
 
-1. **Ingest.** Path with a SKILL.md: read it plus `scripts/` and `references/` to
-   recover the pipeline. Path without one: read the entry document (README or main
-   script). Nothing readable: ask the user for a prose description. Prose given:
-   parse the described steps. Produce an ordered stage list.
-2. **Classify** each stage mechanical vs judgment-laden per the rubric.
-3. **Map** judgment stages to a `references/recipes.md` row; mark mechanical stages
-   "single pass — do NOT ensemble" with the reason.
-4. **Check existing multi-agent use** (isolation, critic, model family, combine mode).
-5. **Emit** `agent-studio-out/diagnosis-<slug>.md` per the rubric's report template
-   (slug = target dir name, or first 3-4 words of prose, kebab-case).
-
-Recommend-only: generate no persona files, modify nothing in the target, dispatch
-no subagents. End the report with the build pointer.
-
-## Mode: Harden (recommend-only)
-
-Audit an existing panel/ensemble against `references/harden-checklist.md`.
-
-1. **Ingest.** Prefer `agent-studio-out/panel.md` if present; else grep the target's
-   files for agent-dispatch patterns (Agent tool calls, subagent prompts,
-   "dispatch", "panel", "ensemble") and audit those sites; else ask for a prose
-   description of the panel.
-2. **Run the eleven checks**, scoring each PASS / FAIL / N-A / UNKNOWN with the
-   checklist's default severity, an Evidence citation per verdict, and a one-line
-   fix per FAIL (declared intent is not evidence — see the checklist).
-3. **Emit** `agent-studio-out/hardening-<slug>.md` per the checklist's report
-   template, leading with the verdict line (count + names of HIGH gaps).
-
-Recommend-only: report, never rewrite. End with the build pointer.
+When the user asked only for analysis (legacy diagnose/harden), stop after
+step 3 with the report — steps 2-3 emit
+`agent-studio-out/diagnosis-<slug>.md` / `hardening-<slug>.md` per the rubric
+and checklist templates — and offer the full path as the build pointer.
 
 ## Scripts
 
