@@ -20,7 +20,8 @@ The central rule is:
 
 > Understand the assignment, specify the work, keep it in-house by default, and
 > create a specialist role only when the task matches a plausible persona benefit
-> and a candidate demonstrates useful lift.
+> and a functional prototype demonstrates useful lift; then let the user hire and
+> shape the named persona who will fill it.
 
 ## Problem
 
@@ -306,60 +307,36 @@ Formal role statuses are:
 
 - No specialist role needed.
 - Specialist role worth evaluating.
+- Open specialist role.
 - Provisional specialist role.
 - Established specialist role.
 - Narrowed role.
 - Retired role.
 
-### Stage 6: Candidate search and interview
+### Stage 6: Prepare a functional role prototype
 
-Agent Studio presents two or three deliberately contrasting candidates who all
-meet the same Job Description. Candidates may be:
+Agent Studio translates the Job Description into the smallest anonymous
+functional prototype that can test the proposed role. It includes the mandate,
+required capabilities, experience-based recognitions, values, working method,
+boundaries, and output contract. It contains no famous name, character identity,
+or decorative biography.
 
-- Interpretations of famous people.
-- Historical figures.
-- Fictional characters.
-- Original functional personas.
-- Existing personas retained from prior work.
-
-Each candidate is described by fit, capabilities, experience profile, values,
-working methods, distinctive contribution, and risk.
-
-For any candidate the user wants to interview or evaluate with a work sample,
-Agent Studio creates a temporary candidate profile detailed enough to behave
-consistently. This is an evaluation artifact, not yet the retained Persona
-Profile.
-
-The user can:
-
-- Meet or interview candidates.
-- Ask candidates the same job-relevant question.
-- Request a small work sample.
-- Choose a candidate.
-- Reject the slate and request replacements.
-- Ask for "more like X, less like Y."
-- Combine qualities from candidates.
-- Remove theatrical characterization.
-- Choose a purely functional candidate.
-
-Named-person and character personas are always labeled as interpretations. A
-recognizable name helps the user shape taste, values, and working style; it is
-not evidence of better performance. For analytical judgment, Agent Studio begins
-with a minimal functional candidate. Vivid exemplar treatment is more appropriate
-for creative work or grounded human simulation and remains optional.
+This prototype is an evaluation instrument, not an agent the user will retain. It
+exists only to determine whether persona-shaped specialization shows enough value
+to justify opening and personifying the role.
 
 ### Stage 7: Minimum viable work sample
 
-The work sample evaluates whether a candidate persona can perform its proposed job
-better than the in-house approach. It does not yet prove that the job improves the
-end-to-end outcome.
+The work sample evaluates whether the functional role prototype can perform its
+proposed job better than the in-house approach. It does not yet prove that the job
+improves the end-to-end outcome, and it does not select the final named persona.
 
 The default work sample uses the smallest representative slice from the Workflow
 Specification:
 
 1. The in-house assistant performs the job with the best appropriate playbook.
-2. The candidate persona performs the same job with the same model, information,
-   method, tools, and reasonable effort.
+2. The functional role prototype performs the same job with the same model,
+   information, tools, and reasonable effort.
 3. The user or evaluator compares two or three criteria tied to the intended
    persona effect, plus one important harm check.
 
@@ -370,19 +347,54 @@ parallel non-persona workflow by default.
 
 Work-sample outcomes are:
 
-- Candidate provisionally fills the specialist role.
+- Open the specialist role and proceed to hiring.
 - Keep the job in-house.
-- Bad fit: the candidate made the work worse.
+- Persona harm: the functional role made the work worse.
 - Useful only for narrower assignments.
-- Unclear: run one additional case or revise the candidate.
+- Unclear: run one additional case or revise the prototype.
 
 No meaningful lift and worse performance remain separate outcomes.
 
-### Stage 8: Construct the Persona Profile
+### Stage 8: Interview, hire, and construct the Persona Profile
 
-After the user selects and, where useful, evaluates a candidate through a work
-sample, Agent Studio finalizes the temporary candidate profile as the retained
-Persona Profile. It translates the Job Description into behavior:
+Every role that passes Stage 7 proceeds through this stage. Personification is
+mandatory for every specialist agent. Agent Studio converts the successful
+functional prototype into persona requirements, then presents two or three named,
+contrasting candidates who embody them.
+
+Prefer interpretations of recognizable real people, historical figures, or
+famous fictional characters whose documented traits make the role immediately
+understandable and memorable. Existing retained personas may also be considered.
+If no recognizable candidate fits without distortion, offer an original named
+persona that embodies the Job Description precisely. Never fall back to an
+unnamed specialist agent.
+
+For each candidate, explain briefly:
+
+- Who the person or character is.
+- What they are like.
+- Why their capabilities, experience, values, and methods fit the job.
+- What distinctive contribution they would make.
+- What risk, excess, or blind spot comes with hiring them.
+
+This is the **interview** phase. The user can:
+
+- Hire a candidate.
+- Ask a candidate job-relevant interview questions.
+- Reject one candidate or the entire slate.
+- Request new candidates with similar role fit.
+- Adjust a candidate in natural language.
+- Combine qualities from candidates.
+
+For example: "Warren Buffett, but more interested in emerging technology and
+therefore willing to take slightly more risk." Agent Studio rebuilds the candidate
+around that direction, presents the revised interpretation, and seeks approval
+again. The loop continues until the user hires a candidate or decides not to fill
+the role.
+
+After approval, Agent Studio constructs the retained Persona Profile in the
+candidate's recognizable character while preserving the behavioral substance of
+the Job Description:
 
 - Functional stance: optimization target, operating pressure, and trap to avoid.
 - Capabilities expressed as observable behavior with exclusions.
@@ -392,12 +404,20 @@ Persona Profile. It translates the Job Description into behavior:
 - Working procedure.
 - Output contract.
 - Boundaries and escalation.
-- Minimal identity cues when justified.
+- Name, identity, voice, and memorable character cues.
 - Re-anchoring instructions for long interactions.
 
 Demographic labels are off by default. Biography cannot manufacture capability
-or experience. Named exemplars and narrative identity are optional construction
-choices, not the default proof of quality.
+or experience. Real-person, historical, and fictional personas are explicitly
+labeled as interpretations. For judgment work, the interpretation is grounded in
+documented public positions or source material where feasible. The name and
+character make the role legible and memorable; they are not evidence that the
+role performs better.
+
+When more than one role is justified, repeat the interview separately for each
+open position. After all positions are filled, present a compact team card with
+each name, job, defining qualities, and contribution. The user may reopen any
+hire before approving the working arrangement.
 
 ### Stage 9: Produce the staffed workflow specification
 
@@ -477,11 +497,13 @@ For an existing skill or workflow:
 5. Establish existing outputs as the baseline where adequate evidence already
    exists; do not rerun work unnecessarily.
 6. Apply the Persona Evidence Gate to proposed additions and existing roles.
-7. Interview replacements or new candidates, and request work samples only where
-   justified.
-8. Give the approved staffed specification to Do-It for re-engineering,
+7. Use a functional role prototype and minimum viable work sample to decide
+   whether a new or replacement role should be opened.
+8. Present named candidates for every open role and let the user interview,
+   adjust, reject, replace, or hire them.
+9. Give the approved staffed specification to Do-It for re-engineering,
    execution, and verification.
-9. Compare the completed result with the existing baseline at a level
+10. Compare the completed result with the existing baseline at a level
    proportionate to cost and stakes.
 
 An existing panel is simply an existing workflow with multiple incumbent roles.
@@ -499,13 +521,21 @@ making the user manually transfer context:
 Then:
 
 > "Most jobs can remain in-house. One job matches a plausible persona use, so I
-> have written a Job Description and prepared three candidates for you to meet."
+> have written a Job Description. I will test a minimal functional version of the
+> role before asking you to hire anyone."
 
 Then:
 
-> "You selected and adjusted this candidate. Its work sample showed enough
-> value to fill the role provisionally. I am returning the staffed specification
-> to Do-It for implementation and execution."
+> "The role's work sample showed useful lift, so the position is open. Here are
+> three people who embody the job differently. You can interview, modify, reject,
+> or hire any of them."
+
+Then:
+
+> "You hired a Warren Buffett interpretation adjusted to be more interested in
+> emerging technology and somewhat more tolerant of risk. I have translated that
+> character into the complete Persona Profile and am returning the staffed
+> specification to Do-It for implementation and execution."
 
 Finally:
 
@@ -527,8 +557,9 @@ implementation plan will determine their exact paths and file formats.
 - Staffing Review
 - Persona Evidence Cards
 - Job Descriptions
-- Candidate slates and user adjustments
+- Functional role prototypes
 - Work-sample notes
+- Candidate slates and user adjustments
 - Persona Profiles
 - Staffed Workflow Specification
 - Do-It implementation and verification record
@@ -548,7 +579,7 @@ implementation plan will determine their exact paths and file formats.
 - Do not substitute simulated stakeholders for actual research or participation.
 - Do not create a panel when one role or no role is sufficient.
 - Do not run open debate by default.
-- Do not claim causal workflow improvement from a candidate work sample.
+- Do not claim causal workflow improvement from a functional role work sample.
 - Do not build a full parallel workflow unless cost, stakes, and user choice
   justify it.
 - Name persona harm explicitly and separately from no meaningful lift.
@@ -599,17 +630,20 @@ staffed workflow. Agent Studio then reviews actual contribution.
    automatically qualify for persona treatment.
 6. Job Descriptions distinguish capabilities, experience, values, methods,
    mandate, and delivery feasibility.
-7. The user can meet, interview, adjust, reject, replace, and request work samples
-   from candidate personas, including recognizable public or fictional
-   interpretations when appropriate.
-8. Default work samples use one bounded assignment and two approaches: the best
-   in-house playbook and the candidate persona.
-9. No-lift and persona-harm outcomes remain distinct.
-10. The second Do-It engagement creates the implementation plan, builds, runs,
+7. Default work samples use one bounded assignment and compare the best in-house
+   playbook with an anonymous functional prototype of the proposed role.
+8. Every role that passes its work sample receives two or three named candidates,
+   preferably recognizable real people, historical figures, or famous fictional
+   characters who embody the Job Description.
+9. The user can interview, hire, adjust, reject, or replace candidates until one
+   is approved; a precisely matched original named persona is always available
+   when no recognizable candidate fits.
+10. No-lift and persona-harm outcomes remain distinct.
+11. The second Do-It engagement creates the implementation plan, builds, runs,
     verifies, and packages the staffed workflow.
-11. Actual staffing performance is assessed only after execution; causal claims
+12. Actual staffing performance is assessed only after execution; causal claims
     require an appropriate counterfactual.
-12. Existing skills and workflows can be re-engineered through the same lifecycle
+13. Existing skills and workflows can be re-engineered through the same lifecycle
     without treating agents as the default solution.
 
 ## Non-goals
