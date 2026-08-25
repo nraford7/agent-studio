@@ -16,9 +16,15 @@ Recommend-only: the output is a report; the target is never modified.
 1. **Lenses generated in isolation** (not persona-swaps in one shared context)?
    [source: hard-rules.md #Generate lenses in strict isolation; #Never persona-swap in one shared context]
    Severity: HIGH. Fix: one isolated subagent per lens, fresh context each.
-2. **A dedicated critic / devil's-advocate present?**
-   [source: hard-rules.md #Anti-conformity is first-class]
-   Severity: HIGH. Fix: add a critic lens (steelman, then challenge).
+2. **Critic / devil's-advocate present when the recipe row calls for one?**
+   Score against the panel's `recipes.md` row (or infer the row from task
+   type): rows listing a critic (analytical judgment, creative direction,
+   artifact review) FAIL at HIGH without one; rows without a mandatory critic
+   (creative ideation, normative, forecasting) score N-A. No inferable recipe:
+   UNKNOWN.
+   [source: recipes.md table; hard-rules.md #Anti-conformity is first-class]
+   Severity: HIGH when the row requires it. Fix: add a critic lens (steelman,
+   then challenge).
 3. **Members genuinely heterogeneous** (stance/values), not surface variants?
    [source: hard-rules.md #Members must be genuinely heterogeneous]
    Severity: MED. Fix: re-author members to differ in stance/values, not tone.
@@ -65,7 +71,7 @@ Verdict: <e.g. "3 HIGH gaps: no critic, naive blend, shared-context lenses">
 | 1 | Isolation | PASS / FAIL / N-A / UNKNOWN | HIGH | <file/line/output> | <one line, if FAIL> |
 | ... | | | | | |
 
-Next: build with /agent-studio construct|ensemble
+Next: /agent-studio — door 2 treats this panel as incumbents and runs the staffing lifecycle.
 ```
 
 The verdict line leads with the count and names of HIGH gaps. N-A is for checks

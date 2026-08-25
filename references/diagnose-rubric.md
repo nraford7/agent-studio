@@ -30,22 +30,27 @@ judgment-laden.
 
 ## Map to a recipe
 
-A judgment-laden stage earns a panel ONLY if all three conditions hold:
-1. the task is defeasible/normative (no single recoverable answer);
-2. genuinely heterogeneous members are constructible (different stances/values,
-   not surface variants);
-3. the combine step can preserve disagreement.
-Cost sanity: a panel costs N+1 subagent runs — is this stage's decision worth
-that? A judgment-laden stage failing any condition gets "single strong pass"
-too.
+A judgment-laden stage is mapped through the Persona Evidence Gate
+(`evidence-gate.md`), not by judgment-ladenness alone:
 
-- JUDGMENT-LADEN stages passing the gate map to a row of `recipes.md` by use
-  case (analytical judgment, creative ideation, creative direction, strategy,
-  normative, forecasting, artifact/skill review). Name the row and the panel
-  shape.
-- MECHANICAL stages are marked **"single pass — do NOT ensemble"** with the
-  reason: on ground-truth tasks, debate is often a no-op or loses to simple
-  voting/self-consistency at higher cost. Adding agents here is waste.
+1. Classify the stage into ONE task family from evidence-gate.md; its
+   deterministic conclusion decides the recommendation.
+2. "Research supports trying this" families (creative divergence, value-laden
+   deliberation): recommend the matching `recipes.md` row IF genuinely
+   heterogeneous members are constructible and the combine step can preserve
+   disagreement; else "single strong pass".
+3. "Supported only for a narrower analogous use" / "Promising, but
+   experimental" families: recommend "in-house now; a role is possible via a
+   narrowed/blind work sample" — name the proof owed. Never recommend the
+   panel as if proven.
+4. "No research-backed reason" families (forecasting, factual/checkable/
+   procedural): mark **"single pass — do NOT ensemble"** with the reason: on
+   ground-truth tasks, debate is often a no-op or loses to simple
+   voting/self-consistency at higher cost. For forecasting, ensembling
+   EVIDENCE FRAMINGS in-house (recipes.md row) is fine; a persona hire is not
+   inferred.
+Cost sanity still applies: a panel costs N+1 subagent runs — is this stage's
+decision worth that?
 
 ## Existing multi-agent use
 
@@ -69,9 +74,9 @@ Write the report to `agent-studio-out/diagnosis-<slug>.md` in exactly this shape
 ```markdown
 # Diagnosis: <target>
 
-| Stage | Task type | Ensemble? | Recommended recipe | Rationale |
-|---|---|---|---|---|
-| <stage> | mechanical / judgment-laden | yes / no | <recipes.md row, or "single pass"> | <one line> |
+| Stage | Task type | Task family | Evidence conclusion | Ensemble? | Recommended recipe | Rationale |
+|---|---|---|---|---|---|---|
+| <stage> | mechanical / judgment-laden | <family, or —> | <conclusion, or —> | yes / no | <recipes.md row, or "single pass"> | <one line> |
 
 ## Where agents help
 <the judgment-laden stages worth a panel, each with its recipe row>
@@ -82,7 +87,7 @@ Write the report to `agent-studio-out/diagnosis-<slug>.md` in exactly this shape
 ## Gaps
 <missing critic, same-family adversary, no output-stage diversity check, etc.>
 
-Next: build with /agent-studio construct|ensemble
+Next: /agent-studio — door 2 (existing workflow) runs the full staffing lifecycle from this diagnosis.
 ```
 
 Recommend-only: no persona files are generated, nothing in the target is edited,
