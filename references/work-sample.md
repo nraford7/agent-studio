@@ -53,7 +53,8 @@ non-persona workflow by default.
 
 ## Outcomes
 
-Record in `work-samples/<role>/verdict.md` — exactly one of:
+Record in `work-samples/<role>/verdict.md` — exactly one of (tell the user the
+result in the warm phrasing from `voice.md`):
 
 - **Open the role** — proceed to hiring (Stage 8).
 - **Keep in-house** — no meaningful lift. Record what the playbook keeps.

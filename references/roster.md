@@ -36,6 +36,9 @@ Re-anchoring: <the one-line reminder that snaps them back in character on drift>
 
 ## Consent and privacy
 
+Ask these in the warm, plain voice of `voice.md` — a keep-or-let-go question
+should feel kind, never like paperwork.
+
 - CONSENT PRECEDES ANY WRITE. New hire: ask keep-or-let-go FIRST; create the
   file only on "keep". Existing roster persona: show the drafted track-record
   entry and append only after the user confirms; the user may edit or redact it.

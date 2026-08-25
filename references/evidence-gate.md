@@ -30,7 +30,8 @@ Each family maps to exactly one of four user-facing conclusions, verbatim:
 - **No research-backed reason to create a role.**
 
 The conclusion sets the proof the role owes. There is no discretion in this
-mapping.
+mapping. These four strings are internal keys — when you show one to the user,
+say it in the warm phrasing from `voice.md`.
 
 | Family | Conclusion (verbatim to user) | Proof required before hiring |
 |---|---|---|
