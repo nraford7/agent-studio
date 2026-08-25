@@ -112,8 +112,17 @@ runs the search. For each seat in the agreed direction:
 **Hires play their part.** Dispatched agents speak in their character's name
 and voice and are referred to by name in every report. Theatre never loosens
 rigor: the Output format, isolation rules, preambles, and lint stay binding
-regardless of who was hired. (Performance reviews of hires: a future
-iteration.)
+regardless of who was hired.
+
+**Performance review (end of every run that dispatched hires).** When a run's
+results are presented, include a short review per hire: what they contributed
+(findings kept, findings refuted, the dissent they defended), and what they
+missed. Zero kept findings is reported plainly — it may mean the seat, not the
+character, is wrong for this kind of topic; say which. For each temp
+hire/consultant, END the review with one question: keep them on the roster
+(`~/.claude/agent-roster/<name>.md`) or let them go. A roster persona carries a
+`## Track record` section appended after each run (topic, findings kept, one
+line on performance); future hiring slates read it.
 
 ### 3. Assemble
 From the chosen recipe row: set the members axis, size, topology, and combine mode;
