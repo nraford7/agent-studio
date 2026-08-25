@@ -1,15 +1,17 @@
 # agent-studio
 
-**Build AI agent personas. Assemble them into panels of genuinely different viewpoints. Combine what they say without averaging it into mush.**
+**Tell it what you're trying to achieve. It helps you design the agent, or team of agents, that will get you there.**
 
-agent-studio is a [Claude Code](https://claude.com/claude-code) skill for viewpoint diversity, and it works as a dialogue: it starts by understanding the goal you are trying to achieve, proposes the kind of mind (or panel of minds) that would actually help, discusses that direction with you, and only then builds. It constructs opinionated agent personas (stances, expertise, positions, identities), runs them as isolated ensembles on a question, and synthesizes their outputs while keeping the disagreements visible. It can also analyze an existing workflow and tell you where agents would help, and where they would be a waste of money.
+agent-studio is a [Claude Code](https://claude.com/claude-code) skill that builds agents around your goals. It works as a dialogue: first it understands what you are trying to do and what success would look like, then it proposes the kind of mind that would actually help ("for this decision you want a cost-obsessed operator, a brand-purist contrarian, and a critic"), you discuss and adjust, and only then does it build. Sometimes the right answer is one well-crafted agent. Sometimes it is a small panel. Sometimes it is "no agent at all, this task doesn't need one," and it will tell you that too.
 
-Every design rule in it comes from a research pass over the academic and practitioner literature on persona prompting, multi-agent ensembles, and perspective synthesis. The short version of that evidence:
+**Why build agents with personalities at all?** Because the research says a generic assistant is the weakest version of the model you are talking to. A language model learns thousands of characters from its training data; the default "helpful assistant" is just one of them, and everyone gets the same one. Giving an agent a real personality (a stance, expertise, opinions, things it refuses to do) points the model's intelligence at YOUR problem:
 
-- Personas change what a model concludes, not just its tone, and a single prompt style quietly homogenizes output.
-- Ensembles collapse toward consensus on their own, and more capable models conform more, so anti-conformity has to be engineered in.
-- Naive blending of diverse outputs flattens them back to the average; how you combine is a first-order design lever.
-- Panels only pay for themselves on judgment work. On tasks with one right answer, debate loses to a single strong pass at higher cost.
+- **Personas change what a model concludes, not just how it sounds.** The gap between the best and worst persona on the same task reached 38 percentage points in testing. Picking the right mind for the job is a real lever, not roleplay.
+- **The default voice makes everyone's output the same.** AI raises individual quality while flattening collective originality, because everyone draws from the same character. A distinct persona is how you get answers that don't sound like everyone else's.
+- **For judgment calls, several minds beat one, IF built right.** Different stances catch what a single view misses. But agent teams drift into agreement on their own, so this skill engineers against it: isolated members, a devil's-advocate, and syntheses that keep the disagreement visible instead of averaging it away.
+- **And sometimes an agent is waste.** On tasks with one right answer, a panel loses to a single strong pass at higher cost. The skill's diagnosis mode exists to say "not here."
+
+The full evidence base is in the repo (see [the research](#why-give-agents-personalities-the-research) below).
 
 ## What it does
 
