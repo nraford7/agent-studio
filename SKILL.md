@@ -67,23 +67,53 @@ Skip the asks only when the request already fully specifies both the goal and
 the shape, or when the run is non-interactive. Only after the direction is
 agreed does the flow move to Construct.
 
-### 2. Construct
-Build the persona(s), using `references/persona-template.md`:
-1. Draft the archetype criteria — what defines this lens.
-2. (optional) `python3 <skill-dir>/scripts/exemplar_find.py find --archetype "<archetype>"` to
-   surface exemplar LEADS (page titles + URLs). Resolve the leads into ~3
-   deliberately CONTRASTING real named people (a listicle title is a lead to
-   mine, not a person). Present the named people; the user picks.
-3. Ground from a chosen exemplar's corpus:
-   `python3 <skill-dir>/scripts/exemplar_find.py corpus --name "<name>" --url <u> [--url <u>] --out <dir>`,
-   then distill characteristic moves / voice / references into the persona. Corpus
-   grounding is **required (not optional)** when the archetype has no common
-   human/fiction precedent (steering cannot find a region that does not exist);
-   optional when a strong precedent exists. Label a named-exemplar persona an
-   interpretation, not the real person.
-4. Emit the persona in the Five-Element template + implicit identity cues, then run
-   the grep lint from `references/persona-template.md`. Fix any lint failure before
-   saving to `agent-studio-out/personas/<name>.md`.
+### 2. Construct (a hiring process)
+Personas are HIRED, not configured. The user is the hiring manager; the skill
+runs the search. For each seat in the agreed direction:
+
+1. **Write the job description.** Role title, mandate (what the seat optimizes
+   for and under what pressure), required skills, hard prohibitions. This is
+   the archetype criteria; it is recorded in `panel.md` beside the hire.
+2. **Check the retainer roster first.** `~/.claude/agent-roster/` holds
+   characters the user has kept on retainer from past hires. If one fits the
+   job description, present them first ("X is on retainer and fits — rehire,
+   or see new candidates?").
+3. **Present a slate of candidates.** 2-3 deliberately CONTRASTING candidates
+   who each genuinely fulfill the job description, drawn from real famous
+   people, historical figures, or well-known fictional characters (literature,
+   film, TV, comics). The recognizable package IS the point: a known name
+   carries values, style, and stances the user can identify with at a glance.
+   Each candidate: name · why they fit the job description · what their package
+   brings · one risk of hiring them.
+   `python3 <skill-dir>/scripts/exemplar_find.py find --archetype "<archetype>"`
+   surfaces LEADS when useful (a listicle title is a lead to mine, not a
+   person). In judgment mode prefer candidates with documented, citable
+   stances. Every hire is an INTERPRETATION of the public figure or character,
+   never the real person; the persona file opens with that label.
+4. **The interview.** One `AskUserQuestion` per seat: hire candidate A/B/C, or
+   direct an adjustment ("Rick Owens but less intense", "more like Coco
+   Chanel"). On an adjustment: rebuild the character with the change blended
+   in, present them back, re-offer the hire. Iterate until the seat is filled;
+   the user may also reject the whole slate and ask for fresh candidates.
+5. **Onboard the hire.** Ground from the exemplar's corpus when public work
+   exists and stakes are high:
+   `python3 <skill-dir>/scripts/exemplar_find.py corpus --name "<name>" --url <u> [--url <u>] --out <dir>`.
+   Corpus grounding is **required (not optional)** when the archetype has no
+   common human/fiction precedent (steering cannot find a region that does not
+   exist). Emit the persona in the Five-Element template, in the hire's name
+   and voice, run the grep lint from `references/persona-template.md`, fix any
+   failure, save to `agent-studio-out/personas/<name>.md`.
+6. **Consultants and the retainer.** A specialist needed mid-run that no seat
+   covers is a **temp hire / consultant**: same flow, compressed (one strong
+   candidate + accept/adjust). After any hire the user likes, offer to keep
+   them **on retainer**: copy the persona to `~/.claude/agent-roster/<name>.md`
+   for reuse across projects and skills.
+
+**Hires play their part.** Dispatched agents speak in their character's name
+and voice and are referred to by name in every report. Theatre never loosens
+rigor: the Output format, isolation rules, preambles, and lint stay binding
+regardless of who was hired. (Performance reviews of hires: a future
+iteration.)
 
 ### 3. Assemble
 From the chosen recipe row: set the members axis, size, topology, and combine mode;
@@ -97,16 +127,17 @@ Verify members differ in POSITIONS/conclusions, not just tone; for
 strategy/normative/value-laden recipes and opinionated creative lenses, each
 persona carries a Positions block per the template.
 
-**Cast card (skippable).** After `panel.md` is written, show the user a
-one-screen cast card: one line per member — name · stance · what it hunts or
-argues for · one signature "never". Then ONE `AskUserQuestion`: "Want to meet
-your panel before it stands?" with options: **Run/keep as-is (Recommended)**;
-**Get to know them** (show each full persona file, then re-offer); **Modify or
-swap a member** (rewrite via the Five-Element template, re-run the grep lint);
-**Design a new member** (construct + lint, add to `panel.md`). Iterate until
-approved. Skip silently when the run is non-interactive, the user gave a skip
-signal, or this cast was already confirmed this session. Skills BUILT by this
-skill should carry the same cast-card stage before their own dispatch.
+**Cast card (skippable).** After `panel.md` is written, show the user the team
+they hired, one screen: one line per member — name · role · what they hunt or
+argue for · one signature "never". Then ONE `AskUserQuestion`: "Want to meet
+your team before they start?" with options: **Keep the team (Recommended)**;
+**Meet them** (show each full persona file, then re-offer); **Renegotiate a
+hire** (an adjustment in the user's words — "less intense", "more Coco
+Chanel" — rebuild, re-lint, re-present); **Open a new seat** (job description +
+candidate slate + hire per Construct; offer the retainer afterwards). Iterate
+until approved. Skip silently when the run is non-interactive, the user gave a
+skip signal, or this cast was already confirmed this session. Skills BUILT by
+this skill should carry the same cast-card stage before their own dispatch.
 
 Generate-by-default stops here and hands the user these artifacts.
 
