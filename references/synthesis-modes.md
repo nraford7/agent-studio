@@ -43,6 +43,15 @@ model — prefer Reconcile when unsure.
 Count agreement across lenses, surface the majority answer, and flag disagreements.
 For recoverable-answer tasks where a single answer is expected.
 
+Paste-ready prompt:
+
+```
+You are tallying N independent lens answers to one question. Count agreement per
+distinct answer. Output: (1) the majority answer with its count, (2) every
+minority answer with its count and which lens held it, (3) a flag if any lens's
+reasoning suggests the majority may be wrong. Do not blend answers.
+```
+
 ## Selection
 
 A judge picks the single best lens output. Better-evidenced than blending for tasks
@@ -50,8 +59,38 @@ with a recoverable best answer AND a competent judge — but it **cannot exceed 
 best single candidate**, so never use it when you want an emergent combined answer.
 For open-ended lens synthesis, use Reconcile instead.
 
+Paste-ready judge prompt (recoverable-answer tasks only):
+
+```
+You are selecting the single best of N candidate outputs against the stated
+goal. Rank all N with one-line justifications, name the winner, and list what
+the winner MISSES that losing candidates contained (so the caller can graft).
+Do not merge candidates.
+```
+
+On creative rows the selector is the HUMAN per hard-rules.md #Guardrails switch
+by mode — never this judge prompt.
+
+## Diversity-preserving set / variance-aware aggregate
+
+Diversity-preserving (creative option sets, scenarios): emit the full
+de-duplicated SET — no winner, no merging; the human selects.
+Variance-aware aggregate (forecasting): report the center AND the spread AND the
+minority tail — never the mean alone.
+
 ---
 
-After synthesizing, measure diversity at the OUTPUT stage (the post-synthesis set),
-not only at generation. A large drop from generation-stage to output-stage diversity
-with no quality gain means the combiner flattened the panel — fix the combine step.
+After synthesizing, measure diversity at the OUTPUT stage, not only at
+generation. Two cases:
+
+- SET outputs (creative options, scenarios): run `diversity.py` across the set —
+  a large drop from generation-stage diversity with no quality gain means the
+  combiner flattened the panel.
+- SINGLE synthesis file (dissent-carrying recipes ONLY — a Vote or Selection
+  output legitimately has no minority section): run `diversity.py` over
+  [lens1..lensN, synthesis.md] and read the synthesis-vs-lens per-pair distances.
+  A dissent-CARRYING synthesis contains material from every lens, so it sits
+  roughly equidistant from all of them; FLATTENING shows when the synthesis is
+  markedly FARTHER from the outlier lens than from the majority cluster (the
+  dissent was dropped). Also grep synthesis.md for the labeled minority/dissent
+  sections — their absence is itself a FAIL.

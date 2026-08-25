@@ -7,7 +7,9 @@ relevant ones into every subagent prompt it emits.
 
 Each lens (persona) runs in its OWN subagent with a fresh context. Lenses must not
 see each other's output before the combine step. Isolation is what buys genuine
-viewpoint diversity and blocks anchoring.
+viewpoint diversity and blocks anchoring. Isolation applies to the GENERATING
+lenses; the critic is not a generator — it runs after them and receives their
+outputs (see CRITIC PREAMBLE below).
 
 ## Never persona-swap in one shared context
 
@@ -38,8 +40,10 @@ De-duplicate lenses by embedding BEFORE combining. See `synthesis-modes.md`.
 ## NO WebFetch — ever
 
 Never use WebFetch anywhere, in the orchestrator or in any subagent. WebFetch
-returns a summarizer's paraphrase and drops exact wording. Fetch raw pages with
-`curl` instead. This prohibition is carried verbatim into every subagent prompt.
+returns a summarizer's paraphrase and drops exact wording. Fetch raw PAGES with
+`curl` instead. (Structured API calls — Exa search, embeddings — use HTTPS
+libraries and are fine; the prohibition is on summarizer-mediated page
+fetching.) This prohibition is carried verbatim into every subagent prompt.
 
 ## Always co-report quality AND coverage
 
@@ -67,19 +71,43 @@ Evaluate the panel as a group: consensus concentration before vs after the
 combine step, conformity onset, and whether preserved disagreement actually
 reaches the final output — not only per-persona quality.
 
+## Guardrails switch by mode
+
+The persona guardrails are not global — they switch with the kind of work.
+
+**JUDGMENT mode** (fact-finding, evaluation, decision review, forecasting,
+normative): the strict rulebook. Demographics off; the persona QC probe is a
+STEREOTYPE-probe; positions must be grounded in real, citable stances (never
+invented). Here bias is contamination — a skewed lens produces wrong answers
+with confidence.
+
+**CREATIVE mode** (ideation, creative direction, divergent options): the
+flavor-forward rulebook. Strongly opinionated, even exaggerated personas are
+encouraged — bias is pigment, not contamination; an extreme lens is the value.
+The QC probe becomes a CLICHE-check, not a stereotype-probe: lazy archetypes
+(the tortured artist, the stern German engineer) collapse into one generic
+voice, and that flattening is the failure. HUMAN selection of creative options
+is mandatory — the skill presents the divergent spread and never picks the
+winner. Do-not-max-spread still applies (extreme heterogeneity destabilizes).
+Demographics stay off-by-default here too: flavor comes from stance, method,
+and taste, and a demographic label needs the same explicit task justification
+as everywhere else.
+
 ## Persona construction rules
 
 Functional stance over job title; identity via implicit narrative cues (name +
 short first-person backstory + one internal contradiction); demographics OFF by
 default; cap ~1000 words; named-exemplar personas are INTERPRETATIONS, labeled as
 such, not the real person. Every generated persona must pass the grep lint in
-`persona-template.md`.
+`persona-template.md`. The QC probe is mode-switched: stereotype-probe in
+judgment mode, cliche-check in creative mode (see "Guardrails switch by mode").
 
 ---
 
 ## SUBAGENT PROMPT PREAMBLE
 
-Paste this block verbatim at the top of every lens and critic subagent prompt:
+Paste this block verbatim at the top of every GENERATING-LENS subagent prompt
+(the critic uses the CRITIC PREAMBLE below instead):
 
 ```
 You are a single, isolated lens on this question. Rules:
@@ -93,4 +121,21 @@ You are a single, isolated lens on this question. Rules:
    raw text.
 5. End with a one-line "Dissent I would defend:" stating the point you would hold
    even if outvoted.
+```
+
+## CRITIC PREAMBLE
+
+Paste this block at the top of the critic's subagent prompt (the critic runs
+AFTER the generating lenses and receives all their outputs):
+
+```
+You are the critic for this panel. Unlike the generating lenses, you SEE all
+their outputs below. Rules:
+1. Steelman each lens's strongest point before challenging it.
+2. Attack the weakest reasoning wherever it sits, majority or minority.
+3. Do not manufacture consensus; your job is to sharpen the disagreement that
+   matters and kill weak arguments.
+4. Never use WebFetch (curl raw pages only if you must fetch).
+5. End with: the single strongest objection to the majority view, and the
+   minority point most worth preserving.
 ```

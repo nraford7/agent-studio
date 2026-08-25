@@ -10,11 +10,11 @@ construction and multi-agent synthesis (see Provenance).
 - **Construct** — build one well-formed persona from the Five-Element template, with
   an optional archetype -> contrasting-named-exemplars -> corpus grounding flow.
 - **Ensemble** — assemble a panel from the use-case recipe table and, on request,
-  run it: isolated lenses -> critic -> dissent-carrying synthesis -> diversity check.
+  run it: isolated lenses -> critic -> synthesis in the recipe's combine mode (dissent-carrying default) -> diversity check.
 - **Diagnose** (recommend-only) — point it at a skill directory or a described
   workflow; it maps the stages and reports where a panel helps vs where it is waste.
-- **Harden** (recommend-only) — audit an existing panel against the ten-point
-  anti-conformity / no-flatten checklist, with severities and fixes.
+- **Harden** (recommend-only) — audit an existing panel against the eleven-point
+  anti-conformity / no-flatten checklist, with severities, evidence, and fixes.
 
 ## The six-stage flow (construct / ensemble)
 
@@ -22,7 +22,7 @@ construction and multi-agent synthesis (see Provenance).
 2. **Construct** — archetype criteria -> optional contrasting named exemplars -> optional corpus -> persona in the Five-Element template.
 3. **Assemble** — set members / size / topology / combine mode; add a critic; write `panel.md` + `synthesis-prompt.md`.
 4. **Run** (optional) — one isolated subagent per lens, then the critic.
-5. **Synthesize** — de-duplicate, then dissent-carrying synthesis (never naive-mean-blend).
+5. **Synthesize** — de-duplicate, then combine via the recipe's mode (dissent-carrying is the default; never naive-mean-blend).
 6. **Emit + evaluate** — diversity at generation AND output stage; co-report quality + coverage.
 
 Runtime artifacts are written to `agent-studio-out/` in your current directory.
@@ -30,14 +30,16 @@ Runtime artifacts are written to `agent-studio-out/` in your current directory.
 ## Scripts
 
 - `scripts/exemplar_find.py`
-  - `find --archetype "fashion designer" [--n 3]` — surfaces contrasting named
-    exemplars as JSON lines `{name, contrast, url}`. Needs `EXA_API_KEY` (exits 20
-    with a clear message without it).
+  - `find --archetype "fashion designer" [--n 3]` — surfaces exemplar LEADS
+    (page titles + URLs, de-duplicated) as JSON lines `{name, contrast, url}`;
+    the skill's model layer resolves leads into actual named people. Needs
+    `EXA_API_KEY` (exits 20 with a clear message without it).
   - `corpus --name "Rick Owens" --url <u> [--url <u> ...] --out <dir>` — curls raw
     pages and writes stripped text per page (exit 21 if none fetched).
 - `scripts/diversity.py FILE1 FILE2 [...]` — mean pairwise semantic distance across
   text files. Uses OpenAI embeddings if `OPENAI_API_KEY` is set, otherwise a lexical
-  TF-IDF fallback (labeled "degraded (lexical)"). Never hard-fails.
+  TF-IDF fallback (labeled "degraded (lexical)"). Never fails for a missing API
+  key; exit 2 only on unusable inputs (<2 readable, tokenizable files).
 
 ## Environment (all optional; the skill degrades gracefully)
 

@@ -44,3 +44,26 @@ def test_never_fails_without_key(tmp_path):
     b.write_text("two")
     r = run([str(a), str(b)])
     assert r.returncode == 0
+
+
+def test_empty_files_not_maximal_diversity(tmp_path):
+    a = tmp_path / "a.txt"
+    a.write_text("")
+    b = tmp_path / "b.txt"
+    b.write_text("!!! ???")
+    r = run([str(a), str(b)])
+    assert r.returncode == 2
+    assert "usable" in (r.stderr + r.stdout).lower()
+
+
+def test_empty_file_skipped_but_rest_measured(tmp_path):
+    a = tmp_path / "a.txt"
+    a.write_text("")
+    b = tmp_path / "b.txt"
+    b.write_text("quarterly revenue and profit margins")
+    c = tmp_path / "c.txt"
+    c.write_text("avant garde sculpture in leather")
+    r = run([str(a), str(b), str(c)])
+    assert r.returncode == 0
+    out = json.loads(r.stdout)
+    assert out["n"] == 2

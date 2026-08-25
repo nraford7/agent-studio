@@ -2,10 +2,16 @@
 
 Audit an existing panel/ensemble against the failure modes the evidence documents,
 chiefly consensus-collapse and synthesis-flattening. Score every item PASS / FAIL /
-N-A with the default severity given, and give each FAIL a one-line fix.
+N-A / UNKNOWN with the default severity given, and give each FAIL a one-line fix.
+Evidence rule: every verdict cites its evidence (file/line/output). Declared
+intent (panel.md) is NOT evidence of runtime behavior — if only intent exists
+for a runtime check, score UNKNOWN, not PASS.
+Mode note: a flavor-forward creative persona (strong opinions, exaggeration) is
+NOT a bias failure — but a CLICHE persona is (archetype collapse flattens
+diversity). See hard-rules.md #Guardrails switch by mode.
 Recommend-only: the output is a report; the target is never modified.
 
-## The ten checks
+## The eleven checks
 
 1. **Lenses generated in isolation** (not persona-swaps in one shared context)?
    [source: hard-rules.md #Generate lenses in strict isolation; #Never persona-swap in one shared context]
@@ -19,9 +25,12 @@ Recommend-only: the output is a report; the target is never modified.
 4. **Different model families for high-stakes normative panels?**
    [source: hard-rules.md #Different model families for high-stakes normative panels; recipes.md #Normative / ethics row]
    Severity: MED. Fix: move at least the adversary to another model family.
-5. **Combine mode is dissent-carrying** (not naive-mean-blend / summarize-to-consensus)?
-   [source: hard-rules.md #Never naive-mean-blend; synthesis-modes.md #Reconcile]
-   Severity: HIGH. Fix: switch the combine prompt to majority + labeled dissents.
+5. **Combine mode matches THE RECIPE'S declared mode?** Score against the recipe
+   row, not against dissent-carrying universally. Mismatch = FAIL (HIGH when the
+   recipe called for dissent-carrying, MED otherwise); match = PASS. No declared
+   recipe (prose/grep ingest): infer the row from task type, or score UNKNOWN.
+   [source: recipes.md table; synthesis-modes.md; hard-rules.md #Never naive-mean-blend]
+   Severity: HIGH/MED per above. Fix: switch the combine prompt to the recipe's mode.
 6. **De-duplication before combining?**
    [source: hard-rules.md #Never naive-mean-blend; synthesis-modes.md #"De-duplicate by embedding BEFORE combining"]
    Severity: MED. Fix: embed + collapse near-duplicate lenses before the combiner.
@@ -37,6 +46,10 @@ Recommend-only: the output is a report; the target is never modified.
 10. **Population-level check** (individually-aligned members can be collectively misaligned)?
     [source: hard-rules.md #Vet the population, not just each member]
     Severity: MED. Fix: check consensus concentration and whether dissent survives to the output.
+11. **Drift management for REUSED personas** (re-anchoring plan; identity kept
+    separate from task context)? N-A for one-shot panel lenses.
+    [source: persona-template.md #Long-running use (drift)]
+    Severity: LOW. Fix: re-inject the persona file at intervals; re-anchor, do not reset.
 
 ## Report template
 
@@ -47,13 +60,15 @@ Write the report to `agent-studio-out/hardening-<slug>.md` in exactly this shape
 
 Verdict: <e.g. "3 HIGH gaps: no critic, naive blend, shared-context lenses">
 
-| # | Check | Result | Severity | Fix |
-|---|---|---|---|---|
-| 1 | Isolation | PASS / FAIL / N-A | HIGH | <one line, if FAIL> |
-| ... | | | | |
+| # | Check | Result | Severity | Evidence | Fix |
+|---|---|---|---|---|---|
+| 1 | Isolation | PASS / FAIL / N-A / UNKNOWN | HIGH | <file/line/output> | <one line, if FAIL> |
+| ... | | | | | |
 
 Next: build with /agent-studio construct|ensemble
 ```
 
 The verdict line leads with the count and names of HIGH gaps. N-A is for checks
-that genuinely do not apply (e.g. no debate round exists, so no round cap needed).
+that genuinely do not apply (e.g. no debate round exists, so no round cap
+needed). UNKNOWN is for checks that cannot be verified from available artifacts
+— stated intent alone earns UNKNOWN, never PASS.

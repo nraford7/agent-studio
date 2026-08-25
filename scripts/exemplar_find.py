@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
-"""exemplar_find: archetype -> contrasting named exemplars (find) and corpus pull (corpus).
+"""exemplar_find: archetype -> exemplar LEADS (find) and corpus pull (corpus).
 
 Two subcommands (mutually exclusive):
-  find    --archetype STR [--n INT] [--max-usd FLOAT]   -> JSON lines {name, contrast, url}
-  corpus  --name STR --url U [--url U ...] --out DIR     -> writes <out>/<slug>-NN.txt
+  find    --archetype STR [--n INT]                  -> JSON lines {name, contrast, url}
+  corpus  --name STR --url U [--url U ...] --out DIR -> writes <out>/<slug>-NN.txt
 
-All web access is via `curl` (raw pages). NO WebFetch, ever — a summarizer layer
-would drop the exact wording a persona corpus needs.
+`find` returns LEADS: page titles + URLs from search, de-duplicated. The caller
+(the skill's model layer) must resolve leads into actual named people — a title
+like "The 10 Most Iconic Designers" is a lead to mine, not a person.
+
+Web access: page fetching uses `curl` (raw pages); API calls (Exa search) use
+urllib over HTTPS — neither is WebFetch, which is never used (a summarizer layer
+would drop the exact wording a persona corpus needs).
 """
 import argparse
 import html as _html
@@ -66,7 +71,31 @@ def search_exemplars(archetype: str, n: int, api_key: str) -> list:
         contrast = (hl[0].strip() if hl else "")[:160]
         if title and url:
             out.append({"name": title[:80], "contrast": contrast, "url": url})
-    return out[:n]
+    return dedupe_leads(out)[:n]
+
+
+def positive_int(v):
+    i = int(v)
+    if i < 1:
+        raise argparse.ArgumentTypeError("--n must be >= 1")
+    return i
+
+
+def dedupe_leads(rows: list) -> list:
+    """Drop leads that duplicate a kept lead's domain AND normalized title."""
+    import urllib.parse
+
+    kept = []
+    seen = set()
+    for r in rows:
+        domain = urllib.parse.urlparse(r.get("url", "")).netloc.lower()
+        norm = re.sub(r"[^a-z0-9]+", "", (r.get("name") or "").lower())[:40]
+        key = (domain, norm)
+        if key in seen:
+            continue
+        seen.add(key)
+        kept.append(r)
+    return kept
 
 
 def _slug(s: str) -> str:
@@ -112,8 +141,7 @@ def main(argv=None) -> int:
     sub = p.add_subparsers(dest="cmd", required=True)
     f = sub.add_parser("find")
     f.add_argument("--archetype", required=True)
-    f.add_argument("--n", type=int, default=3)
-    f.add_argument("--max-usd", type=float, default=0.5)
+    f.add_argument("--n", type=positive_int, default=3)
     c = sub.add_parser("corpus")
     c.add_argument("--name", required=True)
     c.add_argument("--url", action="append", required=True)

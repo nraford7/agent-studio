@@ -68,3 +68,19 @@ def test_corpus_exit_21_when_nothing(tmp_path):
         type("A", (), {"name": "X", "url": ["http://x"], "out": str(tmp_path / "o")})()
     )
     assert rc == 21
+
+
+def test_n_zero_rejected():
+    r = run(["find", "--archetype", "x", "--n", "0"])
+    assert r.returncode != 0 and r.returncode != 20
+
+
+def test_dedupe_same_domain_and_title():
+    m = _load()
+    rows = [
+        {"name": "Rick Owens Interview", "contrast": "", "url": "https://vogue.com/a"},
+        {"name": "Rick Owens interview", "contrast": "", "url": "https://vogue.com/b"},
+        {"name": "Chanel at 100", "contrast": "", "url": "https://ft.com/c"},
+    ]
+    out = m.dedupe_leads(rows)
+    assert len(out) == 2

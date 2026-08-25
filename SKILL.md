@@ -36,6 +36,8 @@ Read and obey `references/hard-rules.md`. The essentials:
 - **NO WebFetch anywhere** — `curl` raw pages only; carry this into every subagent
   prompt you emit.
 - Always co-report a **quality note AND a coverage/diversity note**, never one scalar.
+- **Guardrails switch by mode:** strict rulebook for judgment work, flavor-forward
+  for creative work (see `references/hard-rules.md#Guardrails switch by mode`).
 
 ## The six stages
 
@@ -49,11 +51,12 @@ specifies the shape, or if the run is non-interactive.
 ### 2. Construct
 Build the persona(s), using `references/persona-template.md`:
 1. Draft the archetype criteria — what defines this lens.
-2. (optional) `python3 scripts/exemplar_find.py find --archetype "<archetype>"` to
-   surface ~3 deliberately CONTRASTING real named exemplars, each with a source URL.
-   Present them; the user picks.
+2. (optional) `python3 <skill-dir>/scripts/exemplar_find.py find --archetype "<archetype>"` to
+   surface exemplar LEADS (page titles + URLs). Resolve the leads into ~3
+   deliberately CONTRASTING real named people (a listicle title is a lead to
+   mine, not a person). Present the named people; the user picks.
 3. Ground from a chosen exemplar's corpus:
-   `python3 scripts/exemplar_find.py corpus --name "<name>" --url <u> [--url <u>] --out <dir>`,
+   `python3 <skill-dir>/scripts/exemplar_find.py corpus --name "<name>" --url <u> [--url <u>] --out <dir>`,
    then distill characteristic moves / voice / references into the persona. Corpus
    grounding is **required (not optional)** when the archetype has no common
    human/fiction precedent (steering cannot find a region that does not exist);
@@ -68,14 +71,20 @@ From the chosen recipe row: set the members axis, size, topology, and combine mo
 add a critic (devil's-advocate) unless the recipe says otherwise; for high-stakes
 normative panels, offer different-model-family members (note in `panel.md` if
 unavailable). Write `agent-studio-out/panel.md` (members, size, topology, combine
-mode, recipe row) AND `agent-studio-out/synthesis-prompt.md` (the paste-ready
-dissent-carrying prompt from `references/synthesis-modes.md`). Generate-by-default
-stops here and hands the user these artifacts.
+mode, recipe row) AND `agent-studio-out/synthesis-prompt.md` carrying the
+paste-ready prompt FOR THE RECIPE'S COMBINE MODE from
+`references/synthesis-modes.md` (dissent-carrying only when the recipe says so).
+Verify members differ in POSITIONS/conclusions, not just tone; for
+strategy/normative/value-laden recipes and opinionated creative lenses, each
+persona carries a Positions block per the template. Generate-by-default stops
+here and hands the user these artifacts.
 
 ### 4. Run (only when asked)
 Dispatch one **isolated subagent per lens**, each prompt opening with the SUBAGENT
 PROMPT PREAMBLE from `references/hard-rules.md`, then the persona and the question.
-Then dispatch the critic. Write each lens output to
+THEN dispatch the critic: the critic is NOT isolated from the outputs — the critic receives all lens outputs and uses the CRITIC PREAMBLE from
+`references/hard-rules.md` (isolation applies to the generating lenses only).
+Write each lens output and the critic's output to
 `agent-studio-out/run-<timestamp>/<lens>.md`.
 
 ### 5. Synthesize
@@ -85,11 +94,22 @@ minority and unique findings). Never naive-mean-blend. Write
 `agent-studio-out/run-<timestamp>/synthesis.md`.
 
 ### 6. Emit + evaluate
-Run `python3 scripts/diversity.py` over the lens outputs (generation stage) AND over
-the post-synthesis result set (output stage); write
-`agent-studio-out/run-<timestamp>/diversity.md` reporting both, so a large drop
-without a quality gain flags flattening at the selector. Report back a quality note
-AND the coverage/diversity note — never one scalar.
+Run `python3 <skill-dir>/scripts/diversity.py` over the lens outputs (generation
+stage). Then measure the OUTPUT stage, two cases:
+- SET outputs (creative options, scenarios): run diversity.py across the set; a
+  large drop from generation-stage diversity with no quality gain flags
+  flattening.
+- SINGLE synthesis.md from a DISSENT-CARRYING recipe: run diversity.py over
+  [all lens outputs + synthesis.md] and read the synthesis-vs-lens per-pair
+  distances (the `pairs` array; the outlier lens = the one farthest from the
+  others in the generation-stage pairs). Flattening = the synthesis is markedly
+  FARTHER from that outlier lens than from the majority cluster (the dissent was
+  dropped); roughly equidistant = dissent carried. ALSO grep synthesis.md for
+  the labeled "Minority" / dissent sections — absence = FAIL. These two checks
+  apply ONLY to dissent-carrying recipes; a Vote or Selection output legitimately
+  has no minority section and tracks its winning lens.
+Write `agent-studio-out/run-<timestamp>/diversity.md` reporting both stages.
+Report back a quality note AND the coverage/diversity note — never one scalar.
 
 ## Mode: Diagnose (recommend-only)
 
@@ -118,8 +138,9 @@ Audit an existing panel/ensemble against `references/harden-checklist.md`.
    files for agent-dispatch patterns (Agent tool calls, subagent prompts,
    "dispatch", "panel", "ensemble") and audit those sites; else ask for a prose
    description of the panel.
-2. **Run the ten checks**, scoring each PASS / FAIL / N-A with the checklist's
-   default severity and a one-line fix per FAIL.
+2. **Run the eleven checks**, scoring each PASS / FAIL / N-A / UNKNOWN with the
+   checklist's default severity, an Evidence citation per verdict, and a one-line
+   fix per FAIL (declared intent is not evidence — see the checklist).
 3. **Emit** `agent-studio-out/hardening-<slug>.md` per the checklist's report
    template, leading with the verdict line (count + names of HIGH gaps).
 
@@ -127,7 +148,13 @@ Recommend-only: report, never rewrite. End with the build pointer.
 
 ## Scripts
 
-- `scripts/exemplar_find.py find|corpus` — archetype -> contrasting named exemplars,
-  and corpus pull (curl only). Needs `EXA_API_KEY` for `find` (exits 20 without it).
-- `scripts/diversity.py FILE...` — mean pairwise semantic distance (OpenAI embeddings
-  if `OPENAI_API_KEY`, else a lexical fallback; never hard-fails).
+Locating the scripts: they live in THIS skill's directory, not the user's cwd.
+Resolve `<skill-dir>` = the base directory containing this SKILL.md (reported
+when the skill loads) and invoke `python3 <skill-dir>/scripts/...`.
+
+- `exemplar_find.py find|corpus` — archetype -> exemplar LEADS (titles + URLs the
+  model layer resolves into named people), and corpus pull (pages via curl).
+  Needs `EXA_API_KEY` for `find` (exits 20 without it).
+- `diversity.py FILE...` — mean pairwise semantic distance (OpenAI embeddings if
+  `OPENAI_API_KEY`, else a lexical fallback). Never fails for a missing API key;
+  exit 2 only on unusable inputs.

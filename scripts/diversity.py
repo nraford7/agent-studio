@@ -2,12 +2,15 @@
 """diversity: mean pairwise semantic distance across text files.
 
 Uses OpenAI embeddings when OPENAI_API_KEY is set and reachable, otherwise falls
-back to a stdlib TF-IDF cosine (labeled "lexical (degraded)"). It NEVER hard-fails
-on a missing key — a diversity number is always produced so a run can report it.
+back to a stdlib TF-IDF cosine (labeled "lexical (degraded)"). It never fails for
+a missing API key (falls back to lexical); exit 2 only on unusable inputs (<2
+readable, tokenizable files).
 
-Run it at BOTH the generation stage (lens outputs) and the output stage
-(post-synthesis set): a large drop with no quality gain flags flattening at the
-selector.
+Run it at the generation stage (across lens outputs) and at the output stage. For
+a SET output (creative options, scenarios) run it across the set. For a SINGLE
+synthesis file, run it over [lens1..lensN, synthesis] and read the synthesis-vs-
+lens per-pair distances: flattening shows when the synthesis is markedly FARTHER
+from the outlier lens than from the majority cluster (the dissent was dropped).
 """
 import json
 import math
@@ -98,6 +101,21 @@ def main(argv=None) -> int:
         print("need at least 2 readable files to measure diversity", file=sys.stderr)
         return 2
     argv = paths
+    # Zero-vector guard: files with no tokens would read as maximal diversity.
+    kept_p, kept_t = [], []
+    for p, t in zip(argv, texts):
+        if _tokens(t):
+            kept_p.append(p)
+            kept_t.append(t)
+        else:
+            print(f"skip (no tokens): {p}", file=sys.stderr)
+    argv, texts = kept_p, kept_t
+    if len(texts) < 2:
+        print(
+            "need at least 2 usable (tokenizable) files to measure diversity",
+            file=sys.stderr,
+        )
+        return 2
     vecs = _openai_vectors(texts)
     backend = "openai"
     if vecs is None:

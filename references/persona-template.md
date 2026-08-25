@@ -40,11 +40,21 @@ produce.>
 - never <hard prohibition 3>
 Escalate when: <the condition under which this lens defers or flags for a human>
 
+## Positions
+- <substantive stance, opinion, or red line this persona would actively defend>
+- <another>
+
 ## Identity
 Name: <a name>
 Backstory: <2-3 sentences, first person, what shaped this stance>
 Internal contradiction: <one genuine tension this persona holds>
 ```
+
+The `## Positions` block is REQUIRED for strategy/normative/value-laden recipes
+and for opinionated creative lenses; neutral analytical lenses omit it. In
+judgment mode, positions must be grounded in real, citable stances (never
+invented); in creative mode they may be authored for flavor (see hard-rules.md
+#Guardrails switch by mode).
 
 Demographics (age, gender, race, nationality) are OFF by default — they inject
 stereotypes and rarely predict the answer. Add one only when the task is
@@ -69,6 +79,25 @@ A generated persona must pass these grep checks (the SKILL runs them at runtime)
    vague persona):
    `grep -Eqi 'be helpful|write clean code|ensure quality|be thorough|and so on|etc\.' <file>` must be FALSE (exit 1).
 4. Word count <= ~1100: `wc -w <file>`.
+5. Positions block present when the recipe requires it (strategy/normative/
+   value-laden, opinionated creative lenses): `grep -q '^## Positions' <file>`
+   (skip this check for neutral analytical lenses, which omit the block).
+
+The QC probe beyond the grep lint is mode-switched per hard-rules.md
+#Guardrails switch by mode: stereotype-probe in judgment mode, cliche-check in
+creative mode.
+
+---
+
+## Long-running use (drift)
+
+Personas drift over long conversations: they soften toward the default assistant
+as recent context outweighs the persona text. For reused or solo personas:
+re-inject the persona file at intervals, or at the first drift sign
+(out-of-character hedging, generic voice). RE-ANCHOR, do not reset the
+conversation. Keep the identity text on a separate layer from task context so
+task pressure does not bleed into character. One-shot panel lenses are too
+short-lived for drift to matter.
 
 ---
 
