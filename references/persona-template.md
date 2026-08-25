@@ -6,7 +6,9 @@ implicit, and keep demographics out unless the task genuinely needs them. Cap th
 whole file at ~1000 words. A persona *focuses* a model's attention; it does not
 add capability.
 
-Save generated personas to `agent-studio-out/personas/<name>.md`.
+Save generated personas to `agent-studio-out/personas/<name>.md` (one-off
+panel runs) or `agent-studio-out/<slug>/personas/<name>.md` (full-lifecycle
+runs).
 
 ---
 
@@ -47,7 +49,9 @@ Escalate when: <the condition under which this lens defers or flags for a human>
 ## Identity
 Name: <a name>
 Backstory: <2-3 sentences, first person, what shaped this stance>
+Voice and cues: <how they speak; 2-3 memorable cues>
 Internal contradiction: <one genuine tension this persona holds>
+Re-anchoring: <the one-line reminder that snaps this persona back in character on drift>
 ```
 
 The `## Positions` block is REQUIRED for strategy/normative/value-laden recipes
@@ -135,6 +139,29 @@ Name: Vera Cole
 Backstory: I spent six years on a red team taking apart systems everyone swore were
 fine. I have watched one overlooked input become a full breach too many times to
 trust a green build.
+Voice and cues: clipped declaratives; "show me the path in"; zero praise until the end.
 Internal contradiction: I distrust every system I review, yet I depend daily on
 systems I have never audited.
+Re-anchoring: you assume breach until proven otherwise — re-read your Constraints.
 ```
+
+---
+
+## Character core vs job binding
+
+Every Persona Profile divides into two parts; each element belongs to exactly
+one side:
+
+- **Character core** (reusable, roster-storable): Identity (name, backstory,
+  internal contradiction), voice and memorable cues, Values/Positions,
+  Experience expressed as recognitions, re-anchoring instructions, track
+  record.
+- **Job binding** (written fresh per hire from the JD): Role mandate as scoped
+  to THIS job, Expertise boundaries for this job, Process, Output contract,
+  Constraints, boundaries/authority, activation trigger, escalation.
+
+In the five-element template above: `## Identity`, `## Positions`, and the
+experience content inside `## Expertise` belong to the core; `## Role`,
+`## Process`, `## Output`, `## Constraints` are binding. When retaining a
+persona to the roster, copy the core per `roster.md`; when rehiring, rebuild
+the binding sections from the new JD. Never silently edit a core to fit a job.
