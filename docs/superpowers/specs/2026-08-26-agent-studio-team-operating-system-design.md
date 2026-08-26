@@ -49,6 +49,8 @@ During routing, the user chooses or confirms how durable the result should be:
 
 This choice controls packaging, review, and promotion requirements. It is not a fifth way to start.
 
+**Durability gate.** The heavy machinery introduced by this integration—the methodology kernel and overlays, `methodology-selection.md`, the Team Charter, the `team.json` manifest, and `scripts/team_validate.py`—activates only for the two durable outputs: **reusable staffed workflow** and **standing team or panel**. The three lightweight outputs—**in-house playbook**, **solo specialist**, and **temporary one-off panel**—run the existing lean lifecycle untouched: no charter step, no manifest, no team validator. This keeps the fast, warm path ("get N perspectives on X") frictionless and confines the added structure to teams that must persist and be re-entered.
+
 ### Ownership model
 
 Agent Studio uses two levels of identity:
@@ -64,7 +66,7 @@ A team package references global cores but owns its bindings, charter, methodolo
 
 Add a versioned `methodologies/kernel.md`, adapted with attribution from Agent Designer. It defines the universal operating rules for staffed work:
 
-1. the facilitator orchestrates and does not silently become an analyst;
+1. the facilitator orchestrates; whenever two or more contributors work in parallel it never also analyzes—a coordinator that both runs the panel and weighs in anchors every other voice to its own view, so if analysis is missing there, cast a seat rather than widening the facilitator. On solo or small runs with no parallel panel to bias, the facilitator may analyze directly;
 2. contributors work independently before convergence;
 3. disagreement is preserved as signal;
 4. exposure to other contributors is progressive and intentional;
@@ -93,6 +95,8 @@ Add three initial overlays:
 
 Each overlay defines phases, artifacts, handoffs, checkpoints, budgets, and task-family annotations. No overlay pre-staffs a persona or guarantees that a specialist is required.
 
+These three are a starter set inherited from Agent Designer's analytical-consulting lineage. Studio's own most common recipes—forecasting (variance-aware), creative divergence, and artifact/skill review—have no overlay yet and run kernel-only until authored. That gap is known and acceptable at launch; adding those overlays is backlog, not a blocker.
+
 The overlays create different staffing implications:
 
 - **Scenario planning** may justify creative or value-bearing perspectives when divergent authored worlds materially improve the result.
@@ -103,7 +107,7 @@ Stage 3 produces `methodology-selection.md`, recording the kernel version, chose
 
 ## Team Charter
 
-Stage 8 begins with a Team Charter after roles have passed the evidence gate and before candidates are presented. The charter confirms the organization—not the people—and records:
+For durable outputs (reusable staffed workflow or standing team), Stage 8 begins with a Team Charter after roles have passed the evidence gate and before candidates are presented; lightweight outputs skip it per the durability gate. The charter confirms the organization—not the people—and records:
 
 - purpose and durability;
 - selected kernel and overlays;
@@ -133,11 +137,13 @@ Every hired specialist is compiled from three distinct layers:
 
 Stable biographical knowledge belongs in the core. Material that exists because of the current assignment belongs in the local retrieval kit. This separation prevents a character from being rewritten merely to fit a new job.
 
+The domain retrieval kit is operational scaffolding—what this seat searches and how it phrases queries—not evidence. Rich vocabulary, fluent queries, and named methods make an answer *sound* expert without making it more correct; they never count toward the evidence gate and never substitute for the work sample. Vocabulary is not proof. `references/evidence-gate.md` and `references/hard-rules.md` must state this explicitly so no reader mistakes retrieval-kit richness for demonstrated capability.
+
 ### Persona mode switch
 
 The compiler explicitly chooses a mode:
 
-**Judgment mode** is stance-first and compact. It uses grounded public positions when a real character is chosen, omits irrelevant demographics, and checks for stereotyping, motivated reasoning, and borrowed authority. Character richness never substitutes for a qualifying experiment or sample.
+**Judgment mode** is stance-first and compact. It uses grounded public positions when a real character is chosen, omits irrelevant demographics, and checks for stereotyping, motivated reasoning, and borrowed authority. Character richness never substitutes for a qualifying experiment or sample. For a named real-person hire it adds a caricature probe: judge whether the persona reads as the actual, self-contradicting individual or as a flattened, one-note version of them—if it is purer and more internally consistent than the real person would be, redraft. Score persona fidelity with the name hidden, because a recognizable name inflates the judgment through memorization rather than fit.
 
 **Creative mode** permits richer texture, taste, authored positions, formative experience, stronger theatricality, and opinionated language. It adds a cliché check and requires human selection when subjective quality is central.
 
@@ -268,7 +274,7 @@ Standing teams then use the existing probation and performance-review mechanisms
 5. **Job Description** — adds methodology needs, overlay obligations, authority, and package interfaces.
 6. **Role Prototype** — remains anonymous and tests the role rather than a character.
 7. **Work-Sample Qualification** — remains anonymous and records pass, fail, or redesign evidence.
-8. **Persona and Hiring** — begins with the Team Charter, then uses the full real-character candidate and interview process plus the three-layer compiler.
+8. **Persona and Hiring** — for durable outputs, begins with the Team Charter (lightweight outputs skip it); then uses the full real-character candidate and interview process plus the three-layer compiler.
 9. **Staffed Specification** — adds kernel, overlays, durability, progressive exposure, checkpoints, and the package contract.
 10. **Do-It Handoff** — implements and validates the team or skill; it does not depend on a Pi-specific runtime and does not perform the user's substantive job.
 11. **Performance Review** — evaluates contribution, drift, methodology effectiveness, promotion, lifecycle status, and manifest updates.
@@ -395,7 +401,7 @@ The integration is complete when:
 4. Recognizable real, historical, and fictional characters remain supported with responsible interpretation labels.
 5. Every personified seat still passes evidence, job-description, prototype, and work-sample gates.
 6. Staff-neutral methodology selection happens before hiring.
-7. The Team Charter is approved separately from candidate selection.
+7. For durable outputs, the Team Charter is approved separately from candidate selection; lightweight outputs run without a charter.
 8. Persona records cleanly separate binding, core, and retrieval kit.
 9. Judgment and creative persona modes have different safeguards.
 10. Standing and reusable teams have manifests, local discovery, run structure, validation, and lifecycle status.
