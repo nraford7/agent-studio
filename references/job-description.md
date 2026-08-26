@@ -31,6 +31,8 @@ Write to `agent-studio-out/<slug>/jds/<role>.md`:
 - Boundaries and authority: <what it may decide alone, what it may not>
 - Inputs / outputs / handoffs / escalation: <exact artifacts and conditions>
 - Delivery feasibility: <model, tools, information, access available? any blocker>
+- Methodology needs: <kernel/overlay phases this role participates in, if any — from methodology-selection.md; "none" if outside a durable methodology>
+- Package interfaces: <for a durable output: inputs/outputs and authority as they appear in the team package; "n/a" for lightweight outputs>
 - Proof of value: <what the work sample or waiver must show> — Possible harm: <...>
 - Review condition: <what triggers the Stage 11 keep/narrow/revise/retire decision>
 ```

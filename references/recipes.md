@@ -20,8 +20,23 @@ naive-mean-blend** the results (see `synthesis-modes.md`). Panel size beyond ~6
 generators mostly adds cost, not coverage, except forecasting where extra
 independent samples help.
 
-The "Artifact / skill review" row serves the DIAGNOSE mode's stage mapping: when a
-diagnosed workflow contains a review/audit stage, this is the recipe it lands on.
+The "Artifact / skill review" row serves the Existing-workflow path's review stage
+(legacy "diagnose"): when a reviewed workflow contains a review/audit stage, this
+is the recipe it lands on.
 
 Creative rows run under the flavor-forward guardrails; judgment rows under the
 strict rulebook. See hard-rules.md #Guardrails switch by mode.
+
+## Overlays and progressive exposure
+
+For a **durable** result (reusable staffed workflow or standing team), a recipe
+may sit inside a methodology overlay (`methodologies/overlays/`) that adds phases,
+artifacts, and checkpoints on top of the row above — scenario-planning,
+terrain-mapping, or root-cause. The overlay is staff-neutral: it never pre-staffs
+a persona. Lightweight panels use the row alone, no overlay.
+
+When more than three generators run in parallel, or a row uses more than one
+round, apply **progressive exposure** (`hard-rules.md`): isolated outputs →
+summaries + dissent → clustered reading → full transcripts only if integration
+needs them. Small panels (the common one-off) skip staging and generate in one
+isolated round.

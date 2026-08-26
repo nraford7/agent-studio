@@ -51,6 +51,13 @@ Read and obey `references/hard-rules.md`. The essentials:
   flavor-forward for creative work (`references/hard-rules.md`).
 - Persona harm is always named separately from "no meaningful lift".
 - The user owns candidate selection, adjustments, and final taste/value calls.
+- **Durability gate.** The heavy team machinery (methodology kernel + overlays,
+  `methodology-selection.md`, the Team Charter, the `team.json` manifest, and
+  `scripts/team_validate.py`) applies ONLY to reusable/standing outputs; an
+  in-house playbook, a solo specialist, and a one-off panel stay on the lean
+  lifecycle. See "Durable teams" below.
+- **Methodology is staff-neutral.** A kernel or overlay phase never opens a role;
+  every personified seat still passes the evidence gate on its own.
 
 ## Four front doors
 
@@ -90,7 +97,11 @@ Classify each residual need: clearer assignment | workflow/method |
 information/tool/access/delivery feasibility | evidence-matched persona
 opportunity. Conclusions per job: keep in-house · keep in-house + strengthen
 playbook · resolve workflow/info/delivery issue · explore a specialist role ·
-do not attempt with this delivery arrangement.
+do not attempt with this delivery arrangement. For a durable output, also select
+the methodology here: write `methodology-selection.md` (kernel version, chosen
+overlays, rejected alternatives, staffing implications) per
+`methodologies/kernel.md` and `methodologies/overlays/`. Methodology is
+staff-neutral — it never opens a role.
 
 ### Stage 4 — Persona Evidence Gate
 For each "explore a specialist role" job: write an Evidence Card per
@@ -110,7 +121,13 @@ prototype and run the blind protocol per `references/work-sample.md`; record
 the outcome in `work-samples/<role>/verdict.md`. Only "Open the role" proceeds.
 
 ### Stage 8 — Interview and hire (personification is mandatory)
-Never an unnamed specialist. Introduce candidates and offer the interview
+For a durable output (reusable staffed workflow or standing team), Stage 8 BEGINS
+with a Team Charter (`references/team-charter.md`): confirm the organization —
+roles, rules, budgets — and get the user's approval BEFORE presenting candidates.
+Charter approval is never candidate approval; a rejected charter produces no
+candidates; lightweight outputs skip the charter. Then compile each hire through
+the three-layer contract and the persona mode switch
+(`references/persona-template.md`). Never an unnamed specialist. Introduce candidates and offer the interview
 choices in the warm phrasing from `references/voice.md`. Per open role:
 1. Roster first (`references/roster.md`): fitting retained personas are
    presented as rehires, track record summarized, alongside fresh candidates.
@@ -166,6 +183,39 @@ narrow · revise/replace persona · convert behavior into an in-house playbook �
 retire. Then roster maintenance with consent-first writes per
 `references/roster.md`. Deliver the review in the warm phrasing from
 `references/voice.md`.
+
+## Durable teams (reusable and standing outputs)
+
+The durability gate decides how much structure a run carries. During routing the
+user picks the output's durability: an in-house playbook, a solo specialist, or a
+one-off panel (all lightweight — the lean lifecycle, no extra machinery), or a
+reusable staffed workflow or standing team (durable — the machinery below).
+
+- **Methodology.** A durable output inherits the Studio Methodology Kernel
+  (`methodologies/kernel.md`, version-pinned) and any staff-neutral overlays
+  (`methodologies/overlays/` — scenario-planning, terrain-mapping, root-cause).
+  Stage 3 records the choice in `methodology-selection.md`.
+- **Team Charter.** Stage 8 for a durable output begins with a Team Charter
+  (`references/team-charter.md`): approve the organization before meeting
+  candidates. A rejected charter produces no candidates.
+- **Progressive exposure.** When more than three contributors run in parallel, or
+  an overlay needs more than one round, stage exposure per `hard-rules.md`:
+  isolated outputs → summaries + dissent → clustered reading → full transcripts
+  only if integration needs them. Record who sees what, when, and why; never omit
+  a contributor silently.
+- **Team package.** Stage 10 hands Do-It a locked staffed spec; Do-It compiles it
+  into a team package (`references/team-package.md`, `templates/team.json.md`,
+  `templates/team-readme.md`) at `agent-teams/<slug>/` and validates the manifest
+  with `python3 <skill-dir>/scripts/team_validate.py <team.json>` (structure
+  only). Staffing is locked; Do-It never reopens hiring and never runs the
+  substantive job.
+- **Promotion.** A one-off panel is never automatically a standing team. Promotion
+  runs an abbreviated but complete lifecycle: restate the reusable brief, review
+  each contributor's distinct contribution, write an evidence card + JD per
+  retained seat, run the normal proof, reuse character cores with fresh bindings,
+  approve a Team Charter, then compile and validate the package. Standing teams
+  then use the Stage 11 probation and performance-review mechanisms, extended to
+  methodology effectiveness, role drift, package status, and retirement.
 
 ## One-off panel door (door 4)
 
@@ -239,3 +289,8 @@ when the skill loads) and invoke `python3 <skill-dir>/scripts/...`.
 - `diversity.py FILE...` — mean pairwise semantic distance (OpenAI embeddings if
   `OPENAI_API_KEY`, else a lexical fallback). Never fails for a missing API key;
   exit 2 only on unusable inputs.
+- `team_validate.py <team.json>` — structural validator for a durable team
+  package's manifest (required fields, lifecycle states, safe project-local paths,
+  referenced files, kernel/overlay compatibility, unique roles, active-specialist
+  links, charter-before-active, ensemble contracts). Structure only — it never
+  judges persona accuracy, methodology, or performance. Exit 0 pass / 1 fail.

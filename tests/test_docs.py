@@ -10,10 +10,12 @@ NEW_REFS = [
     "evidence-gate.md", "job-description.md", "work-sample.md",
     "roster.md", "doit-handoff.md", "voice.md",
 ]
+TEAM_REFS = ["team-charter.md", "team-package.md"]
 ALL_REFS = NEW_REFS + [
     "hard-rules.md", "recipes.md", "synthesis-modes.md",
     "diagnose-rubric.md", "harden-checklist.md", "persona-template.md",
-]
+] + TEAM_REFS
+METHODOLOGY = ROOT / "methodologies"
 
 
 def test_all_reference_files_exist():
@@ -80,7 +82,75 @@ def test_voice_layer_maps_canonical_to_warm():
 
 
 def test_no_banned_word():
-    for path in [ROOT / "SKILL.md", ROOT / "README.md", *REFS.glob("*.md")]:
+    paths = [
+        ROOT / "SKILL.md", ROOT / "README.md", ROOT / "THIRD_PARTY_NOTICES.md",
+        *REFS.glob("*.md"),
+        *METHODOLOGY.glob("*.md"),
+        *(METHODOLOGY / "overlays").glob("*.md"),
+        *(ROOT / "templates").glob("*.md"),
+    ]
+    for path in paths:
         text = path.read_text()
         assert not re.search(r"\bship(ped|ping|s)?\b", text, re.I), \
             f"banned word in {path.name}"
+
+
+def test_methodology_kernel_and_overlays_exist():
+    assert (METHODOLOGY / "kernel.md").is_file(), "methodologies/kernel.md missing"
+    kernel = (METHODOLOGY / "kernel.md").read_text()
+    assert "Kernel version: 1.0.0" in kernel
+    for ov in ["scenario-planning", "terrain-mapping", "root-cause"]:
+        p = METHODOLOGY / "overlays" / f"{ov}.md"
+        assert p.is_file(), f"overlay missing: {ov}"
+        assert f"Overlay id: {ov}" in p.read_text()
+
+
+def test_overlays_are_staff_neutral():
+    for ov in ["scenario-planning", "terrain-mapping", "root-cause"]:
+        text = (METHODOLOGY / "overlays" / f"{ov}.md").read_text()
+        flat = " ".join(text.split())  # tolerate line wrapping
+        assert "does not guarantee that a specialist" in flat, \
+            f"overlay {ov} missing staff-neutral statement"
+        assert "## Cast" not in text, f"overlay {ov} pre-stages a cast"
+
+
+def test_skill_has_durability_and_team_machinery():
+    for token in ["Durability gate", "methodology-selection.md", "Team Charter",
+                  "Durable teams", "methodologies/kernel.md",
+                  "scripts/team_validate.py", "references/team-charter.md",
+                  "references/team-package.md", "templates/team.json.md",
+                  "templates/team-readme.md"]:
+        assert token in SKILL, f"SKILL.md missing: {token}"
+
+
+def test_persona_three_layer_and_mode_switch():
+    pt = (REFS / "persona-template.md").read_text()
+    assert "Three-layer persona contract" in pt
+    assert "Domain retrieval kit" in pt
+    assert "Vocabulary is not proof" in pt
+    assert "caricature probe" in pt
+    assert "Judgment mode" in pt and "Creative mode" in pt
+
+
+def test_team_templates_and_charter_exist():
+    assert (REFS / "team-charter.md").is_file()
+    assert (REFS / "team-package.md").is_file()
+    tj_path = ROOT / "templates" / "team.json.md"
+    assert tj_path.is_file() and (ROOT / "templates" / "team-readme.md").is_file()
+    tj = tj_path.read_text()
+    for state in ["calibrating", "active", "dormant", "retired"]:
+        assert state in tj, f"lifecycle state missing from team.json template: {state}"
+
+
+def test_charter_separates_approval():
+    charter = (REFS / "team-charter.md").read_text()
+    assert "Charter approval is never candidate approval" in charter
+
+
+def test_third_party_notices_attribution():
+    tp = ROOT / "THIRD_PARTY_NOTICES.md"
+    assert tp.is_file(), "THIRD_PARTY_NOTICES.md missing"
+    text = tp.read_text()
+    assert "Agent Designer" in text
+    assert "MIT" in text
+    assert "Braydon McCormick" in text

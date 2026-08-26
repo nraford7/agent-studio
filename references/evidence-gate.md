@@ -73,3 +73,11 @@ Write one card per candidate role into `evidence-cards.md`:
 
 A role proceeds to a Job Description only when it is coherent AND its
 conclusion is not "No research-backed reason to create a role."
+
+## Retrieval material is not evidence
+
+A persona's domain retrieval kit (its vocabulary, named methods, and fluent
+research queries — see `persona-template.md`) never counts toward this gate.
+Rich vocabulary makes an answer sound expert without making it more correct.
+Only the mapped task family, a blind work sample, or a qualifying roster track
+record can satisfy the proof a role owes. Vocabulary is not proof.
