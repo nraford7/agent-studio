@@ -81,6 +81,8 @@ The complete evidence base—three research bibles, a construction playbook, and
 
 ## So when should I use a personified AI worker?
 
+Zooming out, almost any task wants one of three kinds of worker. Reach for the lightest one that fits, and add a personality only at the top of the list.
+
 | Use | Best when | Typical goals |
 |---|---|---|
 | **A personified specialist or team** | The point of the work is a distinctive stance, taste, value, stakeholder perspective, or persistent priority—and that difference is supported by research or a work sample. | Creative directions, strategic options, value conflicts, grounded perspectives, narrowly tested critics |
@@ -89,26 +91,20 @@ The complete evidence base—three research bibles, a construction playbook, and
 
 The simplest useful arrangement wins. Start with the generic assistant. Add a regular workflow when the work needs structure. Add personality only when a particular human-like difference is part of what makes the result better.
 
-## Four Ways to Use Agent Studio
-
-You do not need to choose a mode name. Describe what you want, and Agent Studio routes the request.
-
-| What you want | How Agent Studio helps |
-|---|---|
-| **1. Build a workflow and team from a goal** | Start with an outcome such as “I need a reliable weekly market report.” Agent Studio defines the work, decides the staffing, and produces the staffed workflow. |
-| **2. Improve an existing workflow or skill** | Bring an existing skill, process, or agent team. Agent Studio reconstructs the jobs, fixes the workflow before changing the staff, and treats existing personas as employees whose contribution must be demonstrated. |
-| **3. Decide whether to hire a particular specialist** | Ask whether a devil’s advocate, creative director, stakeholder representative, or other specialist would help. Agent Studio evaluates the proposed role against the actual assignment rather than building a character from the title alone. |
-| **4. Assemble a one-off panel** | Ask for several perspectives on a creative or value-laden question. Agent Studio can hire and run a small panel now, without turning it into a permanent workflow. |
-
-The first three ways create or improve a reusable staffed workflow. The fourth is the exception: it can return a set of perspectives immediately when today’s answer—not a reusable system—is the goal.
-
-### How durable a result you want
-
-During routing you also choose how durable the result should be: an in-house playbook, a solo specialist, a one-off panel, a reusable staffed workflow, or a standing team. The three lighter choices run a lean process. The two durable choices add a methodology, a team charter, a manifest, and a validator, and are compiled into a reusable **team package** you can re-open later. This is a packaging choice, not a fifth way to start.
-
 ## How Agent Studio works
 
-The process should feel familiar because it follows the same sequence as defining and filling jobs in a human organization.
+### Four things you can do with it
+
+There are four things you can do with Agent Studio. You never pick a mode — just say what you want, and it routes you:
+
+1. **Build a workflow and team from a goal** — start with an outcome ("I need a reliable weekly market report") and get back a staffed workflow.
+2. **Improve a workflow or skill you already have** — bring an existing process or agent team; Agent Studio fixes the work first, then re-checks the staffing.
+3. **Design custom agents with distinct personalities and skills and evaluate how helpful they'll be for your job** — propose a specialist and Agent Studio weighs it against the real work, not the job title.
+4. **Spin up a temporary panel of personified agents for a quick job or round of advice** — several perspectives now, without building anything permanent.
+
+The first three build or improve something reusable; the fourth just gives you today's answer.
+
+Whichever one you choose, the steps underneath are the same, and they follow the sequence you would use to define and fill jobs in a real organization.
 
 ### 1. Define the assignment
 
