@@ -1,6 +1,8 @@
-# agent-studio
+# Agent Studio v2
 
-**Agent Studio is a [Claude Code](https://claude.com/claude-code) skill for designing AI workflows and building the teams that run them.**
+**Agent Studio v2 is a [Claude Code](https://claude.com/claude-code) skill for designing AI workflows and building the teams that run them.**
+
+> **Lineage & credit.** Agent Studio v2 is the evidence-gated Agent Studio line, extended with a team operating system. Its methodology kernel, staff-neutral overlays, team-manifest and README templates, and package validator are **adapted with grateful credit from [Agent Designer](https://github.com/dbmcco/agent-designer) by Braydon McCormick** (v0.2.0, MIT). Agent Designer contributed the craft of building expert ensembles; Agent Studio contributes the evidence gate that decides whether to build one at all — and how to prove it helped. See [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) for exactly what was adapted and what is original to Agent Studio. Both projects are MIT-licensed.
 
 It mirrors the way you would build a good human team. You begin by defining the assignment and the outcome you need. Agent Studio breaks that assignment into jobs, decides what your regular assistant can handle, identifies where a specialist might genuinely help, writes the job descriptions, auditions uncertain roles, introduces candidates, helps you interview them, and records the people you hire.
 
@@ -187,8 +189,8 @@ With the skill installed in Claude Code, talk to it naturally:
 ## Install
 
 ```bash
-git clone https://github.com/nraford7/agent-studio.git
-cp -R agent-studio ~/.claude/skills/agent-studio     # or your skills directory
+git clone https://github.com/nraford7/agent-studio-v2.git
+cp -R agent-studio-v2 ~/.claude/skills/agent-studio     # installs as the agent-studio skill
 ```
 
 Then invoke it with `/agent-studio`.
@@ -237,4 +239,4 @@ Honest limits: persona quality checks verify structure, not behavior; personifie
 
 ## License
 
-MIT
+MIT — see [`LICENSE`](LICENSE) (© 2026 Noah Raford). Adapted third-party material from [Agent Designer](https://github.com/dbmcco/agent-designer) (MIT © 2026 Braydon McCormick) is credited in full in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
