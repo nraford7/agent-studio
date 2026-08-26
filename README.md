@@ -35,7 +35,7 @@ The research does not say that personified agents are generally better. It says 
 
 Personified teams work best when their members are genuinely different, produce their views independently, and preserve meaningful disagreement in the final result. More characters alone do not create more insight.
 
-### Where they tend to do badly
+### Where they tend to hurt
 
 | Goal or condition | Why a persona is a poor default |
 |---|---|
@@ -60,19 +60,9 @@ Agent Studio is built around those limits: evidence-gated roles, anonymous work 
 
 The complete evidence base—three research bibles, a construction playbook, and an external-sources digest—is in [`docs/research/`](docs/research/).
 
-## Which kind of AI worker should you use?
+## How Does it Work? Four Ways to Use Agent Studio
 
-| Use | Best when | Typical goals |
-|---|---|---|
-| **A personified specialist or team** | The point of the work is a distinctive stance, taste, value, stakeholder perspective, or persistent priority—and that difference is supported by research or a work sample. | Creative directions, strategic options, value conflicts, grounded perspectives, narrowly tested critics |
-| **A regular agent or workflow** | The work needs a defined role, tools, files, repeated steps, handoffs, or independent checks, but personality itself adds no demonstrated value. | Research pipelines, coding, operations, retrieval, verification, scheduled or multi-step work |
-| **A generic LLM assistant** | The task is clear, bounded, low-overhead, and can be handled well in one conversation without durable roles or orchestration. | Explanation, summarization, drafting, transformation, straightforward analysis, factual or procedural help |
-
-The simplest useful arrangement wins. Start with the generic assistant. Add a regular workflow when the work needs structure. Add personality only when a particular human-like difference is part of what makes the result better.
-
-## Four Ways to Use Agent Studio
-
-You do not need to choose a mode name. Describe what you want, and Agent Studio routes the request.
+Agent Studio can do four things. Describe what you want, and Agent Studio will route the request to figure out best to help.
 
 | What you want | How Agent Studio helps |
 |---|---|
@@ -83,7 +73,7 @@ You do not need to choose a mode name. Describe what you want, and Agent Studio 
 
 The first three ways create or improve a reusable staffed workflow. The fourth is the exception: it can return a set of perspectives immediately when today’s answer—not a reusable system—is the goal.
 
-## How Agent Studio works
+## How Agent Studio works (in detail)
 
 The process should feel familiar because it follows the same sequence as defining and filling jobs in a human organization.
 
