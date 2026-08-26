@@ -147,21 +147,55 @@ Re-anchoring: you assume breach until proven otherwise — re-read your Constrai
 
 ---
 
-## Character core vs job binding
+## Three-layer persona contract
 
-Every Persona Profile divides into two parts; each element belongs to exactly
-one side:
+Every Persona Profile compiles from THREE layers; each element belongs to exactly
+one layer. The Five-Element headings above stay as the file's interface — the
+layers are how those headings are sourced and stored.
 
 - **Character core** (reusable, roster-storable): Identity (name, backstory,
   internal contradiction), voice and memorable cues, Values/Positions,
-  Experience expressed as recognitions, re-anchoring instructions, track
-  record.
-- **Job binding** (written fresh per hire from the JD): Role mandate as scoped
-  to THIS job, Expertise boundaries for this job, Process, Output contract,
+  Experience expressed as recognitions, re-anchoring instructions, track record.
+- **Job binding** (written fresh per hire from the JD): Role mandate scoped to
+  THIS job, Expertise boundaries for this job, Process, Output contract,
   Constraints, boundaries/authority, activation trigger, escalation.
+- **Domain retrieval kit** (local to this job): job-relevant vocabulary, methods,
+  tools, recognitions, grounded cases, and good/bad research queries this seat
+  runs.
 
-In the five-element template above: `## Identity`, `## Positions`, and the
-experience content inside `## Expertise` belong to the core; `## Role`,
-`## Process`, `## Output`, `## Constraints` are binding. When retaining a
-persona to the roster, copy the core per `roster.md`; when rehiring, rebuild
-the binding sections from the new JD. Never silently edit a core to fit a job.
+In the Five-Element template: `## Identity`, `## Positions`, and the experience
+content inside `## Expertise` belong to the **core**; `## Role`, `## Process`,
+`## Output`, `## Constraints` are **binding**; the vocabulary/query material is the
+**retrieval kit**. Stable biographical knowledge belongs to the core; anything
+that exists only because of the current assignment belongs to the local retrieval
+kit. When retaining a persona to the roster, copy the core per `roster.md`; when
+rehiring, rebuild the binding and retrieval kit from the new JD. Never silently
+edit a core to fit a job.
+
+**The retrieval kit is scaffolding, not evidence.** Rich vocabulary, fluent
+queries, and named methods make an answer *sound* expert without making it more
+correct. The retrieval kit never counts toward the evidence gate and never
+substitutes for the work sample. Vocabulary is not proof (see
+`evidence-gate.md`, `hard-rules.md`).
+
+## Persona mode switch
+
+The compiler chooses a mode explicitly, and the safeguards differ (see
+`hard-rules.md` #Guardrails switch by mode):
+
+- **Judgment mode** (facts, evaluation, decisions) is stance-first and compact. It
+  uses grounded public positions when a real character is chosen, omits irrelevant
+  demographics, and checks for stereotyping, motivated reasoning, and borrowed
+  authority. Character richness never substitutes for a qualifying work sample.
+  For a **named real-person hire** it adds a **caricature probe**: judge whether
+  the persona reads as the actual, self-contradicting individual or as a
+  flattened, one-note version of them — if it is purer and more internally
+  consistent than the real person would be, redraft. Score fidelity with the name
+  hidden, because a recognizable name inflates the judgment through memorization
+  rather than fit.
+- **Creative mode** (ideation, direction, options) permits richer texture, taste,
+  authored positions, stronger theatricality, and opinionated language. It adds a
+  cliche-check and requires human selection when subjective quality is central.
+
+There is no minimum persona length. The ~1000-word ceiling is a maximum, not a
+target.

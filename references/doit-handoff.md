@@ -114,3 +114,16 @@ and verification record — they are linked from contribution-review.md.
 
 <paste staffed-spec.md and persona files>
 ```
+
+## Durable outputs: compile a team package
+
+For a **reusable staffed workflow** or a **standing team** (the two durable
+outputs — lightweight outputs skip this), Engagement 2 also compiles the locked
+staffed specification into a team package per `team-package.md`: the
+`agent-teams/<slug>/` layout with `team.json` (`templates/team.json.md`),
+`README.md` (`templates/team-readme.md`), the pinned `methodology/`, per-role
+`bindings/`, per-hire `personas/`, and a `runs/` area. Do-It runs
+`scripts/team_validate.py` on the manifest (structure only) before finishing.
+Staffing is locked: Do-It integrates the approved personas unchanged and never
+reopens hiring, and neither the handoff nor the package runs the team's
+substantive work — the compiled skill or team is used separately for that.

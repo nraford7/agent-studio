@@ -102,6 +102,40 @@ such, not the real person. Every generated persona must pass the grep lint in
 `persona-template.md`. The QC probe is mode-switched: stereotype-probe in
 judgment mode, cliche-check in creative mode (see "Guardrails switch by mode").
 
+## Retrieval material is not evidence
+
+A persona's domain retrieval kit — vocabulary, named methods, good/bad research
+queries — is operational scaffolding, not proof of capability. It never counts
+toward the evidence gate and never substitutes for a work sample. Rich vocabulary
+makes an answer sound expert without making it more correct. Vocabulary is not
+proof (`evidence-gate.md`, `persona-template.md`).
+
+## Methodology is staff-neutral
+
+The methodology kernel (`methodologies/kernel.md`) and its overlays
+(`methodologies/overlays/`) describe how work is organized; they never on their
+own justify hiring a persona. Selecting an overlay does not pre-staff anyone.
+Every personified role still passes `evidence-gate.md` on its own evidence, and
+every kernel/overlay phase is satisfied in-house by default.
+
+## Progressive exposure
+
+When more than three contributors generate in parallel, or an overlay needs more
+than one convergence round, or the context budget is material, or a standing team
+must be resumable: stage exposure. Default sequence — isolated full outputs →
+contributor summaries and explicit dissent → clustered reading of relevant full
+outputs → full transcripts only when integration or audit genuinely requires it.
+Record who sees what, when, and why. Context limits may trigger summarization,
+narrowing, or a fresh run, but never the silent omission of a contributor.
+
+## Durability gate
+
+The heavy machinery — methodology kernel and overlays, `methodology-selection.md`,
+the Team Charter, the `team.json` manifest, and `scripts/team_validate.py` —
+applies only to the two durable outputs (reusable staffed workflow, standing
+team). The lightweight outputs (in-house playbook, solo specialist, one-off panel)
+run the lean lifecycle: no charter, no manifest, no team validator.
+
 ---
 
 ## SUBAGENT PROMPT PREAMBLE

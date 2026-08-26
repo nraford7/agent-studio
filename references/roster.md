@@ -61,3 +61,17 @@ record summarized. The roster suggests; the evidence gate decides.
 Waiver check (feeds `evidence-gate.md`): count track-record entries in the
 JD's task family with non-empty "Contributions retained downstream". Waiver
 requires >= 2 such entries AND >= 1 with "Counterfactual check: verified".
+
+## Ownership: core vs binding vs retrieval kit
+
+A hired persona has three layers (`persona-template.md`), owned in two places:
+
+- The **character core** is global — it lives here on the roster and is reused
+  across jobs.
+- The **job binding** and the **domain retrieval kit** are local — they live in
+  the team package or run dossier and are rebuilt fresh from each JD.
+
+The roster never stores a binding or a retrieval kit. On rehire, the core is
+copied and the binding + retrieval kit are written new. Existing roster entries
+predating this split are migrated lazily: leave them as-is until a persona is next
+used, then separate any job-specific material out of the core at that point.

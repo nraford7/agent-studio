@@ -83,6 +83,10 @@ You do not need to choose a mode name. Describe what you want, and Agent Studio 
 
 The first three ways create or improve a reusable staffed workflow. The fourth is the exception: it can return a set of perspectives immediately when today’s answer—not a reusable system—is the goal.
 
+### How durable a result you want
+
+During routing you also choose how durable the result should be: an in-house playbook, a solo specialist, a one-off panel, a reusable staffed workflow, or a standing team. The three lighter choices run a lean process. The two durable choices add a methodology, a team charter, a manifest, and a validator, and are compiled into a reusable **team package** you can re-open later. This is a packaging choice, not a fifth way to start.
+
 ## How Agent Studio works
 
 The process should feel familiar because it follows the same sequence as defining and filling jobs in a human organization.
@@ -159,6 +163,8 @@ agent-studio-out/<slug>/
 Together, these artifacts describe a reusable agent team and the workflow that lets it accomplish your goal. They are plans and operating assets, not the completed underlying work product.
 
 One-off panels and analysis-only reviews use a smaller flat layout under `agent-studio-out/`.
+
+For a durable result (a reusable staffed workflow or a standing team), Do-It compiles the staffed specification into a re-enterable **team package** at `agent-teams/<slug>/`—a manifest (`team.json`), a README, the pinned methodology, per-role bindings, and the hired personas. Building the package does not run the team; the compiled skill or team is used separately to do the underlying job.
 
 ## Roster and rehires
 
