@@ -54,7 +54,7 @@ The research does not say that personified agents are generally better. It says 
 
 Personified teams work best when their members are genuinely different, produce their views independently ([AI-Augmented Brainwriting, 2023](https://dl.acm.org/doi/10.1145/3613904.3642414)), and preserve meaningful disagreement in the final result — blind quality-weighting can suppress the very disagreement a panel exists to keep (Sela, 2026). More characters alone do not create more insight.
 
-### Where they tend to do badly
+### Where they tend to hurt
 
 | Goal or condition | Why a persona is a poor default |
 |---|---|
