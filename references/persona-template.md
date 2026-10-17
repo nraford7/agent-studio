@@ -87,9 +87,9 @@ A generated persona must pass these grep checks (the SKILL runs them at runtime)
    value-laden, opinionated creative lenses): `grep -q '^## Positions' <file>`
    (skip this check for neutral analytical lenses, which omit the block).
 
-The QC probe beyond the grep lint is mode-switched per hard-rules.md
-#Guardrails switch by mode: stereotype-probe in judgment mode, cliche-check in
-creative mode.
+The QC probe beyond the grep lint is mode-switched per `hard-rules.md`
+(`#Guardrails switch by mode`): stereotype-probe in judgment mode, cliche-check
+in creative mode.
 
 ---
 

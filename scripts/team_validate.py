@@ -4,8 +4,8 @@
 Checks STRUCTURE ONLY: required fields, valid lifecycle states, safe
 project-local paths, referenced files exist, kernel/overlay compatibility,
 unique role identifiers, the evidence/JD/binding/persona/proof links an active
-specialist owes, charter approval before `active`, and ensemble contracts for
-parallel work.
+specialist owes, charter approval before `active`, the type/durability pairing
+the manifest template documents, and ensemble contracts for parallel work.
 
 It does NOT and CANNOT judge whether a persona is accurate, whether the
 methodology is wise, or whether the team will perform well. Those are matters of
@@ -28,6 +28,9 @@ KNOWN_OVERLAYS = {"scenario-planning", "terrain-mapping", "root-cause"}
 LIFECYCLE_STATES = {"calibrating", "active", "dormant", "retired"}
 VALID_TYPES = {"staffed-workflow", "standing-team"}
 VALID_DURABILITY = {"reusable", "standing"}
+# The two pair (templates/team.json.md): a reusable workflow is not a standing team,
+# and a standing team is not merely reusable.
+TYPE_DURABILITY = {"staffed-workflow": "reusable", "standing-team": "standing"}
 PARALLEL_TOPOLOGIES = {"parallel", "mixed"}
 SLUG_RE = re.compile(r"^[a-z0-9-]+$")
 REQUIRED_TOP = [
@@ -117,6 +120,13 @@ def validate(team_json_path):
         errors.append(f"invalid type {data.get('type')!r}")
     if data.get("durability") not in VALID_DURABILITY and "durability" in data:
         errors.append(f"invalid durability {data.get('durability')!r}")
+    kind, durability = data.get("type"), data.get("durability")
+    if (kind in TYPE_DURABILITY and durability in VALID_DURABILITY
+            and TYPE_DURABILITY[kind] != durability):
+        errors.append(
+            f"durability {durability!r} does not pair with type {kind!r} "
+            f"(expected {TYPE_DURABILITY[kind]!r}, per templates/team.json.md)"
+        )
 
     # 3. Slug shape
     slug = data.get("slug")

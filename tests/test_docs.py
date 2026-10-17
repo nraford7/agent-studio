@@ -210,3 +210,32 @@ def test_claim_coverage_check_documented():
 def test_coverage_review_recipe_row():
     rec = (REFS / "recipes.md").read_text()
     assert "| Coverage review" in rec
+
+
+# --- Citation resolution -----------------------------------------------------
+# A `file.md #anchor` citation asserts that the anchor exists in the cited file.
+# Renaming a heading or moving a rule leaves the citation behind, and no
+# existence test notices: every file still exists and every token still appears.
+CITATION_RE = re.compile(r'([A-Za-z0-9._-]+\.md)`?\s*#\s*"?([^"\n;)\]]+)"?', re.M)
+
+
+def _citation_targets():
+    files = [ROOT / "SKILL.md", *REFS.glob("*.md"), *METHODOLOGY.glob("*.md"),
+             *(METHODOLOGY / "overlays").glob("*.md")]
+    return {p.name: p.read_text() for p in files}
+
+
+def test_cross_file_citations_resolve():
+    """Every cited anchor must appear in the file it cites."""
+    targets = _citation_targets()
+    unresolved = []
+    for name, text in sorted(targets.items()):
+        for m in CITATION_RE.finditer(text):
+            cited, anchor = m.group(1), m.group(2)
+            if cited not in targets or cited == name:
+                continue
+            anchor = anchor.strip().strip('`"\'. ,').lower()
+            flat = " ".join(targets[cited].lower().split())
+            if anchor and anchor not in flat:
+                unresolved.append(f"{name} -> {cited} #{anchor}")
+    assert not unresolved, "citations that no longer resolve:\n" + "\n".join(unresolved)

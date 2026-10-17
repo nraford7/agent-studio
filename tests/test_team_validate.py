@@ -248,3 +248,22 @@ def test_active_in_house_only_valid(tmp_path):
     ]
     ok, errors = validate(_write(tmp_path, m))
     assert ok, errors  # a durable all-in-house team may be active
+
+
+def test_type_durability_must_pair(tmp_path):
+    # templates/team.json.md documents the pairing; the validator previously
+    # checked only the two enums separately, so a mismatched pair passed.
+    m = _base_manifest()
+    m["type"] = 'staffed-workflow'
+    m["durability"] = "standing"  # a staffed workflow pairs with "reusable"
+    ok, errors = validate(_write(tmp_path, m))
+    assert not ok
+    assert any("does not pair" in e for e in errors)
+
+
+def test_matching_pair_still_valid(tmp_path):
+    m = _base_manifest()
+    m["type"] = 'staffed-workflow'
+    m["durability"] = "reusable"  # the documented pair
+    ok, errors = validate(_write(tmp_path, m))
+    assert ok, errors

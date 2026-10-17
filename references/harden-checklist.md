@@ -29,7 +29,7 @@ Recommend-only: the output is a report; the target is never modified.
    [source: hard-rules.md #Members must be genuinely heterogeneous]
    Severity: MED. Fix: re-author members to differ in stance/values, not tone.
 4. **Critic on a second model family** (and, for high-stakes normative panels, at least one lens too)?
-   [source: hard-rules.md #A second model family on every judgment panel; recipes.md #Normative / ethics row]
+   [source: hard-rules.md #A second model family on every judgment panel; recipes.md #"Normative / ethics / value-laden" row]
    Severity: MED. Fix: run the critic through the CODEX SEAT COMMAND.
 5. **Combine mode matches THE RECIPE'S declared mode?** Score against the recipe
    row, not against dissent-carrying universally. Mismatch = FAIL (HIGH when the
@@ -37,9 +37,11 @@ Recommend-only: the output is a report; the target is never modified.
    recipe (prose/grep ingest): infer the row from task type, or score UNKNOWN.
    [source: recipes.md table; synthesis-modes.md; hard-rules.md #Never naive-mean-blend]
    Severity: HIGH/MED per above. Fix: switch the combine prompt to the recipe's mode.
-6. **De-duplication before combining?**
-   [source: hard-rules.md #Never naive-mean-blend; synthesis-modes.md #"De-duplicate by embedding BEFORE combining"]
-   Severity: MED. Fix: embed + collapse near-duplicate lenses before the combiner.
+6. **De-duplication before combining, when the set is large?**
+   Required for sets of 8+ items. A normal panel of 3-6 long lens outputs is
+   combined whole, with the claim coverage check as the guard, so score N-A.
+   [source: synthesis-modes.md #"De-duplicate BEFORE combining when the set is large (8 or more items)"; hard-rules.md #Never naive-mean-blend]
+   Severity: MED (large sets only). Fix: collapse near-identical items before the combiner.
 7. **Round cap + stopping rule on any debate?**
    [source: hard-rules.md #Anti-conformity is first-class]
    Severity: MED. Fix: cap at one round; stop when a round adds no new labeled dissent.
