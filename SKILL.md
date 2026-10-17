@@ -75,17 +75,17 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
    not apply, then read the conclusion (`references/evidence-gate.md`, with its
    field override and the output-bound-to-sources rule). Then:
    - "Research supports trying this" (or a roster waiver in the same family):
-     run the panel.
+     run the panel. Options to pick from on the "Creative ideation" row take the
+     light path, N + 2 runs (`references/recipes.md` #Divergence delivery).
    - Anything else: answer in-house with a one-line reason, under the SOURCE
      CHECK when sourced, and offer the full lifecycle. **Trial:** if the user
      explicitly asked for a panel, team, experts or perspectives, also offer to
      run it as a trial: the panel and the in-house answer side by side, judged
-     blind. Say plainly what research expects for this kind of task. If the run
-     is non-interactive or the user agrees, run the trial. A trial uses the
-     "Analytical judgment" row ("Coverage review" when the job is finding
-     gaps), replaces the anonymous prototype, and writes `trial-card.md`: 2-3
-     judging criteria, one harm check, source fidelity when sourced, and the
-     user's format rules.
+     blind. Say plainly what research expects for this kind of task; run it if
+     the user agrees or the run is non-interactive. A trial uses the "Analytical
+     judgment" row ("Coverage review" when the job is finding gaps), replaces the
+     anonymous prototype, and writes `trial-card.md`: 2-3 judging criteria, one
+     harm check, source fidelity when sourced, and the user's format rules.
 3. **Hire.** Compressed Stage 8 (`references/full-lifecycle.md`): one slate per
    seat (non-interactive: hire your pick), 2-3 contrasting candidates led by
    their focus, kept roster personas included and labelled (`references/voice.md`),

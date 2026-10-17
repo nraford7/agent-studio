@@ -39,6 +39,35 @@ gets the SOURCE CHECK (hard-rules.md).
 Creative rows run under the flavor-forward guardrails; judgment rows under the
 strict rulebook. See hard-rules.md #Guardrails switch by mode.
 
+## Divergence delivery (door 4 light path)
+
+Use it when BOTH hold: the recipe row is "Creative ideation / divergent
+generation", and the user wants options to react to or pick from, not a pick
+or a recommendation ("a spread of ideas", "brainstorm, I'll choose"). If the
+user asks which option is best, or the output is bound to sources, run the
+full door 4 protocol instead.
+
+The run, in this order, N + 2 model runs:
+
+1. N isolated lenses (4-6), PREAMBLE first → `<lens>.md`.
+2. The BASELINE: one plain single-model pass on the same brief → `baseline.md`.
+   It stays: it is one run, and it is the only comparison this path has.
+3. `scripts/run_check.py <run-dir>`, as in the full protocol (no model run).
+4. One fresh subagent assembles the SET (`synthesis-modes.md`,
+   "Diversity-preserving set"): de-duplicated, no winner, no merging, every
+   item tagged with its source lens or `[plain]` for baseline items, so the
+   user sees what the panel added over one pass → `synthesis.md`.
+
+Dropped on this path, because the human selector replaces them: the critic,
+the claim coverage check and its script (the tags show every lens survived:
+check that each lens name appears in `synthesis.md`), the trial, and the
+blind judge. State the run count in the Frame step (`N + 2`), and report
+actual runs at the end like any other run.
+
+Field evidence: when the user picks, note whether the picks came from lens
+items or `[plain]` items. That is the comparison; record it as a row with
+consent, like any other.
+
 ## Overlays and progressive exposure
 
 For a **durable** result (reusable staffed workflow or standing team), a recipe

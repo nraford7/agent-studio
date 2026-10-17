@@ -247,3 +247,12 @@ def test_cross_file_citations_resolve():
             if anchor and anchor not in flat:
                 unresolved.append(f"{name} -> {cited} #{anchor}")
     assert not unresolved, "citations that no longer resolve:\n" + "\n".join(unresolved)
+
+
+def test_divergence_light_path_documented():
+    # R2: "N perspectives" on an ideation row should not buy the full protocol.
+    rec = (REFS / "recipes.md").read_text()
+    assert "## Divergence delivery" in rec
+    assert "N + 2" in rec and "[plain]" in rec
+    door4 = SKILL.split("## One-off panel (door 4)", 1)[1].split("## Reference map", 1)[0]
+    assert "#Divergence delivery" in door4
