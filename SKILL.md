@@ -68,12 +68,12 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
 
 ## One-off panel (door 4)
 
-1. **Frame.** Restate the goal and the kind of help. Pick the recipe row
-   (`references/recipes.md`). One structured question to approve the minds and
-   shape, via the host's question tool; skip if both are given or non-interactive.
-2. **Gate.** Classify the task family and read its conclusion
-   (`references/evidence-gate.md`, including its field override and the
-   output-bound-to-sources rule). Then:
+1. **Frame.** Restate the goal and help; pick the recipe row (`references/recipes.md`)
+   and state the expected model runs (seats + critic + baseline + checks). One
+   structured question approves minds and shape; skip if given or non-interactive.
+2. **Gate.** Classify the task family, name the runner-up family and why it does
+   not apply, then read the conclusion (`references/evidence-gate.md`, with its
+   field override and the output-bound-to-sources rule). Then:
    - "Research supports trying this" (or a roster waiver in the same family):
      run the panel.
    - Anything else: answer in-house with a one-line reason, under the SOURCE

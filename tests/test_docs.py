@@ -193,6 +193,14 @@ def test_door4_runs_a_baseline_and_offers_trials():
     assert "coverage_report.py" in door4
 
 
+def test_door4_states_cost_and_runner_up_family():
+    # The cost co-report compares against a number stated up front, and the gate
+    # shows its classification; the Evidence Card covers doors 1-3 only.
+    door4 = SKILL.split("## One-off panel (door 4)", 1)[1].split("## Reference map", 1)[0]
+    assert "expected model runs" in door4
+    assert "runner-up family" in door4
+
+
 def test_field_evidence_seeded_and_read_by_gate():
     fe = (REFS / "field-evidence.md").read_text()
     assert fe.count("\n### 20") >= 2, "field-evidence.md needs its seed rows"
