@@ -83,7 +83,26 @@ coverage note. The coverage note comes from the claim coverage check
 (`synthesis-modes.md`, scored by `scripts/coverage_report.py`): how many of the
 lenses' distinct points survived, and which were dropped. `diversity.py` is an
 optional extra; when it runs without an embeddings key it measures word overlap
-only, and must say so.
+only, and must say so. Report cost in the same breath: the model runs the panel
+actually used, against the number you stated before starting. A panel that cannot
+say what it cost cannot be judged worth running again.
+
+## The baseline can bind
+
+Every panel also runs one plain single-model pass on the same brief, and that pass
+is not a footnote. When the single pass is better on the deciding criterion,
+deliver it — grafting in anything the panel uniquely contributed — and say plainly
+which answer you are delivering and why. The panel is an instrument, not the
+answer it owes; a run whose own comparison says the panel lost and delivers the
+panel anyway has measured the truth and then ignored it. Record the comparison as
+a field-evidence row either way (consent first).
+
+## Keep the user's working tree clean
+
+Artifacts go to `agent-studio-out/` in the user's cwd. Before writing, if that cwd
+is a git repository and the path is not already ignored, say so and offer to add
+it to `.gitignore`. Never commit, and never edit the user's `.gitignore` without
+consent.
 
 ## Members must be genuinely heterogeneous
 

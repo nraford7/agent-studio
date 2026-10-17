@@ -33,6 +33,11 @@ The conclusion sets the proof the role owes. There is no discretion in this
 mapping. These four strings are internal keys — when you show one to the user,
 say it in the warm phrasing from `voice.md`.
 
+The mapping is deterministic; the classification feeding it is a judgment, so show
+the judgment: name the family you chose, the closest rival family, and why the
+rival does not apply. Where the classification is genuinely arguable, the stricter
+family wins (see "When two families fit a job equally" below).
+
 | Family | Conclusion (verbatim to user) | Proof required before hiring |
 |---|---|---|
 | Creative divergence; value-laden deliberation | **Research supports trying this.** | None — may hire directly. A work sample is optional, recommended only when stakes are high. Value-laden deliberation qualifies only when at least one seat runs on a second model family (`hard-rules.md`); with every seat on one family it owes a blind work sample, like the row below. |
@@ -85,11 +90,14 @@ Write one card per candidate role into `evidence-cards.md`:
 ## Evidence Card: <role working title>
 - Job (from workflow-spec.md): <job name>
 - Task family: <one of the eight>
+- Families considered: <the chosen family>; ruled out <runner-up family> because <reason>
 - Conclusion: <one of the four, verbatim>
+- What would make this classification wrong: <one line — the strongest case for a different family> (required when the conclusion is "Promising, but experimental")
 - Intended persona effect: <the specific behavioral change the persona should cause>
 - Intervention shape: <solo role | ensemble seat | simulation panel | none>
 - Evaluation signal: <2-3 observable criteria tied to the intended effect> + <1 harm check> (+ source fidelity when the output is bound to sources)
 - Field evidence: <latest same-family row in field-evidence.md and its result | none>
+- Cost: <expected model runs before starting: seats + critic + baseline + checks>
 - Contraindications / likely harm: <how this persona could make the work worse>
 - Proof required: <direct hire | narrowed blind sample | blind sample | none — role refused>
 - Waiver: <none | roster: <persona name> — <N> same-family entries, counterfactual-verified: <yes/no>>

@@ -110,13 +110,13 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
    - Claim coverage check → `coverage.json`, scored by
      `scripts/coverage_report.py`; one re-synthesis if a lens was silenced.
    - The user's format rules on deliverable and baseline, checked mechanically.
-   - Compare against the baseline. Normal run: list "what the panel added
-     that the single pass missed" and anything the single pass had that the
-     panel lost. Trial: blind A/B per `references/work-sample.md` in
-     `run-<timestamp>/trial/`, judged on `trial-card.md` by a judge on the
-     second model family, then unblind.
-8. **Report.** The panel's answer (or, for a trial, the verdict and both
-   versions), the quality note, the coverage line ("kept 11 of 14 points;
+   - Compare against the baseline. Normal run: what the panel added, and what
+     the single pass had that it lost; when the single pass wins on the deciding
+     criterion, deliver it instead (`hard-rules.md` #The baseline can bind).
+     Trial: blind A/B per `references/work-sample.md` in `run-<timestamp>/trial/`,
+     judged on `trial-card.md` by a judge on the second model family, then unblind.
+8. **Report.** The delivered answer (the panel's, or the baseline when it won —
+   say which), the quality note, the coverage line ("kept 11 of 14 points;
    dropped ..."), the source-check line, and what the panel added over one
    pass. Then a short performance review per hire, a field-evidence row
    (consent first), and roster maintenance (`references/roster.md`).
