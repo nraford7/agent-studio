@@ -64,7 +64,8 @@ When a one-off panel runs as a trial (SKILL.md, door 4), the same blind
 protocol applies with two changes: sample A/B are the in-house answer and the
 panel's synthesis (personas allowed, since the user asked for them), and both
 pass the SOURCE CHECK first when sourced, so the judge compares checked
-outputs. Record the verdict as a row in `field-evidence.md` (consent first).
+outputs. Record the verdict as a row in the user's field-evidence log (consent first;
+`scripts/field_gate.py where` prints its path).
 
 ## Outcomes
 

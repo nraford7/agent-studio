@@ -16,8 +16,8 @@ and checks one. The central rule:
 A successful run may create no persona. Read each referenced file; never improvise around the hard rules.
 
 Artifacts go to `agent-studio-out/` in the user's cwd (one `<slug>/` per job;
-door 4 runs in `<slug>/run-<timestamp>/`), never this repo; the one exception
-is a row in `references/field-evidence.md`, the skill's own log. The
+door 4 runs in `<slug>/run-<timestamp>/`), never this repo. Field-evidence rows
+go to `~/.agent-studio/field-evidence.md` (`field_gate.py where`). The
 roster of kept personas lives at `~/.agent-roster/`
 (`references/roster.md`). Scripts live in this skill's directory: resolve
 `<skill-dir>` = the folder holding this SKILL.md and call
@@ -41,8 +41,8 @@ roster of kept personas lives at `~/.agent-roster/`
   sees it.
 - **Baseline.** Every panel also runs one plain single-model pass on the same brief
   (skip only on the user's word). Co-report a quality note and a coverage note.
-- **Field evidence.** Read `references/field-evidence.md` before any gate
-  decision; add a row (consent first) after every comparison.
+- **Field evidence.** `field_gate.py check "<family>"` before any gate decision
+  (`references/field-evidence.md`); add a row (consent first) after every comparison.
 - **NO WebFetch anywhere**: `curl` raw pages only, carried into every subagent prompt.
 - Guardrails switch by mode (strict for judgment, flavor-forward for creative).
   Persona harm is always reported apart from "no lift". The user owns hiring and
@@ -144,7 +144,7 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
 ## Scripts
 
 - `run_check.py <run-dir> [--all]`: run manifest + every lens present and substantive (`--all`: listed artifacts too); exit 1 if not.
+- `field_gate.py check "<family>" [--sourced] | where`: field override from both logs; user log path.
 - `coverage_report.py <coverage.json>`: kept / dropped points per lens; exit 1 if a lens was silenced.
 - `exemplar_find.py find|corpus`: candidate leads (needs `EXA_API_KEY`) and corpus pull via curl.
-- `diversity.py FILE...`: optional spread score; word overlap only without `OPENAI_API_KEY`.
-- `team_validate.py <team.json>`: structure check for durable team packages.
+- `diversity.py FILE...`: optional spread score (word overlap only without `OPENAI_API_KEY`); `team_validate.py <team.json>`: durable package structure.

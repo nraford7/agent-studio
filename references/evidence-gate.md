@@ -47,7 +47,11 @@ family wins (see "When two families fit a job equally" below).
 
 ## Field override
 
-After the table above, read `field-evidence.md`. If the most recent row for
+After the table above, run `python3 <skill-dir>/scripts/field_gate.py check
+"<family>"` (`--sourced` when the output is bound to given sources). It reads
+the bundled `field-evidence.md` and the user's own log together and applies
+this rule; quote its line. A row marked `Bound to sources: yes` counts only
+for source-bound jobs. If the most recent row for
 this family shows a panel or role doing WORSE than the single-model baseline
 on its main criterion and better on none, drop the conclusion one level
 (direct hire becomes a blind work sample; a blind sample becomes "No
@@ -96,7 +100,7 @@ Write one card per candidate role into `evidence-cards.md`:
 - Intended persona effect: <the specific behavioral change the persona should cause>
 - Intervention shape: <solo role | ensemble seat | simulation panel | none>
 - Evaluation signal: <2-3 observable criteria tied to the intended effect> + <1 harm check> (+ source fidelity when the output is bound to sources)
-- Field evidence: <latest same-family row in field-evidence.md and its result | none>
+- Field evidence: <the `field_gate.py check` line, verbatim>
 - Cost: <expected model runs before starting: seats + critic + baseline + checks>
 - Contraindications / likely harm: <how this persona could make the work worse>
 - Proof required: <direct hire | narrowed blind sample | blind sample | none — role refused>

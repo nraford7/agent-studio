@@ -223,11 +223,11 @@ ln -s ../../.agents/skills/agent-studio ~/.claude/skills/agent-studio
 (Measured: with a skill present only in `~/.agents/skills/`, Codex and pi see it
 and Claude Code does not.)
 
-Note when choosing between the two installs above: the skill appends one row to
-`references/field-evidence.md` after each comparison, inside the skill directory.
-A copy stays writable with no side effects, while a git clone installed in place
-turns dirty on the first comparison and will conflict on the next `git pull`.
-Keep it, or keep a separate working copy, accordingly.
+Either install is safe to update with `git pull`: the skill never writes inside
+its own directory. Rows it records after each comparison (with your consent) go
+to `~/.agent-studio/field-evidence.md`, which the evidence gate reads alongside
+the bundled `references/field-evidence.md`. To share a result, generalize it and
+open a pull request against the bundled log.
 
 Agent Studio uses the [Do-It skill](https://github.com/nraford7/do-it-skill) for the two build engagements in its full lifecycle; it is a separate install. Without Do-It, Agent Studio writes the workflow specification itself and tells you which implementation step was skipped.
 

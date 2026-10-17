@@ -47,8 +47,8 @@ staff-neutral — it never opens a role.
 
 ### Stage 4 — Persona Evidence Gate
 For each "explore a specialist role" job: write an Evidence Card per
-`references/evidence-gate.md` into `evidence-cards.md`, after reading
-`references/field-evidence.md` (field override). The family→conclusion
+`references/evidence-gate.md` into `evidence-cards.md`, after running
+`scripts/field_gate.py check "<family>"` (field override, `references/field-evidence.md`). The family→conclusion
 mapping is deterministic; the conclusion fixes the proof owed (direct hire /
 narrowed blind sample / blind sample / no role). Check roster waivers per
 `references/roster.md`. When you tell the user a verdict, use the warm phrasing
@@ -125,8 +125,8 @@ rejected, changed; unique contribution; misses; delay/noise/bias/harm. When
 cheap and informative, run the localized counterfactual check: rerun the
 relevant downstream integration ONCE without the specialist's output (never a
 second full workflow). Without a counterfactual, report traceable contribution
-but never claim causal lift. Add a row to `references/field-evidence.md`
-(consent first) for every role that was compared against a baseline. Decide per role: keep provisional · establish ·
+but never claim causal lift. Add a row to the user's field-evidence log
+(`scripts/field_gate.py where`; consent first) for every role that was compared against a baseline. Decide per role: keep provisional · establish ·
 narrow · revise/replace persona · convert behavior into an in-house playbook ·
 retire. Then roster maintenance with consent-first writes per
 `references/roster.md`. Deliver the review in the warm phrasing from
