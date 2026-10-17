@@ -67,6 +67,34 @@ pass the SOURCE CHECK first when sourced, so the judge compares checked
 outputs. Record the verdict as a row in the user's field-evidence log (consent first;
 `scripts/field_gate.py where` prints its path).
 
+## Self-check (is agent-studio beating a plain answer?)
+
+A normal door 4 run compares its answer with the baseline, but the
+orchestrator judges that comparison itself: not blind, same model, and the
+author of the panel. The self-check makes it blind, for one model run, because
+every panel run already holds both answers.
+
+Run it when either holds:
+- at door 4 step 7, `python3 <skill-dir>/scripts/field_gate.py due` prints
+  `due` (no self-check row in the last 30 days), the session is interactive,
+  and the run is not already a trial: offer it, one sentence, with its cost
+  (one run);
+- the user asks whether agent-studio is worth it, or beats asking directly.
+
+How: the blind protocol above, with sample A/B = the panel's answer
+(`deliverable.md`, else `synthesis.md`) and `baseline.md`, labels randomized,
+judged by a `judge` seat on the second model family (CODEX SEAT COMMAND),
+on the run's deciding criterion, one harm check, and source fidelity when
+sourced. Unblind. If the baseline wins, "The baseline can bind" applies
+(`hard-rules.md`) before anything is delivered.
+
+Record it as a row in the user's log (consent first) with a task heading that
+starts `self-check:`, e.g. `### 2026-11-02: self-check: pricing decision
+review`, and `Judged by: blind second-family judge`. When the user asks how
+the skill has done, answer from the `self-check:` rows in both logs (wins,
+losses, mixed, and over what period); if there are none, say so and offer one
+on the current run.
+
 ## Outcomes
 
 Record in `work-samples/<role>/verdict.md` — exactly one of (tell the user the

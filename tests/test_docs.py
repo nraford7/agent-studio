@@ -294,3 +294,11 @@ def test_hard_rule_summary_matches_full_text():
         full = " ".join((REFS / fname).read_text().lower().split())
         missing += [f"{title} -> {fname}: {p!r}" for p in phrases if p not in full]
     assert not missing, "summary claims absent from the full rule:\n" + "\n".join(missing)
+
+
+def test_self_check_documented_and_offered():
+    # R6: the skill measures itself, blind, against the plain answer.
+    ws = (REFS / "work-sample.md").read_text()
+    assert "## Self-check" in ws and "self-check:" in ws and "field_gate.py due" in ws
+    door4 = SKILL.split("## One-off panel (door 4)", 1)[1].split("## Reference map", 1)[0]
+    assert "#Self-check" in door4 and "field_gate.py due" in door4

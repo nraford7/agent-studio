@@ -19,6 +19,8 @@ Usage:
                                    most recent row for the family + its effect
   field_gate.py where              print the user log path (created with a header
                                    if missing); append new rows there
+  field_gate.py due                "due" or "not due": is a self-check owed (no
+                                   `self-check:` row in the last SELF_CHECK_DAYS)
 
 The rule applied is evidence-gate.md "Field override": a most-recent row with
 verdict `worse` drops the conclusion one level unless this run applies the
@@ -29,6 +31,7 @@ Whether the fix applies is a judgment the caller makes and states.
 Exit 0 on an answer (including "no rows"); 2 on unusable input (unknown family,
 or a row missing its Verdict).
 """
+import datetime
 import os
 import re
 import sys
@@ -45,6 +48,7 @@ FAMILIES = [
     "Factual, checkable, or procedural work",
 ]
 VERDICTS = {"worse", "better", "mixed", "same"}
+SELF_CHECK_DAYS = 30
 SEED = Path(__file__).resolve().parent.parent / "references" / "field-evidence.md"
 ROW_RE = re.compile(r"^### (\d{4}-\d{2}-\d{2}): (.*)$", re.M)
 FIELD_RE = re.compile(r"^- ([A-Za-z ]+?): (.*)$", re.M)
@@ -123,6 +127,15 @@ def decide(family, rows, sourced=False):
             "say": f"Most recent row {label} is {verdict}; the table conclusion stands."}
 
 
+def self_check_due(rows, today=None):
+    """A self-check row is any row whose task starts with 'self-check'."""
+    today = datetime.date.fromisoformat(today) if today else datetime.date.today()
+    dates = [r["date"] for r in rows if r["task"].lower().startswith("self-check")]
+    last = max(dates) if dates else None
+    due = last is None or (today - datetime.date.fromisoformat(last)).days > SELF_CHECK_DAYS
+    return {"due": due, "last": last}
+
+
 def ensure_user_log(path=None):
     path = path or user_log()
     if not path.exists():
@@ -135,9 +148,13 @@ def main(argv):
     if len(argv) == 2 and argv[1] == "where":
         print(ensure_user_log())
         return 0
+    if len(argv) == 2 and argv[1] == "due":
+        out = self_check_due(all_rows())
+        print(("due" if out["due"] else "not due") + f" (last self-check: {out['last'] or 'never'})")
+        return 0
     args = [a for a in argv[1:] if a != "--sourced"]
     if len(args) != 2 or args[0] != "check":
-        print('usage: field_gate.py check "<family>" [--sourced] | field_gate.py where',
+        print('usage: field_gate.py check "<family>" [--sourced] | where | due',
               file=sys.stderr)
         return 2
     try:

@@ -110,12 +110,12 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
 7. **Check.**
    - SOURCE CHECK on what the user receives (`deliverable.md`, else
      `synthesis.md`) and on `baseline.md` when sourced; fix, re-check.
-   - Claim coverage check → `coverage.json`, scored by
-     `scripts/coverage_report.py`; one re-synthesis if a lens was silenced.
-   - The user's format rules on deliverable and baseline, checked mechanically.
+   - Claim coverage check → `coverage.json` (`coverage_report.py`); one
+     re-synthesis if a lens was silenced. User's format rules checked mechanically.
    - Compare against the baseline. Normal run: what the panel added, and what
      the single pass had that it lost; when the single pass wins on the deciding
-     criterion, deliver it instead (`hard-rules.md` #The baseline can bind).
+     criterion, deliver it instead (`hard-rules.md` #The baseline can bind). If
+     `field_gate.py due`, offer the blind self-check first (`references/work-sample.md` #Self-check).
      Trial: blind A/B per `references/work-sample.md` in `run-<timestamp>/trial/`,
      judged on `trial-card.md` by a judge on the second model family, then unblind.
 8. **Report.** The delivered answer (the panel's, or the baseline when it won —
@@ -144,7 +144,7 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
 ## Scripts
 
 - `run_check.py <run-dir> [--all]`: run manifest + every lens present and substantive (`--all`: listed artifacts too); exit 1 if not.
-- `field_gate.py check "<family>" [--sourced] | where`: field override from both logs; user log path.
+- `field_gate.py check "<family>" [--sourced] | where | due`: field override from both logs; user log path; self-check owed.
 - `coverage_report.py <coverage.json>`: kept / dropped points per lens; exit 1 if a lens was silenced.
 - `exemplar_find.py find|corpus`: candidate leads (needs `EXA_API_KEY`) and corpus pull via curl.
 - `diversity.py FILE...`: optional spread score (word overlap only without `OPENAI_API_KEY`); `team_validate.py <team.json>`: durable package structure.

@@ -93,3 +93,25 @@ def test_cli_where_creates_user_log(tmp_path):
     chk = subprocess.run([sys.executable, str(SCRIPT), "check", "Creative divergence"],
                          env=env, capture_output=True, text=True)
     assert chk.returncode == 0 and chk.stdout.strip()
+
+
+# --- Self-check due (R6) -------------------------------------------------------
+def test_self_check_due_when_never_run(tmp_path):
+    rows = _logs(tmp_path, _row("2026-08-01", "Forecasting", "worse"))
+    assert fg.self_check_due(rows, today="2026-10-17")["due"]
+
+
+def test_self_check_not_due_within_window(tmp_path):
+    recent = _row("2026-10-01", "General critique or analytical judgment", "better")
+    recent = recent.replace("some task", "self-check: pricing review")
+    rows = _logs(tmp_path, "", user_rows=recent)
+    out = fg.self_check_due(rows, today="2026-10-17")
+    assert not out["due"] and out["last"] == "2026-10-01"
+    assert fg.self_check_due(rows, today="2026-11-15")["due"]
+
+
+def test_cli_due(tmp_path):
+    env = {"AGENT_STUDIO_HOME": str(tmp_path / "home"), "PATH": "/usr/bin:/bin"}
+    out = subprocess.run([sys.executable, str(SCRIPT), "due"], env=env,
+                         capture_output=True, text=True)
+    assert out.returncode == 0 and out.stdout.startswith("due")
