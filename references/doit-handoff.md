@@ -1,7 +1,9 @@
 # Do-It Handoff
 
-Do-It is invoked twice, unmodified, via its normal single-shot pipeline. The
-engagement brief IS the instruction passed to Do-It; the deliverable named in
+Do-It is a separate public skill (<https://github.com/nraford7/do-it-skill>), not
+part of this repository. If it is not installed, use the fallback at the end of
+this section. It is invoked twice, unmodified, via its normal single-shot pipeline.
+The engagement brief IS the instruction passed to Do-It; the deliverable named in
 it is where Do-It's run naturally ends. Never ask Do-It to stop mid-run.
 Narrate each handoff to the user ("I am asking Do-It to specify the jobs and
 decisions involved. It will stop before implementation or staffing.").

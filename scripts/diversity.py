@@ -6,6 +6,9 @@ back to a stdlib TF-IDF cosine (labeled "lexical (degraded)"). It never fails fo
 a missing API key (falls back to lexical); exit 2 only on unusable inputs (<2
 readable, tokenizable files).
 
+Data egress: with the key set, the full text of every file scored is sent to
+api.openai.com for embedding. Without the key, nothing leaves the machine.
+
 Run it at the generation stage (across lens outputs) and at the output stage. For
 a SET output (creative options, scenarios) run it across the set. For a SINGLE
 synthesis file, run it over [lens1..lensN, synthesis] and read the synthesis-vs-
