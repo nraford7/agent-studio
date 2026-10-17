@@ -256,3 +256,41 @@ def test_divergence_light_path_documented():
     assert "N + 2" in rec and "[plain]" in rec
     door4 = SKILL.split("## One-off panel (door 4)", 1)[1].split("## Reference map", 1)[0]
     assert "#Divergence delivery" in door4
+
+
+# --- Summary vs full text (R9) -------------------------------------------------
+# SKILL.md summarizes the hard rules; the full text lives elsewhere. Each summary
+# bullet maps to the file that holds its full rule and the claims both must make,
+# so a rule changed in one place and not the other fails here.
+SUMMARY_SOURCES = {
+    "Speak as a hiring advisor": ("voice.md", []),
+    "In-house is the default": ("evidence-gate.md",
+                                ["starts in-house", "never proof of capability",
+                                 "familiarity never bypasses"]),
+    "Isolation": ("hard-rules.md", ["## generate lenses in strict isolation",
+                                    "## never persona-swap in one shared context"]),
+    "Second model family": ("hard-rules.md", ["## a second model family on every judgment panel",
+                                              "codex seat command"]),
+    "Never naive-mean-blend": ("hard-rules.md", ["## never naive-mean-blend",
+                                                 "cap it at one round"]),
+    "SOURCE CHECK": ("hard-rules.md", ["## check every sourced output against its sources"]),
+    "Baseline": ("hard-rules.md", ["## the baseline can bind",
+                                   "skip it only on the user's word",
+                                   "## always co-report quality and coverage"]),
+    "Field evidence": ("evidence-gate.md", ["## field override", "field_gate.py check"]),
+    "NO WebFetch": ("hard-rules.md", ["## no webfetch"]),
+    "Guardrails switch by mode": ("hard-rules.md", ["## guardrails switch by mode"]),
+}
+
+
+def test_hard_rule_summary_matches_full_text():
+    section = SKILL.split("## Hard rules", 1)[1].split("\n## ", 1)[0]
+    bullets = re.findall(r"^- (?:\*\*)?([^.*:(]+)", section, re.M)
+    unmapped = [b.strip() for b in bullets
+                if not any(b.strip().startswith(k) for k in SUMMARY_SOURCES)]
+    assert not unmapped, f"summary bullets with no full-text source: {unmapped}"
+    missing = []
+    for title, (fname, phrases) in SUMMARY_SOURCES.items():
+        full = " ".join((REFS / fname).read_text().lower().split())
+        missing += [f"{title} -> {fname}: {p!r}" for p in phrases if p not in full]
+    assert not missing, "summary claims absent from the full rule:\n" + "\n".join(missing)

@@ -1,7 +1,8 @@
 # Persona Evidence Gate
 
 Every job in the Workflow Specification starts in-house. A job being
-judgment-laden is NOT sufficient to open a role. This gate decides, per
+judgment-laden is NOT sufficient to open a role, and job titles, famous names
+and biographies are never proof of capability. This gate decides, per
 candidate role, whether persona-shaped specialization is worth testing at all —
 and how much proof it owes before hiring.
 

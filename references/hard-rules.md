@@ -89,8 +89,8 @@ say what it cost cannot be judged worth running again.
 
 ## The baseline can bind
 
-Every panel also runs one plain single-model pass on the same brief, and that pass
-is not a footnote. When the single pass is better on the deciding criterion,
+Every panel also runs one plain single-model pass on the same brief; skip it only
+on the user's word. That pass is not a footnote. When the single pass is better on the deciding criterion,
 deliver it — grafting in anything the panel uniquely contributed — and say plainly
 which answer you are delivering and why. The panel is an instrument, not the
 answer it owes; a run whose own comparison says the panel lost and delivers the
