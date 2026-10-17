@@ -48,7 +48,9 @@ Never use WebFetch anywhere, in the orchestrator or in any subagent. WebFetch
 returns a summarizer's paraphrase and drops exact wording. Fetch raw PAGES with
 `curl` instead. (Structured API calls — Exa search, embeddings — use HTTPS
 libraries and are fine; the prohibition is on summarizer-mediated page
-fetching.) This prohibition is carried verbatim into every subagent prompt.
+fetching.) On hosts other than Claude Code the rule is the same under any
+name: no tool that fetches a page and hands back a model's summary of it.
+This prohibition is carried verbatim into every subagent prompt.
 
 ## Check every sourced output against its sources
 
