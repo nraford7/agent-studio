@@ -1,18 +1,24 @@
 # Roster
 
-`~/.claude/agent-roster/` — one file per retained persona, shared across ALL
+`~/.agent-roster/` — one file per retained persona, shared across ALL
 projects and skills. The roster stores the reusable CHARACTER CORE plus a
 track record. It never stores a job binding (mandate, output contract,
 boundaries, triggers) — those are written fresh per hire against the JD.
 
+Earlier versions of this skill kept the roster at `~/.claude/agent-roster/`,
+Claude Code's directory. If that directory exists and `~/.agent-roster/` does
+not, move it once (`mv ~/.claude/agent-roster ~/.agent-roster`) and tell the user
+which path you settled on. A roster written by another host is never re-created
+silently.
+
 ## File format
 
-`~/.claude/agent-roster/<name>.md`, where `<name>` is a kebab-case slug of the
+`~/.agent-roster/<name>.md`, where `<name>` is a kebab-case slug of the
 persona's name matching `[a-z0-9-]+` — never a raw string, never containing
 path separators or `..`. If the slug collides with an existing DIFFERENT
 persona, disambiguate with a suffix (`-2`) and tell the user. Deletions are
 confirmed with the user first and only ever target files inside
-`~/.claude/agent-roster/`.
+`~/.agent-roster/`.
 
 ```
 # <Name>

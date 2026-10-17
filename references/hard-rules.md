@@ -11,6 +11,11 @@ viewpoint diversity and blocks anchoring. Isolation applies to the GENERATING
 lenses; the critic is not a generator — it runs after them and receives their
 outputs (see CRITIC PREAMBLE below).
 
+Use whatever mechanism the host provides for isolated work: a subagent or task
+tool, or one separate process per lens (e.g. `codex exec`). One fresh instance per
+lens. If a host offers no isolated mechanism, say so rather than swapping
+personas in one context.
+
 ## Never persona-swap in one shared context
 
 Do NOT implement a "panel" by swapping personas within a single shared context or

@@ -39,7 +39,7 @@ per-hire personas, and a runs area.
 ## Ownership (two levels of identity)
 
 - **Global character cores** live on the roster (`references/roster.md`,
-  `~/.claude/agent-roster/`): stable identity, values, positions, experience,
+  `~/.agent-roster/`): stable identity, values, positions, experience,
   contradiction, blind spots, voice, re-anchoring, and track record.
 - **Local job bindings** live in the package: role, mandate, authority, process,
   outputs, exclusions, handoffs, constraints, and the job-specific retrieval kit

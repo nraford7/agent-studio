@@ -34,7 +34,7 @@ This is the real difference, not the file layout:
 | **Entry points** | 2 protocols (standing Panel / live Runtime) | 4 "front doors" (design work / fix existing / consider a specialist / one-off panel) |
 | **Lifecycle** | Calibrate → cast → draft → scaffold | 11 stages incl. evidence gate, blind work sample, Do-It handoff, performance review |
 | **Evidence gate** | None — completeness gate on persona *quality* | Central — task-family mapping + blind work samples that can veto a role |
-| **Persona reuse** | "Promotable cast" left on disk | Global roster at `~/.claude/agent-roster/` with track records; rehires still re-gated |
+| **Persona reuse** | "Promotable cast" left on disk | Global roster at `~/.agent-roster/` with track records; rehires still re-gated |
 | **Build/execution** | Executes runtime ensembles itself via Pi subagents | Hands staffed workflows to a separate **Do-It** engine |
 | **Scripts** | Bash validators (`validate-persona.sh`) | Python (`exemplar_find.py` for real-person leads via Exa, `diversity.py` for embedding-distance checks) |
 | **Repo shape** | Skill *is* the bundle; panels written into the work repo | Skill + research bibles + simmer iterations; artifacts to `agent-studio-out/` |

@@ -184,7 +184,7 @@ For a durable result (a reusable staffed workflow or a standing team), Do-It com
 
 ## Roster and rehires
 
-Personas you keep are retained at `~/.claude/agent-roster/`, one file per person. The roster stores a reusable character core—identity, values, voice, experience expressed as recognitions, and re-anchoring cues—plus a track record from real assignments.
+Personas you keep are retained at `~/.agent-roster/`, one file per person. The roster stores a reusable character core—identity, values, voice, experience expressed as recognitions, and re-anchoring cues—plus a track record from real assignments.
 
 On a future job, a fitting persona is presented first as a rehire alongside fresh candidates. A proven same-family track record can waive another audition, but it never overrides a “no specialist needed” evidence verdict. Roster writes always require your permission, and entries omit confidential or project-identifying details because the roster crosses projects.
 

@@ -18,7 +18,7 @@ A successful run may create no persona. Read each referenced file; never improvi
 Artifacts go to `agent-studio-out/` in the user's cwd (one `<slug>/` per job;
 door 4 runs in `<slug>/run-<timestamp>/`), never this repo; the one exception
 is a row in `references/field-evidence.md`, the skill's own log. The
-roster of kept personas lives at `~/.claude/agent-roster/`
+roster of kept personas lives at `~/.agent-roster/`
 (`references/roster.md`). Scripts live in this skill's directory: resolve
 `<skill-dir>` = the folder holding this SKILL.md and call
 `python3 <skill-dir>/scripts/...`.
@@ -69,8 +69,8 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
 ## One-off panel (door 4)
 
 1. **Frame.** Restate the goal and the kind of help. Pick the recipe row
-   (`references/recipes.md`). One AskUserQuestion to approve the minds and shape;
-   skip when the request fully specifies both or the run is non-interactive.
+   (`references/recipes.md`). One structured question to approve the minds and
+   shape, via the host's question tool; skip if both are given or non-interactive.
 2. **Gate.** Classify the task family and read its conclusion
    (`references/evidence-gate.md`, including its field override and the
    output-bound-to-sources rule). Then:

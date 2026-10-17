@@ -14,7 +14,8 @@ and stop after the hire unless the user asked for a built workflow. Stage 8
 non-interactive: your recommended candidate is hired.
 
 ### Stage 1 — Understand the assignment
-Adaptive dialogue, not a questionnaire (AskUserQuestion for genuine gaps only).
+Adaptive dialogue, not a questionnaire (one structured question at a time, for
+genuine gaps only, through whatever question tool the host provides).
 Establish: what the user wants to accomplish; what that makes possible; what
 success looks like; constraints and non-negotiables; known obstacles and
 failure modes; what was already tried; open assumptions. The user's first
@@ -87,7 +88,8 @@ choices in the warm phrasing from `references/voice.md`. Per open role:
    public positions (corpus pull:
    `python3 <skill-dir>/scripts/exemplar_find.py corpus --name "<n>" --url <u> --out <dir>`;
    required when the archetype has no common precedent).
-3. Interview loop (one AskUserQuestion per seat): hire · ask a candidate
+3. Interview loop (one structured question per seat, through the host's question
+   tool where it has one): hire · ask a candidate
    job-relevant questions · reject candidate or slate · request new candidates ·
    adjust in natural language ("Warren Buffett, but more interested in emerging
    technology") · combine qualities. Rebuild and re-present until hired or the
