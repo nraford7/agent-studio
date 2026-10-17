@@ -203,8 +203,8 @@ With the skill installed in Claude Code, talk to it naturally:
 ## Install
 
 ```bash
-git clone https://github.com/nraford7/agent-studio-v2.git
-cp -R agent-studio-v2 ~/.claude/skills/agent-studio     # installs as the agent-studio skill
+git clone https://github.com/nraford7/agent-studio.git
+cp -R agent-studio ~/.claude/skills/agent-studio        # installs as the agent-studio skill
 ```
 
 Then invoke it with `/agent-studio`.
