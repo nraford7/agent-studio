@@ -94,16 +94,19 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
 4. **Assemble.** `panel.md` + `synthesis-prompt.md` from the recipe row.
    Members must differ in POSITIONS, not tone. For the "Coverage review" row,
    the single-model checklist pass runs first.
-5. **Run.** In `agent-studio-out/run-<timestamp>/`:
+5. **Run.** In `agent-studio-out/run-<timestamp>/`, write `run.md` first (goal,
+   recipe, gate, expected runs, lenses, artifacts; shape in `scripts/run_check.py`):
    - one isolated subagent per lens (PREAMBLE first) → `<lens>.md`; for a
      writing job each lens writes a full draft in the user's format;
+   - `run_check.py <run-dir>`: rerun a missing or thin lens once, BEFORE the
+     critic sees the set; if it fails again, name the missing seat to the user;
    - the critic after them, on Codex by default (CRITIC PREAMBLE) → `critic.md`;
    - the BASELINE: one fresh single-model subagent, same brief, same inputs,
      the best plain instructions you can write, no persona, no panel material
      → `baseline.md`. In a trial this IS the in-house answer (one run).
-6. **Synthesize** in a fresh subagent per the recipe's combine mode
-   (`references/synthesis-modes.md`) → `synthesis.md`, plus `deliverable.md`
-   when the user's format is tight ("Tight formats" there).
+6. **Synthesize** once `run_check.py <run-dir> --all` passes, in a fresh subagent per
+   the recipe's combine mode (`references/synthesis-modes.md`) → `synthesis.md`,
+   plus `deliverable.md` when the user's format is tight ("Tight formats" there).
 7. **Check.**
    - SOURCE CHECK on what the user receives (`deliverable.md`, else
      `synthesis.md`) and on `baseline.md` when sourced; fix, re-check.
@@ -117,9 +120,9 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
      judged on `trial-card.md` by a judge on the second model family, then unblind.
 8. **Report.** The delivered answer (the panel's, or the baseline when it won —
    say which), the quality note, the coverage line ("kept 11 of 14 points;
-   dropped ..."), the source-check line, and what the panel added over one
-   pass. Then a short performance review per hire, a field-evidence row
-   (consent first), and roster maintenance (`references/roster.md`).
+   dropped ..."), the source-check line, what the panel added over one pass,
+   and actual runs against expected (also into `run.md`). Then a review per
+   hire, a field-evidence row (consent first), roster upkeep (`references/roster.md`).
 
 ## Reference map
 
@@ -127,23 +130,20 @@ Charter, `scripts/team_validate.py`). Load `references/full-lifecycle.md`; never
 |---|---|
 | `references/hard-rules.md` | always; preambles, SOURCE CHECK PROMPT, CODEX SEAT COMMAND |
 | `references/voice.md` | before any user-facing line |
-| `references/evidence-gate.md` | every gate decision |
-| `references/field-evidence.md` | every gate decision; after every comparison |
-| `references/recipes.md` | choosing a panel shape |
-| `references/synthesis-modes.md` | combining lenses; claim coverage check |
+| `references/evidence-gate.md`, `references/field-evidence.md` | every gate decision; field-evidence after every comparison |
+| `references/recipes.md`, `references/synthesis-modes.md` | choosing a panel shape; combining lenses; claim coverage check |
 | `references/persona-template.md` | writing any persona |
 | `references/roster.md` | before hiring; after a run (consent) |
 | `references/full-lifecycle.md` | doors 1-3; Stage 8 hiring detail |
 | `references/job-description.md` | Stage 5 |
 | `references/work-sample.md` | Stages 6-7; door 4 trials |
 | `references/doit-handoff.md` | Stages 2, 9, 10 |
-| `references/team-charter.md` | durable outputs, Stage 8 |
-| `references/team-package.md` | durable outputs, Stage 10 (`templates/team.json.md`, `templates/team-readme.md`) |
-| `references/diagnose-rubric.md` | door 2 analysis-only report |
-| `references/harden-checklist.md` | door 2 panel audit |
+| `references/team-charter.md`, `references/team-package.md` | durable outputs, Stages 8 and 10 (`templates/team.json.md`, `templates/team-readme.md`) |
+| `references/diagnose-rubric.md`, `references/harden-checklist.md` | door 2 analysis-only report; door 2 panel audit |
 
 ## Scripts
 
+- `run_check.py <run-dir> [--all]`: run manifest + every lens present and substantive (`--all`: listed artifacts too); exit 1 if not.
 - `coverage_report.py <coverage.json>`: kept / dropped points per lens; exit 1 if a lens was silenced.
 - `exemplar_find.py find|corpus`: candidate leads (needs `EXA_API_KEY`) and corpus pull via curl.
 - `diversity.py FILE...`: optional spread score; word overlap only without `OPENAI_API_KEY`.
