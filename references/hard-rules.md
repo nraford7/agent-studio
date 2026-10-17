@@ -109,10 +109,14 @@ for value-diverse panels used a different model per seat. So:
 CODEX SEAT COMMAND (prompt in a file; stdin closed, or `codex` waits on it):
 
 ```
-codex exec --sandbox read-only -o <run-dir>/<seat>.md "$(cat <run-dir>/<seat>-prompt.md)" < /dev/null
+codex exec --skip-git-repo-check --sandbox read-only -o <run-dir>/<seat>.md "$(cat <run-dir>/<seat>-prompt.md)" < /dev/null
 ```
 
 Do not pass `--model`; a ChatGPT-account login rejects explicit model names.
+`--skip-git-repo-check` is required: when the run's cwd is not a trusted git
+repository, `codex` otherwise exits 1 with "Not inside a trusted directory and
+--skip-git-repo-check was not specified" and writes no seat file, so the critic
+is dropped without an error the orchestrator would notice.
 Seat names: `critic`, `judge`, `source-check-<file>`; each reads
 `<seat>-prompt.md` and writes `<seat>.md`.
 The prompt file holds the same preamble and inputs a Claude seat would get.
